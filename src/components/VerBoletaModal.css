@@ -1,0 +1,353 @@
+/* Modal Ver Boleta */
+.ver-boleta-modal-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10002;
+}
+
+.ver-boleta-modal {
+  background-color: #333;
+  border-radius: 0;
+  box-shadow: none;
+  width: 90%;
+  max-width: 1200px;
+  height: 75%;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ver-boleta-modal-header {
+  background-color: #831843; /* Rosa oscuro */
+  color: #fff;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.ver-boleta-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.ver-boleta-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.ver-boleta-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ver-boleta-modal-body {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.boleta-info-placeholder {
+  background-color: #444;
+  border: 2px solid #555;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boleta-info-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.boleta-info-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 6px 12px;
+  align-items: center;
+  margin-top: 6px;
+}
+.info-row { display: contents; }
+.info-label {
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  padding-right: 8px;
+}
+.info-value {
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.boleta-info-text {
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.boleta-info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fecha-info {
+  font-size: 16px;
+  color: #90cdf4; /* Azul claro */
+  font-weight: 500;
+}
+
+.chofer-info {
+  font-size: 16px;
+  color: #9ae6b4; /* Verde claro */
+  font-weight: 500;
+}
+
+.camion-info {
+  font-size: 16px;
+  color: #fbb6ce; /* Rosa claro */
+  font-weight: 500;
+}
+
+.materiales-count {
+  font-size: 16px;
+  color: #63b3ed;
+  font-weight: bold;
+  background-color: #2d3748;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+/* Grid de Materiales */
+.materiales-grid-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.materiales-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2d3748;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.materiales-table-header {
+  background-color: #1a202c;
+  flex-shrink: 0;
+}
+
+.materiales-table-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.header-row th {
+  padding: 14px 8px;
+  font-weight: bold;
+  color: #e2e8f0;
+  border-bottom: 2px solid #4a5568;
+  font-size: 16px; /* +2px */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  white-space: nowrap;
+}
+
+/* Alineación específica por columna en encabezados con anchos fijos */
+.header-row th:nth-child(1) { 
+  text-align: left; 
+  width: 80px;
+  min-width: 80px;
+}   /* Código */
+.header-row th:nth-child(2) { 
+  text-align: left; 
+  width: 300px;
+  min-width: 300px;
+}   /* Descripción */
+.header-row th:nth-child(3) { 
+  text-align: center; 
+  width: 100px;
+  min-width: 100px;
+} /* Cantidad */
+.header-row th:nth-child(4) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+} /* En Bodega */
+.header-row th:nth-child(5) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+} /* En Proceso */
+.header-row th:nth-child(6) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+} /* Terminado */
+.header-row th:nth-child(7) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+} /* Despachado */
+
+.materiales-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.materiales-table tbody tr:hover {
+  background-color: #4a5568;
+}
+
+.materiales-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #4a5568;
+  color: #e2e8f0;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Alineación específica por columna en datos con anchos que coincidan con encabezados */
+.materiales-table td:nth-child(1) { 
+  text-align: left; 
+  width: 80px;
+  min-width: 80px;
+  font-weight: bold;
+  color: #63b3ed;
+}   /* Código */
+.materiales-table td:nth-child(2) { 
+  text-align: left; 
+  width: 300px;
+  min-width: 300px;
+}   /* Descripción */
+.materiales-table td:nth-child(3) { 
+  text-align: center; 
+  width: 100px;
+  min-width: 100px;
+  font-size: 15px; /* +2px */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+} /* Cantidad */
+.materiales-table td:nth-child(4) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+  font-size: 15px; /* +2px */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+} /* En Bodega */
+.materiales-table td:nth-child(5) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+  font-size: 15px; /* +2px */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+} /* En Proceso */
+.materiales-table td:nth-child(6) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+  font-size: 15px; /* +2px */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+} /* Terminado */
+.materiales-table td:nth-child(7) { 
+  text-align: center; 
+  width: 110px;
+  min-width: 110px;
+  font-size: 15px; /* +2px */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 500;
+} /* Despachado */
+
+/* Eliminado: estilo duplicado para td:first-child ya incluido arriba */
+
+.cell-expanded {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.numeric {
+  text-align: right;
+  font-family: 'Courier New', monospace;
+  color: #fbd38d;
+}
+
+.loading {
+  text-align: center;
+  color: #a0aec0;
+  padding: 40px;
+  font-style: italic;
+  font-size: 16px;
+}
+
+.error {
+  color: #fc8181;
+  background-color: rgba(197, 48, 48, 0.1);
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid #fc8181;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.error-message {
+  text-align: center;
+  color: #fc8181;
+  background-color: rgba(197, 48, 48, 0.1);
+  padding: 40px 20px;
+  border-radius: 8px;
+  border: 2px solid #fc8181;
+  margin: 20px 0;
+}
+
+.error-message p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.no-materiales {
+  text-align: center;
+  color: #a0aec0;
+  padding: 60px 30px;
+  font-style: italic;
+  background-color: #374151;
+  border-radius: 8px;
+  font-size: 16px;
+}

@@ -1,0 +1,739 @@
+/* ============================================ */
+/* ESTILOS PARA NUEVO CLIENTE MODAL - RECONSTRUCCIÓN */
+/* ============================================ */
+
+/* Fondo oscuro que bloquea el contenido detrás del modal */
+.nuevo-cliente-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
+}
+
+/* Contenedor principal del modal - ALTURA AJUSTADA */
+.nuevo-cliente-modal {
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 95%;
+  max-width: 1200px;
+  height: 85vh;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Barra de título del modal - COLOR AZUL OSCURO */
+.nuevo-cliente-modal-header {
+  background-color: #1a365d;
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #444;
+}
+
+/* Título del modal */
+.nuevo-cliente-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Botón de cerrar modal */
+.nuevo-cliente-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efecto hover del botón cerrar */
+.nuevo-cliente-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Cuerpo del modal - SIN SCROLL VERTICAL */
+.nuevo-cliente-modal .nuevo-cliente-modal-body {
+  flex: 1 !important;
+  padding: 12px 18px !important; /* Reducido de 18px a 12px arriba/abajo */
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  background-color: #333 !important;
+}
+
+/* Notificaciones de éxito y error */
+.notification {
+  padding: 10px 14px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+/* Notificación de éxito */
+.notification.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+/* Notificación de error */
+.notification.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Grid del formulario - 2 columnas con espaciado reducido */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+/* Grupo de formulario base */
+.nuevo-cliente-modal .form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 12px !important; /* Reducido de 15px a 12px */
+}
+
+/* Grupo de formulario ancho completo */
+.nuevo-cliente-modal .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ============================================ */
+/* ETIQUETAS (LABELS) INDIVIDUALES */
+/* ============================================ */
+
+/* Etiqueta para Código de Cliente */
+label[for="codigo"] {
+  margin-bottom: 3px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Nombre del Cliente */
+label[for="nombre"] {
+  margin-bottom: 3px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Dirección */
+label[for="dire"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Teléfonos */
+label[for="telefonos"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Email */
+label[for="email"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Contacto 1 */
+label[for="contacto1"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Teléfono 2 */
+label[for="telefono2"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Email 2 */
+label[for="email2"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Contacto 2 */
+label[for="contacto2"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Contacto 3 */
+label[for="contacto3"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* Etiqueta para Comentarios */
+label[for="comenta"] {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 13px;
+  display: block;
+}
+
+/* ============================================ */
+/* CAMPOS DE ENTRADA (INPUTS) INDIVIDUALES */
+/* ============================================ */
+
+/* Campo Código - ANCHO ESPECIAL: 50% */
+#codigo {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+/* Campo Nombre - ANCHO COMPLETO: 100% */
+#nombre {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Dirección */
+#dire {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Teléfonos */
+#telefonos {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Email */
+#email {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Contacto 1 */
+#contacto1 {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Teléfono 2 */
+#telefono2 {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 13px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Email 2 */
+#email2 {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Contacto 2 */
+#contacto2 {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Contacto 3 */
+#contacto3 {
+  padding: 8px 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Campo Comentarios (textarea) */
+.nuevo-cliente-modal #comenta {
+  padding: 8px 10px !important;
+  border: 1px solid #555 !important;
+  border-radius: 4px !important;
+  background-color: #444 !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  transition: border-color 0.2s !important;
+  width: 100% !important;
+  resize: vertical !important;
+  min-height: 70px !important; /* Aumentado de 50px a 70px */
+  box-sizing: border-box !important;
+}
+
+/* ============================================ */
+/* ESTADOS FOCUS PARA TODOS LOS INPUTS */
+/* ============================================ */
+
+/* Focus para Código */
+#codigo:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Nombre */
+#nombre:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Dirección */
+#dire:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Teléfonos */
+#telefonos:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Email */
+#email:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Contacto 1 */
+#contacto1:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Teléfono 2 */
+#telefono2:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Email 2 */
+#email2:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Contacto 2 */
+#contacto2:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Contacto 3 */
+#contacto3:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Focus para Comentarios */
+#comenta:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* ============================================ */
+/* PLACEHOLDERS PARA TODOS LOS INPUTS */
+/* ============================================ */
+
+/* Placeholder para Código */
+#codigo::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Nombre */
+#nombre::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Dirección */
+#dire::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Teléfonos */
+#telefonos::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Email */
+#email::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Contacto 1 */
+#contacto1::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Teléfono 2 */
+#telefono2::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Email 2 */
+#email2::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Contacto 2 */
+#contacto2::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Contacto 3 */
+#contacto3::placeholder {
+  color: #aaa;
+}
+
+/* Placeholder para Comentarios */
+#comenta::placeholder {
+  color: #aaa;
+}
+
+/* ============================================ */
+/* PIE DEL MODAL */
+/* ============================================ */
+
+/* Contenedor del pie del modal */
+.nuevo-cliente-modal .nuevo-cliente-modal-footer {
+  padding: 12px 20px !important; /* Reducido de 16px a 12px arriba/abajo */
+  border-top: 1px solid #444 !important;
+  background-color: #222 !important;
+  border-radius: 0 0 8px 8px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Botón de guardar */
+.nuevo-cliente-modal-footer .btn-guardar,
+.btn-guardar {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+  min-width: 120px !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Hover del botón guardar */
+.nuevo-cliente-modal-footer .btn-guardar:hover,
+.btn-guardar:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* ============================================ */
+/* ESTILOS PARA VALIDACIÓN DE EMAIL */
+/* ============================================ */
+
+/* Contenedor para input de email con botón */
+.email-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Input de email con validación */
+.email-input {
+  flex: 1;
+  padding-right: 45px; /* Espacio para el botón */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Email válido */
+.email-input.valid {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+/* Email inválido */
+.email-input.invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+}
+
+/* Botón de envío de email */
+.email-send-btn {
+  position: absolute;
+  right: 8px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+/* Hover del botón de email */
+.email-send-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Focus del botón de email */
+.email-send-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+/* Mensaje de error de email */
+.email-error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+/* ============================================ */
+/* ESTILOS PARA NOTIFICACIONES SIMPLES */
+/* ============================================ */
+
+.notification {
+  padding: 12px 20px;
+  margin: 0;
+  border-left: 4px solid;
+  animation: slideInDown 0.3s ease-out;
+  position: relative;
+  z-index: 10;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  border-left-color: #28a745;
+  color: #155724;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  border-left-color: #dc3545;
+  color: #721c24;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-icon {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notification-message {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================ */
+/* ESTILOS DE ALTA ESPECIFICIDAD PARA NUEVOCLIENTEMODAL */
+/* ============================================ */
+
+/* Forzar estilos del modal con máxima especificidad */
+div.nuevo-cliente-modal div.nuevo-cliente-modal-body {
+  flex: 1 !important;
+  padding: 12px 18px !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  background-color: #333 !important;
+}
+
+div.nuevo-cliente-modal div.form-group {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 12px !important;
+}
+
+div.nuevo-cliente-modal div.nuevo-cliente-modal-footer {
+  padding: 12px 20px !important;
+  border-top: 1px solid #444 !important;
+  background-color: #222 !important;
+  border-radius: 0 0 8px 8px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+div.nuevo-cliente-modal textarea#comenta {
+  padding: 8px 10px !important;
+  border: 1px solid #555 !important;
+  border-radius: 4px !important;
+  background-color: #444 !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  transition: border-color 0.2s !important;
+  width: 100% !important;
+  resize: vertical !important;
+  min-height: 70px !important;
+  box-sizing: border-box !important;
+}
+
+/* Todos los labels del formulario */
+.nuevo-cliente-modal label {
+  color: #ffd700 !important; /* Amarillo brillante */
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Labels de campos obligatorios (con asterisco) */
+.nuevo-cliente-modal label:has-text("*") {
+  color: #ffed4e !important; /* Amarillo ligeramente más claro para campos obligatorios */
+}

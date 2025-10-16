@@ -1,0 +1,763 @@
+/* Overlay del modal - Bloquea contenido de atrás */
+.config-general-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+/* Contenedor del modal - Expandido para mostrar todo el contenido sin scroll */
+.config-general-modal {
+  background: #2d1b3d; /* Púrpura oscuro */
+  width: 98vw; /* Casi toda la pantalla horizontalmente */
+  height: 96vh; /* Casi toda la pantalla verticalmente */
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 3px solid #d4af37; /* Borde dorado */
+  border-radius: 0; /* Sin esquinas redondeadas */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header del modal - Barra de título verde oscuro */
+.config-general-header {
+  padding: 18px 24px;
+  background: #0d4a0d; /* Verde oscuro */
+  border-bottom: 2px solid #d4af37; /* Línea dorada separadora */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.config-general-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón de cerrar */
+.config-general-close-btn {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+.config-general-close-btn:hover {
+  background: rgba(255, 0, 0, 0.2);
+  border-color: #ff4444;
+  color: #ff4444;
+  transform: scale(1.1);
+}
+
+.config-general-close-btn:active {
+  transform: scale(0.95);
+}
+
+/* Mensaje de éxito flotante */
+.config-mensaje-exito {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4),
+              0 0 0 3px rgba(212, 175, 55, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 10001;
+  animation: slideInDown 0.3s ease-out, pulse 0.5s ease-in-out 0.3s;
+  min-width: 300px;
+  justify-content: center;
+  border: 2px solid #d4af37;
+}
+
+.config-mensaje-exito .mensaje-icono {
+  font-size: 24px;
+  animation: bounceIn 0.5s ease-out;
+}
+
+.config-mensaje-exito .mensaje-texto {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Animaciones */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Body del modal - Púrpura oscuro sin scroll */
+.config-general-body {
+  flex: 1;
+  overflow: hidden; /* Sin scroll en el modal principal */
+  padding: 20px; /* Reducido para dar más espacio */
+  background: #2d1b3d; /* Púrpura oscuro */
+  color: #e0e0e0;
+}
+
+/* Grid de placeholders - Dos columnas lado a lado */
+/* Contenedor grid de placeholders - 4 columnas para Color, Clima, Noticias y Dashboard */
+.config-placeholders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+  gap: 12px;
+  width: 100%;
+  justify-content: start;
+}
+
+/* ============================================
+   PLACEHOLDER: Configuración de Color
+   ============================================ */
+
+/* Placeholder individual - Ancho automático por grid */
+.config-color-placeholder {
+  width: 100%; /* Ocupa toda la columna del grid */
+  min-width: 280px; /* Ancho mínimo para mantener legibilidad */
+  border: 2px solid #ffffff;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.config-color-header {
+  background: linear-gradient(135deg, #1e3a8a, #1e40af);
+  padding: 12px 16px;
+  border-bottom: 2px solid #d4af37;
+}
+
+.config-color-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 15px; /* Reducido de 16px a 15px */
+  font-weight: 700;
+}
+
+.config-color-content {
+  padding: 16px; /* Reducido de 20px a 16px */
+}
+
+.config-color-label {
+  display: block;
+  color: #d4af37; /* Dorado/Amarillo para mejor visibilidad */
+  font-size: 13px; /* Reducido de 14px a 13px */
+  font-weight: 600;
+  margin-bottom: 8px; /* Reducido de 10px a 8px */
+}
+
+.config-color-select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #1a1a2e;
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.config-color-select:hover {
+  border-color: #f0c950;
+  background: #252541;
+}
+
+.config-color-select:focus {
+  outline: none;
+  border-color: #f0c950;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.config-color-select option {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 8px;
+  padding-left: 8px;
+}
+
+/* Grilla de colores visual */
+.config-color-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px; /* Reducido de 10px a 8px */
+  margin-bottom: 14px; /* Reducido de 16px a 14px */
+}
+
+.color-grid-item {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Reducido de 10px a 8px */
+  padding: 8px 10px; /* Reducido de 10px 12px a 8px 10px */
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px; /* Reducido de 6px a 5px */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-grid-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #d4af37;
+  transform: translateY(-2px);
+}
+
+.color-grid-item.active {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: #d4af37;
+  border-width: 2.5px; /* Reducido de 3px a 2.5px */
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); /* Reducido de 12px a 10px */
+}
+
+.color-grid-box {
+  width: 28px; /* Reducido de 32px a 28px (12.5% menos) */
+  height: 28px; /* Reducido de 32px a 28px (12.5% menos) */
+  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Reducido de 6px a 5px */
+}
+
+.color-grid-name {
+  color: #fff;
+  font-size: 12px; /* Reducido de 13px a 12px */
+  font-weight: 600;
+  flex: 1;
+}
+
+/* Preview del color */
+.config-color-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Reducido de 12px a 10px */
+  margin-bottom: 16px; /* Reducido de 20px a 16px */
+  padding: 10px; /* Reducido de 12px a 10px */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.config-color-preview span {
+  color: #e0e0e0;
+  font-size: 12px; /* Reducido de 13px a 12px */
+  font-weight: 600;
+}
+
+.color-preview-box {
+  width: 54px; /* Reducido de 60px a 54px */
+  height: 36px; /* Reducido de 40px a 36px */
+  border: 2px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Reducido de 8px a 6px */
+  transition: all 0.3s ease;
+}
+
+/* Botón Guardar */
+.config-color-guardar-btn {
+  width: 100%;
+  padding: 10px 18px; /* Reducido de 12px 20px a 10px 18px */
+  background: linear-gradient(135deg, #16a34a, #059669);
+  border: none;
+  border-radius: 5px; /* Reducido de 6px a 5px */
+  color: #fff;
+  font-size: 14px; /* Reducido de 15px a 14px */
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.config-color-guardar-btn:hover {
+  background: linear-gradient(135deg, #15803d, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4); /* Reducido de 12px a 10px */
+}
+
+.config-color-guardar-btn:active {
+  transform: translateY(0);
+}
+
+.config-color-guardar-btn:disabled {
+  background: #4b5563;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+/* ============================================ */
+/* CONFIGURACIÓN DE CLIMA */
+/* ============================================ */
+
+.config-clima-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.config-clima-input,
+.config-clima-select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.config-clima-input:focus,
+.config-clima-select:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.config-clima-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.config-clima-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4af37' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+  appearance: none;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* Scrollbar personalizada para el body - No necesaria ya que no hay scroll */
+/*
+.config-general-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.config-general-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.config-general-body::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 0;
+}
+
+.config-general-body::-webkit-scrollbar-thumb:hover {
+  background: #f0c950;
+}
+*/
+
+/* Estilos para configuración de noticias RSS */
+.config-noticias-botones {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.config-noticias-agregar-btn {
+  padding: 10px 20px;
+  background: #0d4a0d; /* Verde oscuro */
+  color: #fff;
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  flex: 1; /* Ocupa espacio disponible */
+}
+
+.config-noticias-agregar-btn:hover {
+  background: #155a15;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.config-noticias-agregar-btn:active {
+  transform: translateY(0);
+}
+
+.config-noticias-guardar-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #0d4a0d, #155a15);
+  color: #fff;
+  border: 2px solid #d4af37;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  flex: 1; /* Ocupa espacio disponible */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.config-noticias-guardar-btn:hover {
+  background: linear-gradient(135deg, #155a15, #1d7a1d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-color: #f0c950;
+}
+
+.config-noticias-guardar-btn:active {
+  transform: translateY(0);
+}
+
+.config-noticias-guardar-btn:disabled {
+  background: #555;
+  border-color: #777;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.config-fuentes-lista {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  max-height: 280px; /* Aumentado para mostrar más fuentes */
+  overflow-y: auto; /* Scroll cuando hay muchas fuentes */
+}
+
+.config-fuente-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+  background: rgba(13, 74, 13, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.config-fuente-item:hover {
+  background: rgba(13, 74, 13, 0.3);
+  border-color: #d4af37;
+}
+
+.fuente-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.fuente-info strong {
+  color: #d4af37;
+  font-size: 14px;
+}
+
+.fuente-categoria {
+  color: #aaa;
+  font-size: 12px;
+  font-style: italic;
+  margin-left: 6px;
+}
+
+.fuente-url {
+  color: #888;
+  font-size: 11px;
+  word-break: break-all;
+}
+
+.fuente-eliminar-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 68, 68, 0.5);
+  color: #ff4444;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.fuente-eliminar-btn:hover {
+  background: rgba(255, 68, 68, 0.2);
+  border-color: #ff4444;
+  transform: scale(1.1);
+}
+
+.fuente-eliminar-btn:active {
+  transform: scale(0.95);
+}
+
+.config-fuentes-lista::-webkit-scrollbar {
+  width: 8px;
+}
+
+.config-fuentes-lista::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.config-fuentes-lista::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 4px;
+}
+
+.config-fuentes-lista::-webkit-scrollbar-thumb:hover {
+  background: #f0c950;
+}
+
+/* Estilos para configuración de dashboard */
+/* Contenedor horizontal para los checkboxes */
+.config-dashboard-checkboxes-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.config-dashboard-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px;
+  background: rgba(13, 74, 13, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1; /* Ambos checkboxes ocupan el mismo espacio */
+}
+
+.config-dashboard-checkbox-label:hover {
+  background: rgba(13, 74, 13, 0.2);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.config-dashboard-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #d4af37;
+}
+
+/* Responsive - Ajusta en pantallas pequeñas */
+@media (max-width: 768px) {
+  .config-general-modal {
+    width: 98vw;
+    height: 95vh;
+  }
+
+  .config-general-header h2 {
+    font-size: 18px;
+  }
+
+  .config-general-close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  /* Grid a una sola columna en móvil */
+  .config-placeholders-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Estilos para las opciones del reloj */
+.config-reloj-opciones {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+}
+
+.config-reloj-opciones .form-group {
+  margin-bottom: 15px;
+}
+
+.config-reloj-opciones .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.config-transparencia-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(212, 175, 55, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.config-transparencia-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d4af37;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.config-transparencia-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d4af37;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.transparencia-hints {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  color: rgba(212, 175, 55, 0.8);
+  margin-top: 5px;
+}
+
+/* Estilos para el checkbox de Glassmorphism */
+.config-glassmorphism-container {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 6px;
+}
+
+.config-glassmorphism-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.config-glassmorphism-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #d4af37;
+  cursor: pointer;
+}
+
+/* Estilos para el grid de colores del reloj */
+.config-reloj-opciones .config-color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.config-reloj-opciones .color-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 60px;
+}
+
+.config-reloj-opciones .color-grid-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+
+.config-reloj-opciones .color-grid-item.active {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #d4af37;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.config-reloj-opciones .color-grid-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.config-reloj-opciones .color-grid-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}

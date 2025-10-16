@@ -1,0 +1,79 @@
+/* Contenedor del botón estado del tiempo */
+.estado-tiempo-btn-container {
+  position: absolute;
+  top: 20px;
+  left: 340px; /* Al lado del botón calendario */
+  z-index: 35; /* Menor que los modales (9999+) para que quede debajo */
+}
+
+/* Botón flotante de estado del tiempo */
+.estado-tiempo-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 74, 13, 0.15),
+    rgba(4, 30, 54, 0.2)
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.estado-tiempo-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 74, 13, 0.25),
+    rgba(4, 30, 54, 0.3)
+  );
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.estado-tiempo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.et-btn-icon {
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.et-btn-text {
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .estado-tiempo-btn-container {
+    left: 320px;
+  }
+
+  .estado-tiempo-btn {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+
+  .et-btn-icon {
+    font-size: 18px;
+  }
+
+  .et-btn-text {
+    font-size: 12px;
+  }
+}

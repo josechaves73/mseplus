@@ -1,0 +1,324 @@
+/* MENSAJE-MODAL - Componente Reutilizable Elegante */
+/* Basado en el diseño del modal de exportación */
+
+.mensaje-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Ensure the mensaje modal overlay sits above other modals (some use very large z-index values) */
+  z-index: 2000000 !important;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Tamaños del modal */
+.mensaje-modal {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.mensaje-modal-small {
+  max-width: 380px;
+  width: 90%;
+}
+
+.mensaje-modal-medium {
+  max-width: 465px;
+  width: 90%;
+}
+
+.mensaje-modal-large {
+  max-width: 600px;
+  width: 90%;
+}
+
+/* Header */
+.mensaje-modal-header {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: white;
+  padding: 24px 32px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.mensaje-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.mensaje-modal-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.mensaje-modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mensaje-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+/* Body */
+.mensaje-modal-body {
+  padding: 24px 32px;
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827; /* Color de texto más oscuro para mejor contraste */
+}
+
+.mensaje-modal-body p {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111827 !important; /* Forzar color con !important para asegurar visibilidad */
+  text-align: center;
+}
+
+.mensaje-modal-body p:last-child {
+  margin-bottom: 0;
+}
+
+.mensaje-modal-body strong {
+  color: #1e40af !important; /* Color azul para elementos strong */
+  font-weight: 600;
+}
+
+/* Mejorar contraste en todos los elementos del body */
+.mensaje-modal-body * {
+  color: #111827; /* Heredar color oscuro por defecto */
+}
+
+.mensaje-modal-body strong,
+.mensaje-modal-body b {
+  color: #1e40af !important; /* Color azul para texto enfatizado */
+}
+
+/* Footer con botones */
+.mensaje-modal-footer {
+  padding: 24px 32px;
+  background-color: #ffffff;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Botones */
+.mensaje-modal-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mensaje-modal-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+/* Botón primario (por defecto) */
+.mensaje-modal-btn:not(.btn-secondary):not(.btn-danger) {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.mensaje-modal-btn:not(.btn-secondary):not(.btn-danger):hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+/* Botón secundario */
+.mensaje-modal-btn.btn-secondary {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #374151;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mensaje-modal-btn.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón de peligro */
+.mensaje-modal-btn.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.mensaje-modal-btn.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+/* Botón confirmar (verde, primario) */
+.mensaje-modal-btn.btn-confirm {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.mensaje-modal-btn.btn-confirm:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+/* Botón cancelar (gris, secundario) */
+.mensaje-modal-btn.btn-cancel {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #374151;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mensaje-modal-btn.btn-cancel:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .mensaje-modal-small,
+  .mensaje-modal-medium,
+  .mensaje-modal-large {
+    margin: 20px;
+    width: calc(100% - 40px);
+    max-width: none;
+  }
+
+  .mensaje-modal-header {
+    padding: 20px 24px 16px;
+  }
+
+  .mensaje-modal-title {
+    font-size: 18px;
+  }
+
+  .mensaje-modal-body {
+    padding: 20px 24px;
+  }
+
+  .mensaje-modal-footer {
+    padding: 20px 24px;
+    flex-direction: column;
+  }
+
+  .mensaje-modal-btn {
+    width: 100%;
+  }
+}
+
+/* Clases de utilidad */
+.mensaje-modal-center {
+  text-align: center;
+}
+
+.mensaje-modal-left {
+  text-align: left;
+}
+
+.mensaje-modal-right {
+  text-align: right;
+}
+
+/* Tema oscuro opcional */
+.mensaje-modal-dark .mensaje-modal-body {
+  background-color: #1f2937;
+  color: #f9fafb !important;
+}
+
+.mensaje-modal-dark .mensaje-modal-body p {
+  color: #f9fafb !important;
+}
+
+.mensaje-modal-dark .mensaje-modal-body * {
+  color: #f9fafb; /* Heredar color claro en tema oscuro */
+}
+
+.mensaje-modal-dark .mensaje-modal-body strong,
+.mensaje-modal-dark .mensaje-modal-body b {
+  color: #60a5fa !important; /* Color azul claro para tema oscuro */
+}

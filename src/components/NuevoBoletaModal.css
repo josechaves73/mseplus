@@ -1,0 +1,569 @@
+/* NuevoBoletaModal.css - Estilos basicos y pestañas */
+
+
+.nb-tabs { display:flex; gap:12px; margin-bottom:18px }
+
+/* Contenedor del encabezado de pestañas (pestañas alineadas a la derecha) */
+.lista-conductores-modal-header { display:flex; align-items:center; justify-content:space-between; gap:12px }
+
+/* Fila que aparece debajo del título del encabezado y contiene las pestañas */
+.nb-tabs-row { margin-top: 8px; margin-bottom: 14px; }
+.nb-tabs-row .nb-tabs { display:flex; gap:0; flex:1; background-color: #2a2a2a; border-bottom: 1px solid #555; border-radius: 5px 5px 0 0; overflow: hidden; }
+.nb-tabs-row .nb-tabs .nb-tab { flex: 1; justify-content: center; padding: 12px 16px; background: transparent; color: #ccc; border-bottom: 4px solid transparent; font-size: 16px; font-weight:500; }
+.nb-tabs-row .nb-tabs .nb-tab:hover { background-color: rgba(255,255,255,0.05); color: #fff; }
+.nb-tabs-row .nb-tabs .nb-tab.active { color: #fff; }
+
+/* Colores de la pestaña activa por posición para coincidir con el patrón de FamiliasModal */
+.nb-tabs-row .nb-tabs .nb-tab.active:nth-child(1) { background-color: #6b176b; border-bottom-color: #6b176b; }
+.nb-tabs-row .nb-tabs .nb-tab.active:nth-child(2) { background-color: #1e90ff; border-bottom-color: #1e90ff; }
+.nb-tabs-row .nb-tabs .nb-tab.active:nth-child(3) { background-color: #28a745; border-bottom-color: #28a745; }
+.nb-tabs-row .nb-tabs .nb-tab.active:nth-child(4) { background-color: #ffb32b; color: #000; border-bottom-color: #ffb32b; }
+.nb-tabs-row .nb-tabs .nb-tab.active:nth-child(5) { background-color: #ff6b35; border-bottom-color: #ff6b35; }
+.nb-tabs-row .nb-tabs .nb-tab.active:nth-child(6) { background-color: #6c757d; border-bottom-color: #6c757d; }
+
+.nb-tab {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:12px 18px; /* más grande */
+  border-radius:7px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border: 5px solid rgba(255,255,255,0.04);
+  cursor:pointer;
+  color:#fff;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+  font-size: 18px;
+}
+
+.nb-tab .nb-tab-icon { font-size:20px }
+.nb-tab .nb-tab-label { font-size:17px; font-weight:620 }
+
+.nb-tab.active {
+  transform: translateY(0px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  background: linear-gradient(90deg, var(--tab-color), rgba(0,0,0,0.15));
+  border-color: rgba(255,255,255,0.08);
+}
+
+.nb-tab:hover { transform: translateY(0px); box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+
+.nb-tab.active .nb-tab-label { color: #fff }
+
+.nb-tab[style] { border-color: rgba(72, 145, 82, 0.06) }
+
+/* Aspecto de pestaña deshabilitada */
+.nb-tab.disabled, .nb-tab[aria-disabled="true"] {
+  opacity: 0.48;
+  filter: grayscale(20%);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.nb-tab-panel { min-height: 220px; background:#1e1e1e; padding:12px; border-radius:6px; font-size: 90%; width: 92%; margin: 0 auto; transition: background-color 180ms ease, box-shadow 180ms ease; }
+
+/* Estilos del contenido placeholder para coincidir con FamiliasModal */
+.nb-tab-panel .content-placeholder {
+  min-height: 436px; /* incrementado +10% desde 396px para probar ajuste visual */
+  border: 2px dashed #555;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2a2a2a;
+}
+
+.nb-tab-panel .placeholder-content { text-align: center; color: #666; }
+.nb-tab-panel .placeholder-icon { font-size: 48px; margin-bottom: 16px; }
+.nb-tab-panel .placeholder-text { font-size: 18px; margin-bottom: 8px; }
+.nb-tab-panel .placeholder-subtext { font-size: 12px; }
+
+/* Colores de panel por pestaña (fondos translúcidos suaves) */
+.nb-panel-numero { background: linear-gradient(180deg, rgba(212, 94, 212, 0.06), rgba(192, 100, 201, 0.05)); position: relative; }
+.nb-panel-transportes { background: linear-gradient(180deg, rgba(30,144,255,0.06), rgba(0,0,0,0.04)); }
+.nb-panel-cliente { background: linear-gradient(180deg, rgba(40,167,69,0.06), rgba(0,0,0,0.04)); }
+.nb-panel-articulos { background: linear-gradient(180deg, rgba(255,179,43,0.06), rgba(0,0,0,0.04)); }
+.nb-panel-cantidades { background: linear-gradient(180deg, rgba(255,107,53,0.06), rgba(0,0,0,0.04)); }
+.nb-panel-resumen { background: linear-gradient(180deg, rgba(108,117,125,0.06), rgba(0,0,0,0.04)); }
+
+.panel-content label { display:block; margin-bottom:8px; font-weight:600 }
+
+/* Sin inputs ni acciones dentro de NuevoBoletaModal según lo solicitado */
+
+/* Diseño de la pestaña "Número" */
+.numero-panel { display:grid; grid-template-columns: 360px 1fr; gap:18px; align-items:start; }
+.numero-main { padding:8px; color:#ddd }
+.numero-side { padding:8px; }
+
+/* Layout horizontal: colocar los tres boxes en fila dentro de numero-main */
+.numero-main { display:flex; gap:18px; align-items:flex-start }
+.numero-left { flex: 0 0 460px }
+.numero-right-row { display:flex; gap:12px; align-items:flex-start }
+.numero-right-row .nb-fecha-box, .numero-right-row .nb-fecha-extra-box { margin-left:0 }
+
+/* Contenedor Número de boleta (lado derecho) */
+.nb-numero-container { display:flex; flex-direction:column; gap:10px; align-items:flex-start; padding:12px; }
+.nb-numero-label { font-size: 18px; font-weight:700; color:#fff; }
+.nb-numero-input { font-size: 18px; padding:12px 12px; border-radius:5px; border:2px solid rgba(161, 35, 130, 0.452); background:#0b0b0b; color:#fff; width:100%; max-width:435px; box-sizing:border-box }
+.nb-numero-error { color:#ffb3b3; font-size:13px; margin-top:6px }
+
+.nb-numero-box { background: linear-gradient(180deg, #2a062a, #20041f); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:10px; box-shadow: 0 10px 30px rgba(40,10,40,0.55); max-width:460px }
+
+.nb-fecha-extra-box { background: linear-gradient(180deg, #2a062a, #20041f); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:8px; box-shadow: 0 10px 30px rgba(40,10,40,0.55); max-width:460px }
+.nb-fecha-extra-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+  padding: 0;
+  align-items: start; /* asegurar que todos los elementos empiecen en la misma línea */
+}
+.nb-fecha-extra-container label { font-size:18px; margin:0 0 6px 0 }
+.nb-fecha-extra-container .nb-anio-label { grid-column: 1; grid-row: 1 }
+.nb-fecha-extra-container .nb-semana-label { grid-column: 2; grid-row: 1 }
+.nb-fecha-extra-container .nb-anio-input { grid-column: 1; grid-row: 2 }
+.nb-fecha-extra-container .nb-semana-input { grid-column: 2; grid-row: 2 }
+.nb-fecha-extra-container .nb-anio-input, .nb-fecha-extra-container .nb-semana-input { height:45px; font-size:18px; margin:0 }
+.nb-anio-label, .nb-semana-label { color:#fff; font-size:18px; font-weight:700 }
+.nb-anio-input, .nb-semana-input { padding:8px 10px; border-radius:6px; border:2px solid rgba(129, 24, 98, 0.623); background:#0b0b0b; color:#fff; font-size:18px; width:100%; box-sizing:border-box }
+
+.nb-fecha-box { background: linear-gradient(180deg, #2a062a, #20041f); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:8px; box-shadow: 0 10px 30px rgba(40,10,40,0.55); max-width:460px; /* remove extra left margin to align with numero-box */ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+.nb-fecha-label { color:#fff; font-size:18px; font-weight:700; margin:0 }
+.nb-fecha-input { padding:10px 12px; border-radius:6px; border:2px solid rgba(155, 30, 117, 0.459); background:#0b0b0b; color:#fff; font-size:18px; height:44px; box-sizing:border-box; width:100%; max-width:435px }
+.nb-fecha-container { display:flex; flex-direction:column; gap:6px; align-items:flex-start; padding:6px; }
+
+/* Flatpickr overrides: calendario flotante con estilo púrpura coherente */
+.flatpickr-calendar { background: linear-gradient(180deg, #2a062a, #20041f) !important; color: #fff !important; border-radius: 8px !important; box-shadow: 0 12px 30px rgba(40,10,40,0.6) !important; border: 1px solid rgba(255,255,255,0.04) !important; }
+.flatpickr-months, .flatpickr-month { color: #f3e9f7 !important; font-size: 18px !important; font-weight:700 !important }
+.flatpickr-weekdays { color: #e8dbf0 !important }
+.flatpickr-day { font-size: 20px !important; color: #fff !important; border-radius:6px !important }
+.flatpickr-innerContainer, .flatpickr-weekdays, .flatpickr-days, .flatpickr-weekday, .flatpickr-day { color: #fff !important }
+.flatpickr-weekday { opacity: 0.95 !important }
+.flatpickr-day:hover { background: rgba(255,255,255,0.06) !important }
+.flatpickr-day.selected { background: rgba(107,23,107,0.9) !important; color: #fff !important }
+.flatpickr-prev-month, .flatpickr-next-month { color: #fff !important }
+
+/* Estilizar el select de meses (cuando flatpickr muestra el dropdown) */
+.flatpickr-monthDropdown-months, .flatpickr-monthDropdown-months select, .flatpickr-monthSelector {
+  background: linear-gradient(180deg, #2a062a, #20041f) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius:6px !important;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months select { color:#fff !important }
+.flatpickr-monthDropdown-months select option { background: linear-gradient(180deg, #2a062a, #20041f) !important; color:#fff !important }
+
+/* Evitar fondo blanco en elementos emergentes */
+.flatpickr-months .flatpickr-month .flatpickr-monthSelect-inner, .flatpickr-months .flatpickr-month .flatpickr-monthSelect {
+  background: transparent !important;
+  color: #fff !important;
+}
+
+/* Static month selector (flatpickr) - estilo consistente */
+.flatpickr-months .flatpickr-month .flatpickr-monthSelector { background: linear-gradient(180deg, #2a062a, #20041f) !important; color:#fff !important; border-radius:6px !important; padding:6px 8px !important }
+.flatpickr-months .flatpickr-month .flatpickr-monthSelector .flatpickr-monthDropdown-months { color:#fff !important }
+.flatpickr-months .flatpickr-month .flatpickr-monthSelector .flatpickr-monthDropdown-months li { color:#fff !important; background: transparent !important }
+
+/* Fallback: forzar fondo oscuro en selects nativos que puedan persistir */
+select.flatpickr-monthDropdown-months, select.flatpickr-monthDropdown-months option { background: linear-gradient(180deg, #2a062a, #20041f) !important; color:#fff !important }
+
+.numero-main { display:flex; gap:18px; align-items:stretch; }
+
+/* Forzar que ambos marcos púrpuras (número y fecha) tengan la misma anchura */
+.numero-main { display:flex; gap:18px; align-items:flex-start; flex-wrap:nowrap }
+
+.numero-left { flex: 0 0 36%; min-width: 220px }
+.numero-right-row { display:flex; gap:12px; align-items:flex-start; flex: 1 1 auto }
+
+.nb-numero-box { flex: 0 0 36%; display:flex; flex-direction:column; align-self:flex-start; max-width: 420px; box-sizing: border-box }
+.nb-fecha-box { flex: 0 0 38%; display:flex; flex-direction:column; align-self:flex-start; max-width: 480px; box-sizing: border-box }
+.nb-fecha-extra-box { flex: 0 0 22%; display:flex; flex-direction:column; align-self:flex-start; max-width: 260px; box-sizing: border-box }
+.nb-numero-container, .nb-fecha-box .nb-fecha-input, .nb-numero-input { width:100%; max-width:100% }
+
+/* Evitar que el extra box sobresalga del modal */
+.nb-fecha-extra-box { overflow: hidden }
+
+/* Consistencia visual: mismas alturas, paddings e inputs iguales */
+.nb-numero-box, .nb-fecha-box, .nb-fecha-extra-box {
+  padding: 12px; /* padding interno uniforme */
+  border-radius: 8px;
+  min-height: 140px; /* altura visual consistente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centrar contenido verticalmente para apariencia equilibrada */
+  box-sizing: border-box;
+}
+
+.nb-numero-container, .nb-fecha-container {
+  padding: 0; /* el padding lo controla el box padre */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nb-numero-label, .nb-fecha-label, .nb-anio-label, .nb-semana-label { margin: 0 0 6px 0 }
+
+.nb-numero-input, .nb-fecha-input, .nb-anio-input, .nb-semana-input {
+  height: 46px;
+  padding: 10px 12px;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
+/* estilos para inputs deshabilitados */
+.nb-numero-input[disabled], .nb-fecha-input[disabled], .nb-anio-input[disabled], .nb-semana-input[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: rgba(0,0,0,0.12);
+  border-color: rgba(255,255,255,0.02);
+}
+
+/* Ajuste para el extra box con dos inputs: asegurar alineamiento superior */
+.nb-fecha-extra-container { justify-items: stretch }
+
+/* Si aún hay overflow en pantallas pequeñas, permitir que el contenedor pueda hacer scroll horizontal */
+.numero-main { overflow-x: auto }
+
+/* Ensure tb-selected-outside spacing matches adjacent boxes */
+.tb-selected-outside { margin-top:14px }
+
+/* Barra de acciones (botones) posicionada abajo a la derecha del modal */
+.nb-action-bar { display:flex; justify-content:flex-end; padding:12px 65px; border-top: 1px solid rgba(255,255,255,0.02); margin-top:12px }
+.nb-action-inner { display:flex; gap:12px }
+.nb-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; border: none; cursor:pointer; font-weight:700 }
+.nb-btn .nb-btn-icon { font-size:28px }
+.nb-btn-continue { background: linear-gradient(180deg,#1f5d2b,#16411f); color:#fff }
+.nb-btn-exit { background: linear-gradient(180deg,#b35a00,#8a3f00); color:#fff }
+.nb-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 29px rgba(100, 62, 206, 0.877) }
+
+/* Aumentar el tamaño del botón CONTINUAR en 15% y alinearlo a la derecha dentro de la zona derecha */
+.nb-btn-continue.large-continue { transform: scale(1.15); padding: 12px 18px; font-size: 1.05em }
+.numero-right-row > .large-continue { margin-left: auto }
+
+/* Ensure the CONTINUAR button is positioned relative to the purple numero-main container */
+.nb-continue-wrapper {
+  position: absolute;
+  right: 32px; /* distance from right edge of purple container */
+  bottom: 22px; /* distance from bottom edge of purple container */
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10;
+}
+.numero-main .nb-continue-wrapper { padding-right: 0 }
+
+/* On very small widths, place the button inline under the boxes to avoid overlap */
+@media (max-width: 720px) {
+  .nb-continue-wrapper { position: static; margin-top: 12px; justify-content: center; }
+}
+
+/* Marco púrpura para el número que coincide con el grid izquierdo */
+.nb-numero-box { background: linear-gradient(180deg, #2a062a, #20041f); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:10px; box-shadow: 0 10px 30px rgba(40,10,40,0.55); max-width:460px }
+
+.tb-grid-container { background: linear-gradient(180deg, #2a062a, #20041f); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:12px; box-shadow: 0 10px 30px rgba(40,10,40,0.55); min-height:360px; }
+.tb-grid-header { font-weight:700; margin-bottom:10px; color:#f3e9f7; font-size:18px }
+
+/* Header de artículos: label a la izquierda y nombre de cliente a la derecha, alineados */
+.articulos-header { display:flex; align-items:center; gap:12px; margin-bottom:8px }
+.articulos-selected-client { color:#ffffff; font-size:22px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:50%; }
+.tb-loading, .tb-error, .tb-empty { color:#d8cfe0; padding:10px }
+.tb-grid { display:flex; flex-direction:column; gap:8px; max-height:360px; overflow:auto; padding-right:6px }
+.tb-row { padding:10px 12px; border-radius:6px; cursor:pointer; color:#fff; background:transparent; transition: background 120ms ease, transform 120ms ease; }
+.tb-row:hover { background: rgba(255,255,255,0.03); transform: translateX(4px); }
+.tb-row.selected { background: linear-gradient(90deg, rgba(107,23,107,0.18), rgba(0,0,0,0.08)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.45); }
+
+.tb-selected-label { display:block; margin-top:14px; margin-bottom:6px; color:#e8dbf0; font-size:18px }
+.tb-selected-input { width:100%; max-width: 342px; padding:8px 12px; border-radius:6px; border:2px solid rgba(235, 9, 186, 0.37); background:rgba(0,0,0,0.2); color:#fff; font-size:18px; box-sizing: border-box }
+
+.numero-panel, .tb-grid-container, .tb-grid, .tb-row, .tb-selected-input { box-sizing: border-box }
+
+/* Asegurar un tamaño predecible dentro de los paneles */
+.numero-panel, .tb-grid-container, .tb-grid, .tb-row, .tb-selected-input { box-sizing: border-box }
+
+/* Transportes: dos grids iguales (izquierda: choferes, derecha: vehiculos) */
+.transportes-panel { display:flex; gap:18px; align-items:flex-start; padding:8px }
+/* Increase bottom padding to add 32px extra height for the placeholder area */
+.transportes-panel { padding-bottom: calc(8px + 46px); }
+.transportes-grid { background: linear-gradient(180deg, #021328, #021a3a); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:12px; box-shadow: 0 8px 20px rgba(0,0,0,0.45); box-sizing: border-box; }
+.transportes-left, .transportes-right { flex: 1 1 0; min-width: 260px; max-width: 50%; display:flex; flex-direction:column; gap:10px }
+.transportes-search { display:flex; }
+.transportes-search-input { width:100%; padding:8px 10px; border-radius:6px; border:2px solid rgba(155, 30, 117, 0.35); background:#0b0b0b; color:#fff; font-size:18px; box-sizing:border-box }
+.transportes-grid-label { color: #fff; font-size: 18px; font-weight:700; margin-bottom:6px }
+.transportes-table { overflow:auto; max-height: 360px; }
+
+/* Rollback class: apply this class to revert heights back to original values */
+.transportes-rollback .tb-grid { max-height: 420px !important }
+.transportes-rollback .transportes-table { max-height: 420px !important }
+
+/* Space for CONTINUAR in right placeholder: button style matching Numero CONTINUAR */
+.placeholder-continue-wrapper { display:flex; justify-content:flex-end; margin-top:12px }
+.placeholder-continue-wrapper .nb-btn { padding:10px 17px; border-radius:8px }
+.placeholder-continue-wrapper .nb-btn-continue { background: linear-gradient(180deg,#1f5d2b,#16411f); color:#fff }
+.transportes-panel { position: relative }
+/* Place the placeholder continue wrapper at the bottom-right outside the blue boxes */
+.transportes-panel > .placeholder-continue-wrapper {
+  position: absolute;
+  right: 10px; /* inside the modal padding */
+  bottom: 18px; /* slight offset from bottom */
+  z-index: 8;
+}
+.transportes-panel > .placeholder-continue-wrapper .nb-btn { box-shadow: 0 10px 30px rgba(0,0,0,0.45) }
+.transportes-panel > .placeholder-continue-wrapper .nb-btn:focus { outline: 3px solid rgba(255,255,255,0.08) }
+/* Ajuste: bajar el botón CONTINUAR 30px sin romper el flujo; usar transform para fácil override */
+.transportes-panel > .placeholder-continue-wrapper { transform: translateY(30px); }
+.transportes-table table { width:100%; border-collapse: collapse; color:#fff }
+.transportes-table th, .transportes-table td { padding:8px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); text-align:left }
+/* Header azul celeste claro */
+.transportes-table thead tr { background: linear-gradient(180deg, #bfe9ff, #9fdfff); color: #032037; font-weight:700 }
+.transportes-table thead th { padding:10px 12px }
+/* Filas hover y seleccion */
+.transportes-table tbody tr:hover { background: rgba(255,255,255,0.03); cursor: pointer }
+.transportes-table tbody tr.selected { background: linear-gradient(90deg, rgba(14,85,149,0.18), rgba(2,26,58,0.06)); }
+
+/* Campos seleccionados (readonly) debajo de cada grid */
+.transportes-selected-fields { display:flex; flex-direction:column; gap:8px; margin-top:10px }
+.selected-field-label { color:#fff; font-size:16px; margin:0 }
+.selected-field-input { padding:8px 10px; border-radius:6px; border:2px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.18); color:#fff; font-size:18px }
+
+/* Estilo solicitado: fondos gris oscuro y texto amarillo para los textbox debajo de los grids */
+.transportes-selected-fields .selected-field-input {
+  /* Solo sobrescribimos color de fondo, texto y borde para mantener padding/size/width existentes */
+  background-color: #2f2f2f !important; /* gris oscuro */
+  color: #ffd700 !important; /* amarillo */
+  border-color: #444 !important; /* borde más oscuro para contraste, preservando border-width */
+}
+.transportes-selected-fields .selected-field-input::placeholder {
+  color: #ffea7a !important; /* placeholder amarillento más tenue */
+}
+
+/* Horizontal layout for selected fields */
+.transportes-selected-horizontal { flex-direction:row; align-items:center; gap:12px }
+.selected-field-pair { display:flex; flex-direction:column; gap:6px; flex: 1 1 0 }
+.selected-field-pair .selected-field-input { width:100% }
+
+/* Hacer el textbox 'Código/Placa' del panel derecho 20px más corto que el resto */
+.transportes-right .selected-field-pair:first-child .selected-field-input {
+  width: calc(100% - 20px);
+}
+
+/* Make the left 'Código' textbox 45px narrower as requested */
+.transportes-left .selected-field-pair:first-child .selected-field-input {
+  width: calc(100% - 45px);
+}
+
+/* Ajuste solicitado: reducir ambos textbox (izquierda 'Código' y derecha 'Placa') 75px */
+.transportes-left .selected-field-pair:first-child .selected-field-input {
+  width: calc(100% - 75px);
+}
+
+.transportes-right .selected-field-pair:first-child .selected-field-input {
+  width: calc(100% - 75px);
+}
+
+/* Mover label+textbox 'Nombre' (segundo par) 70px hacia la izquierda en el panel izquierdo */
+.transportes-left .selected-field-pair:nth-child(2) {
+  /* moved 30px right from previous -70px -> now -40px */
+  transform: translateX(-40px);
+}
+
+/* Mover label+textbox 'Nombre' (segundo par) 30px hacia la izquierda en el panel derecho */
+.transportes-right .selected-field-pair:nth-child(2) {
+  transform: translateX(-30px);
+}
+
+@media (max-width: 900px) {
+  .transportes-panel { flex-direction: column }
+  .transportes-left, .transportes-right { max-width: 100%; }
+  .transportes-panel > .placeholder-continue-wrapper { position: static; margin-top: 12px; right: auto; bottom: auto; }
+}
+
+/* Cliente panel styles */
+.cliente-panel { display:flex; gap:18px; align-items:flex-start; padding:8px }
+.cliente-left, .cliente-right { flex: 1 1 0; min-width: 260px; max-width: 50%; display:flex; flex-direction:column; gap:10px }
+.cliente-left { background: linear-gradient(180deg, #07220b, #0a2f12); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:12px; box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
+.cliente-grid-label { color:#d8f5d8; font-size:18px; font-weight:700; margin-bottom:6px }
+.cliente-search { display:flex }
+.cliente-search-input { width:100%; padding:8px 10px; border-radius:6px; border:2px solid rgba(30,120,50,0.35); background:#07120a; color:#e6f7e6; font-size:18px; box-sizing:border-box }
+.cliente-table { overflow:auto; max-height: 485px; }
+.cliente-table table { width:100%; border-collapse: collapse; color:#e6f7e6 }
+.cliente-table thead tr { background: linear-gradient(180deg, #97f898, #6fe36f); color: #062a08; font-weight:700 }
+.cliente-table thead th { padding:10px 12px }
+.cliente-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 6; /* keep above tbody rows */
+}
+.cliente-table th, .cliente-table td { padding:8px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); text-align:left }
+.cliente-table tbody tr:hover { background: rgba(255,255,255,0.02); cursor:pointer }
+.cliente-table tbody tr.selected { background: linear-gradient(90deg, rgba(46,125,50,0.18), rgba(10,30,10,0.06)); }
+.cliente-right { display:flex; align-items:center; justify-content:center; border:1px dashed rgba(255,255,255,0.04); border-radius:8px; min-height:385px; }
+.cliente-right-placeholder { color:#9fd3a4; font-size:16px }
+
+/* Resumen panel styles */
+.resumen-panel { position: relative; padding: 12px; min-height: 420px; background: linear-gradient(180deg, rgba(108,117,125,0.02), rgba(0,0,0,0.03)); border-radius:8px; }
+.resumen-grid { display:flex; gap:18px; align-items:flex-start; }
+.resumen-left { flex: 1 1 60%; min-width: 320px; }
+.resumen-right { flex: 0 0 38%; min-width: 240px; display:flex; flex-direction:column; gap:12px; }
+.resumen-grid-label { font-weight:700; color:#f3e9f7; margin-bottom:8px; font-size:18px }
+.resumen-table { background: linear-gradient(180deg, #2b0a0a, #180606); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:8px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); max-height:503px; overflow:auto }
+.resumen-table table { width:100%; border-collapse: collapse; color:#fff }
+.resumen-table th, .resumen-table td { padding:10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); text-align:left }
+.resumen-table thead tr { background: linear-gradient(180deg, #dfe3e6, #c9cfd3); color: #102026; font-weight:700 }
+.resumen-table thead th { padding:10px 12px }
+.resumen-table tbody tr:hover { background: rgba(255,255,255,0.02) }
+.resumen-table tbody tr td { vertical-align: middle }
+
+.resumen-box { background: linear-gradient(180deg, #1b1c1d, #0f0f10); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:12px; color:#e6e6e6 }
+.resumen-box h4 { margin:0 0 8px 0; color:#f3e9f7 }
+.resumen-row { display:flex; justify-content:space-between; gap:12px; padding:6px 0; align-items:center }
+.resumen-row label { font-weight:700; color:#cfcfcf; font-size:14px }
+.resumen-row span { color:#fff; font-size:15px; text-align:right; flex:1; display:inline-block }
+
+.resumen-placeholder-apply { position: absolute; right: 18px; bottom: -42px; z-index: 12 }
+.nb-btn-apply { background: linear-gradient(180deg,#2b6fb0,#1b4f7f); color:#fff; padding:12px 16px; border-radius:8px; font-weight:800 }
+.nb-btn-apply:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,70,130,0.45) }
+
+/* Icono SVG dentro del botón aplicar */
+.nb-btn-apply { display:inline-flex; align-items:center; gap:10px }
+.nb-btn-icon-svg { display:inline-block; flex:0 0 auto; color: #ffffffcc }
+.nb-btn-apply span { font-weight:800 }
+
+/* Botón pequeño para acciones en tablas (eliminar fila) */
+.nb-small-btn { background: transparent; color:#ffdddd; border:1px solid rgba(255,255,255,0.06); padding:6px 8px; border-radius:6px; cursor:pointer; font-weight:700 }
+.nb-small-btn:hover { background: rgba(255,255,255,0.02); transform: translateY(-1px) }
+.nb-btn-delete { color:#ffb3b3; border-color: rgba(255,180,180,0.06) }
+
+@media (max-width: 900px) {
+  .resumen-grid { flex-direction: column }
+  .resumen-left, .resumen-right { min-width: 100%; }
+  .resumen-placeholder-apply { position: static; margin-top: 12px; }
+}
+
+/* Datos de Boleta: púrpura oscuro */
+.resumen-right .resumen-box:first-child { background: linear-gradient(180deg,#2a1530,#17061a); border:1px solid rgba(255,255,255,0.06); color:#f3e9f7 }
+.resumen-right .resumen-box:first-child h4 { color:#ffd9ff }
+
+/* Transportes: azul oscuro */
+.resumen-right .resumen-box:nth-child(2) { background: linear-gradient(180deg,#0b2b44,#051423); border:1px solid rgba(255,255,255,0.05); color:#dbeefc }
+.resumen-right .resumen-box:nth-child(2) h4 { color:#bfe6ff }
+
+/* Cliente: verde oscuro */
+.resumen-right .resumen-box:nth-child(3) { background: linear-gradient(180deg,#0f3420,#04160b); border:1px solid rgba(255,255,255,0.04); color:#dff7e6 }
+.resumen-right .resumen-box:nth-child(3) h4 { color:#bfffd1 }
+
+.cliente-placeholder-continue { position: absolute; right: 18px; bottom: 18px; z-index: 9 }
+.cliente-panel { position: relative }
+.cliente-placeholder-continue .nb-btn { box-shadow: 0 8px 26px rgba(0,0,0,0.45) }
+
+/* CONTINUAR button for articulos panel */
+.articulos-panel { position: relative }
+.articulos-placeholder-continue {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9;
+}
+.articulos-placeholder-continue .nb-btn { box-shadow: 0 8px 26px rgba(0,0,0,0.45) }
+
+/* Mover visualmente el botón CONTINUAR 75px hacia abajo para evitar solapamientos */
+.articulos-placeholder-continue { transform: translateY(75px); }
+
+.cliente-right-form { width:100%; padding:16px; box-sizing:border-box; display:flex; flex-direction:column; gap:12px }
+.cliente-right-main-label { color:#e6f7e6; font-size:18px; font-weight:700 }
+.cliente-right-sub-label { color:#dfeed9; font-size:16px; font-weight:700; margin-top:6px }
+.cliente-right-readonlys { display:flex; gap:12px; margin-top:6px }
+.cliente-right-readonlys-vertical { flex-direction:column }
+.cliente-right-field { display:flex; flex-direction:column; gap:6px; flex:1 }
+.cliente-right-field-label { color:#cfe6cf; font-size:14px }
+.cliente-right-field-input { padding:8px 10px; border-radius:6px; border:2px solid rgba(255,255,255,0.04); background:#0b1a11; color:#e6f7e6; font-size:30px }
+
+/* Make the first readonly (Código) 50% shorter */
+.cliente-right-readonlys .cliente-right-field:first-child { flex: 0 0 50%; }
+
+/* Artículos: tabla naranja-oscura con headers sticky */
+.articulos-panel { display:flex; gap:18px; align-items:flex-start; padding:8px }
+.articulos-grid { background: linear-gradient(180deg, #4b2a00, #341b00); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:12px; box-shadow: 0 8px 20px rgba(0,0,0,0.45); width:100%; box-sizing:border-box }
+.articulos-grid-label { color:#ffe7b0; font-size:18px; font-weight:700; margin-bottom:6px }
+.articulos-grid .articulos-table { overflow:auto; max-height: 515px; }
+.articulos-grid .articulos-table table { width:100%; border-collapse: collapse; color:#fff }
+.articulos-grid .articulos-table thead th {
+  padding:10px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 12;
+  background: linear-gradient(180deg, #ffb84d, #ff9f1a);
+  color: #351900;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  font-size: 22px; /* header larger within NuevoBoletaModal */
+}
+.articulos-grid .articulos-table th, .articulos-grid .articulos-table td { padding:8px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); text-align:left }
+.articulos-grid .articulos-table tbody tr:hover { background: rgba(255,255,255,0.03); cursor:pointer }
+.articulos-grid .articulos-table tbody tr.selected { background: linear-gradient(90deg, rgba(255,162,79,0.12), rgba(52,27,0,0.04)); }
+.articulos-grid .articulos-table input[type="checkbox"] { width:26px; height:26px; transform: scale(1.1); }
+
+/* Estilos para la pestaña Cantidades: fondo rojo oscuro y headers fijos */
+.articulos-cantidades-grid { background: linear-gradient(180deg, #5b0d0d, #3a0a0a); border:1px solid rgba(255,255,255,0.06); }
+.cantidades-panel .articulos-table { max-height: 440px; padding-bottom: 92px; /* espacio reservado para el botón */ }
+.articulos-cantidades-grid thead th { position: sticky; top: 0; z-index: 15; background: linear-gradient(180deg, #a42b2b, #8b1a1a); color: #fff; }
+.articulos-cantidades-grid tbody tr { cursor: pointer; }
+.articulos-cantidades-grid tbody tr.selected { /* Remove highlighted background to avoid color clashes */ background: transparent !important; }
+
+/* Ensure Cantidades rows have readable text and description column is visible */
+.articulos-cantidades-grid tbody tr,
+.articulos-cantidades-grid tbody tr.selected {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+.articulos-cantidades-grid tbody tr td { color: #ffffff !important; }
+.articulos-cantidades-grid tbody tr td:nth-child(2) { /* descripción */ color: #ffffff !important; }
+
+.cantidad-input, .unidad-input { width: 100%; padding: 8px 10px; border-radius:6px; border:2px solid rgba(255,255,255,0.04); background: rgba(0,0,0,0.12); color:#fff; font-size:16px; box-sizing:border-box }
+
+.cantidades-placeholder-continue { position: absolute; right: 1px; bottom: 12px; z-index: 20; pointer-events: auto; transform: translateY(73px) scale(0.953); transform-origin: center; }
+.cantidades-panel { position: relative }
+.cantidades-placeholder-continue .nb-btn { box-shadow: 0 8px 26px rgba(0,0,0,0.45) }
+
+/* Locked inputs: visual cue for rows with applied trazabilidad movimientos */
+.cantidad-input.locked {
+  background: rgba(255,255,255,0.03) !important;
+  color: #ccc !important;
+  border-color: rgba(255,255,255,0.02) !important;
+  cursor: not-allowed !important;
+}
+.articulos-cantidades-grid tbody tr.locked-row td { opacity: 0.9; }
+
+/* Unidad input when locked should mirror the cantidad locked appearance */
+.unidad-input.locked {
+  background: rgba(255,255,255,0.03) !important;
+  color: #ccc !important;
+  border-color: rgba(255,255,255,0.02) !important;
+  cursor: not-allowed !important;
+}
+
+/* Small locked icon shown in ACCIONES column for locked rows */
+.locked-icon {
+  display: inline-block;
+  margin-right: 8px;
+  color: #f1c40f;
+  font-size: 16px;
+  vertical-align: middle;
+  cursor: help; /* indicates tooltip available */
+}
+
+/* Make sure tooltip (native title) is readable; no custom tooltip to keep changes small and compatible */
+.locked-icon[title] { text-decoration: underline dotted; }
+
+
+/* Aumentar altura de filas y tamaño de texto dentro del NuevoBoleta articulos-grid (no global) */
+.articulos-grid .articulos-table td, .articulos-grid .articulos-table th { font-size:16px; padding:12px 12px }
+
+/* Reducir ancho de la columna Descripción visualmente (se estableció en JSX con calc) - scopeado a este grid */
+.articulos-grid .articulos-table td:nth-child(2) { width: 57.5%; max-width: 57.5%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.articulos-grid .articulos-table td:nth-child(5) { width: 12.5%; max-width: 12.5% }
+
+/* Centrar la celda de selección y agrandar el área clickable - scopeado a este grid */
+.articulos-grid .articulos-table td:nth-child(5) { text-align: center; vertical-align: middle }
+.articulos-grid .articulos-table td:nth-child(5) input[type="checkbox"] { margin: 0 auto; display: inline-block }
+
+
+

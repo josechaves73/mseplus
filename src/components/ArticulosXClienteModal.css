@@ -1,0 +1,153 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);  /* Efecto blur de fondo */
+  -webkit-backdrop-filter: blur(4px);  /* Compatibilidad Safari */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1120px;  /* 40% más ancho: 800px * 1.4 = 1120px */
+  height: 80%;
+  max-height: 720px;  /* 20% más altura: 600px * 1.2 = 720px */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 0 20px;
+  background-color: #1e3a8a;  /* Azul oscuro */
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 8px 8px 0 0;  /* Bordes redondeados solo arriba */
+  margin-bottom: 0;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;  /* Título blanco */
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;  /* Blanco para contraste con fondo azul */
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);  /* Fondo semi-transparente blanco */
+  color: white;
+}
+
+/* Tabs Container */
+.tabs-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: transparent; /* quitar franja gris de fondo */
+  border-bottom: none;
+  box-sizing: border-box;
+  padding: 8px 16px; /* espacio reducido alrededor de las pestañas */
+  gap: 12px;
+  margin: 0;
+}
+
+/* Tab Buttons */
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  margin: 0;
+  border-radius: 6px; /* botones tipo 'pill' */
+}
+
+/* Estados por defecto - pestañas inactivas */
+.tab-btn:nth-child(1) {
+  background-color: #4a5568;  /* Gris oscuro para inactiva */
+}
+
+.tab-btn:nth-child(2) {
+  background-color: #4a5568;  /* Gris oscuro para inactiva */
+}
+
+.tab-btn:nth-child(3) {
+  background-color: #4a5568;  /* Gris oscuro para inactiva */
+}
+
+/* Estados activos - colores específicos */
+.tab-btn:nth-child(1).active {
+  background-color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.tab-btn:nth-child(2).active {
+  background-color: #28a745;
+  border-bottom-color: #28a745;
+}
+
+.tab-btn:nth-child(3).active {
+  background-color: #ffc107;
+  color: #000;
+  border-bottom-color: #ffc107;
+}
+
+/* Hover effects */
+.tab-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* Tab Content */
+.tab-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.tab-panel {
+  height: 100%;
+}
+
+.tab-panel h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}

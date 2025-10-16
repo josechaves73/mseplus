@@ -1,0 +1,362 @@
+/* Dashboard root container */
+.dashboard-root {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+  padding: 18px 22px;
+  height: calc((100vh - 64px - 60px) * 0.95 + 15px + 70px);
+  max-height: calc((100vh - 64px - 60px) * 0.95 + 15px + 70px);
+  box-sizing: border-box;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Left and right columns */
+.dashboard-left {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.dashboard-right {
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  padding-top: 70px;
+  box-sizing: border-box;
+  position: relative;
+  /* z-index removido para no crear stacking context aislado */
+}
+
+/* Shortcuts card (left panel) */
+.shortcuts-card {
+  flex: 1;
+  box-sizing: border-box;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 14px 40px rgba(2, 6, 23, 0.7);
+  display: flex;
+  flex-direction: column;
+  margin-top: 70px;
+}
+
+.shortcuts-card:not(.glassmorphism-active) {
+  background: linear-gradient(180deg, #021630, #03284a);
+}
+
+.shortcuts-card.glassmorphism-active {
+  position: relative;
+}
+
+.shortcuts-card.glassmorphism-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(2, 22, 48, 0.3);
+  border-radius: 12px;
+  z-index: 1;
+}
+
+.shortcuts-card.glassmorphism-active .shortcuts-header,
+.shortcuts-card.glassmorphism-active .shortcuts-body {
+  position: relative;
+  z-index: 2;
+}
+
+.shortcuts-card.glassmorphism-active .shortcuts-header {
+  background: transparent !important;
+  border-bottom: 2px solid rgba(255, 215, 64, 0.5);
+}
+
+.shortcuts-header {
+  --header-bg-color: #0d4a0d; /* Color por defecto */
+  --header-bg-color-dark: #085208; /* Versión más oscura por defecto */
+  
+  background: linear-gradient(135deg, var(--header-bg-color), var(--header-bg-color-dark));
+  padding: 14px 18px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  border-bottom: 2px solid rgba(255, 215, 64, 0.3);
+  text-align: center;
+}
+
+.shortcuts-header h3 {
+  margin: 0;
+  color: #fffdfa;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.shortcuts-sub {
+  margin: 6px 0 12px;
+  color: #a8c3df;
+  font-size: 13px;
+}
+
+.shortcuts-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  align-content: flex-start;
+  overflow: auto;
+  min-height: 0;
+  padding: 18px;
+}
+
+/* Shortcut buttons - completamente independientes */
+.db-shortcut-btn {
+  --btn-bg-color: #0d4a0d; /* Color por defecto, puede ser sobrescrito por inline style */
+  --btn-hover-color: #1e3a5f; /* Color hover por defecto */
+  
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 8px 14px !important;
+  border-radius: 10px !important;
+  background: var(--btn-bg-color) !important; /* Usa CSS Variable */
+  color: #fff !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(255, 215, 64, 0.06), 0 12px 30px rgba(2, 6, 23, 0.7) !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, text-shadow 0.12s ease;
+  border: 0.5px solid rgba(255, 215, 64, 0.6) !important;
+  text-align: left;
+  flex: 1 !important;
+  min-height: 32px !important;
+  height: auto !important;
+  position: relative;
+  z-index: 1;
+}
+
+.db-shortcut-btn .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 215, 64, 0.56);
+}
+
+.db-shortcut-btn .btn-text {
+  flex: 1;
+  text-align: left;
+}
+
+.db-shortcut-btn:hover {
+  transform: translateY(-4px);
+  background: var(--btn-hover-color) !important; /* Usa CSS Variable para hover */
+  box-shadow: 0 0 0 6px rgba(255, 215, 64, 0.22), 0 24px 70px rgba(255, 215, 64, 0.32), 0 18px 40px rgba(2, 6, 23, 0.7);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.db-shortcut-btn:hover .btn-icon {
+  background: rgba(255, 140, 0, 0.25) !important;
+  border-color: rgba(255, 140, 0, 0.9) !important;
+  box-shadow: 0 0 12px rgba(255, 140, 0, 0.6);
+}
+
+.db-shortcut-btn:hover .btn-icon svg {
+  filter: drop-shadow(0 0 4px rgba(255, 140, 0, 0.8));
+}
+
+.db-shortcut-btn:hover .btn-icon svg path,
+.db-shortcut-btn:hover .btn-icon svg rect,
+.db-shortcut-btn:hover .btn-icon svg circle {
+  stroke: rgba(255, 140, 0, 1) !important;
+  fill: rgba(255, 140, 0, 0.3) !important;
+}
+
+.db-shortcut-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  box-shadow: 0 6px 20px rgba(255, 215, 64, 0.12);
+  opacity: 1;
+  transform: translateZ(0);
+}
+
+.db-shortcut-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 215, 64, 0.12), 0 18px 40px rgba(2, 6, 23, 0.7);
+}
+
+.db-shortcut-btn:active {
+  transform: translateY(0);
+}
+
+.db-shortcut-btn:focus {
+  outline: 3px solid rgba(14, 165, 233, 0.18);
+  box-shadow: 0 22px 48px rgba(2, 6, 23, 0.75);
+}
+
+/* Glassmorphism effect for buttons */
+.db-shortcut-btn.glassmorphism-effect {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 2px solid rgba(255, 215, 64, 0.6) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important, 0 0 20px rgba(255, 215, 64, 0.3) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 2px solid rgba(255, 215, 64, 0.8) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6) !important, 0 0 30px rgba(255, 215, 64, 0.5) !important, 0 0 40px rgba(255, 215, 64, 0.2) !important;
+  transform: translateY(-6px) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect .btn-icon {
+  background: rgba(255, 215, 64, 0.15) !important;
+  border: 1px solid rgba(255, 215, 64, 0.4) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect:hover .btn-icon {
+  background: rgba(255, 215, 64, 0.25) !important;
+  border: 1px solid rgba(255, 215, 64, 0.8) !important;
+  box-shadow: 0 0 15px rgba(255, 215, 64, 0.6) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect .btn-icon {
+  background: rgba(255, 215, 64, 0.15) !important;
+  border: 1px solid rgba(255, 215, 64, 0.4) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect:hover .btn-icon {
+  background: rgba(255, 215, 64, 0.25) !important;
+  border: 1px solid rgba(255, 215, 64, 0.8) !important;
+  box-shadow: 0 0 15px rgba(255, 215, 64, 0.6) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect:hover .btn-icon svg path,
+.db-shortcut-btn.glassmorphism-effect:hover .btn-icon svg rect,
+.db-shortcut-btn.glassmorphism-effect:hover .btn-icon svg circle {
+  stroke: rgba(255, 215, 64, 1) !important;
+  fill: rgba(255, 215, 64, 0.2) !important;
+}
+
+/* Button variations (opcional, si se necesitan en el futuro) */
+.db-shortcut-btn.btn-guardar {
+  background: linear-gradient(135deg, #16a34a, #059669);
+}
+
+.db-shortcut-btn.btn-editar {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}
+
+.db-shortcut-btn.btn-eliminar {
+  background: linear-gradient(135deg, #e85a4f, #c94232);
+}
+
+/* Widget placeholder (right panel) */
+.widget-placeholder {
+  height: calc(100vh - 64px);
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #02182b, #041e36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8fb6d9;
+  font-weight: 700;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(2, 6, 23, 0.7);
+  padding: 0;
+  margin-top: 0;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* No isolation ni z-index para no crear barreras de apilamiento */
+}
+
+.widget-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  border-radius: 9px;
+}
+
+.widget-content-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  width: 350px;
+  max-width: calc(100% - 40px);
+  height: auto;
+  max-height: calc(100% - 40px);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* Scrollbar personalizado para el contenedor de widgets */
+.widget-content-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.widget-content-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.widget-content-container::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.widget-content-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
+
+.widget-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Efecto Glassmorphism para botones */
+.db-shortcut-btn.glassmorphism-effect {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.db-shortcut-btn.glassmorphism-effect:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}

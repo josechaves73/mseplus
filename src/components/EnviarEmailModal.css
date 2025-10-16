@@ -1,0 +1,460 @@
+/* ===== ENVIAR EMAIL MODAL - LAYOUT PRINCIPAL ===== */
+.enviar-email-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 10000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.enviar-email-modal {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid #444;
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+.enviar-email-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #444;
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-radius: 12px 12px 0 0;
+}
+
+.enviar-email-modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.enviar-email-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.enviar-email-modal-close:hover {
+  background-color: #ff4444;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ===== BODY PRINCIPAL ===== */
+.enviar-email-modal-body {
+  padding: 25px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ===== SECCIÓN DE CONFIGURACIÓN ===== */
+.email-config-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.config-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ===== SECCIÓN DE DESTINATARIOS ===== */
+.destinatarios-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== SECCIÓN DE CONTENIDO ===== */
+.contenido-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== GRUPOS DE FORMULARIO ===== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #aaa;
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA SELECT Y OPTIONS ===== */
+.form-group select {
+  cursor: pointer;
+}
+
+.form-group select option {
+  background: #2d2d2d;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+}
+
+.form-group select option:hover {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.form-group select option:checked {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.form-group select option:disabled {
+  background: #1a1a1a;
+  color: #666;
+}
+
+/* Compatibilidad para diferentes navegadores */
+.form-group select::-webkit-scrollbar {
+  width: 8px;
+}
+
+.form-group select::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.form-group select::-webkit-scrollbar-thumb {
+  background: #4CAF50;
+  border-radius: 4px;
+}
+
+.form-group select::-webkit-scrollbar-thumb:hover {
+  background: #45a049;
+}
+
+/* ===== CAMPO PARA CON SELECTOR DE CLIENTE ===== */
+.para-input-container {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.para-input-container input {
+  flex: 1;
+}
+
+.btn-selector-cliente {
+  background: #4CAF50;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  min-width: 50px;
+}
+
+.btn-selector-cliente:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+/* ===== CLIENTE SELECCIONADO ===== */
+.cliente-seleccionado {
+  margin-top: 8px;
+  padding: 10px 15px;
+  background: rgba(76, 175, 80, 0.2);
+  border-radius: 6px;
+  color: #81C784;
+  font-size: 0.9rem;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+/* ===== TEXTAREA ESPECÍFICO ===== */
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+}
+
+/* ===== SELECTOR TEMPORAL ===== */
+.temp-selector-notice {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  z-index: 10001;
+  text-align: center;
+}
+
+.temp-selector-notice button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ===== FOOTER ===== */
+.enviar-email-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-top: 1px solid #444;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0 0 12px 12px;
+}
+
+.footer-left,
+.footer-right {
+  display: flex;
+  gap: 15px;
+}
+
+/* ===== BOTONES ===== */
+.btn-limpiar {
+  background: #FF9800;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-limpiar:hover {
+  background: #F57C00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+}
+
+.btn-cancelar {
+  background: #666;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-cancelar:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+.btn-enviar {
+  background: #4CAF50;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 12px 25px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-enviar:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.btn-enviar:disabled {
+  background: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .enviar-email-modal-overlay {
+    padding: 10px;
+  }
+
+  .enviar-email-modal {
+    max-width: 100%;
+    margin-top: 10px;
+    max-height: 95vh;
+  }
+
+  .enviar-email-modal-header,
+  .enviar-email-modal-body,
+  .enviar-email-modal-footer {
+    padding: 15px;
+  }
+
+  .config-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .para-input-container {
+    flex-direction: column;
+  }
+
+  .footer-left,
+  .footer-right {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .enviar-email-modal-footer {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .enviar-email-modal-title {
+    font-size: 1.3rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-limpiar,
+  .btn-cancelar,
+  .btn-enviar {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+.enviar-email-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.enviar-email-modal::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.enviar-email-modal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.enviar-email-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== ANIMACIONES ===== */
+.enviar-email-modal-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.enviar-email-modal {
+  animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

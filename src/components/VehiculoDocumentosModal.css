@@ -1,0 +1,23 @@
+.veh-docs-overlay{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:1200}
+.veh-docs-modal{background:#071124;color:#e6eef8;border-radius:8px;padding:16px;min-width:680px;max-width:90%;max-height:80%;overflow:auto;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+.veh-docs-modal.larger{min-width:920px; /* ~35% larger than 680px */ max-width:95%; padding:20px}
+.veh-docs-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.veh-docs-header h3{margin:0;font-size:19px} /* +3px */
+.veh-docs-body{font-size:16px} /* +3px */
+.veh-docs-table{width:100%;border-collapse:collapse;margin-top:8px}
+.veh-docs-table th,.veh-docs-table td{border:1px solid #163447;padding:10px;text-align:left} /* padding increased slightly */
+.veh-docs-table th{background:#081827;color:#9fb7d6;font-weight:600}
+/* Estado badge for each document row */
+.doc-estado{display:inline-block;padding:6px 8px;border-radius:6px;font-weight:700;white-space:nowrap}
+.doc-estado.vigente{background:#1b5e20;color:#e8f5e9}
+.doc-estado.por-vencer{background:#ff9800;color:#1b1b17}
+.doc-estado.vencido{background:#c62828;color:#fff}
+.doc-estado.sin-fecha{background:transparent;color:#9fb7d6;border:1px solid rgba(159,183,214,0.06)}
+
+/* Días para vencer */
+.dias-vencer{font-weight:700;color:#cfeee3}
+.dias-vencer.negativo{color:#ffb4b4}
+.close-button{background:transparent;border:none;color:#cce7ff;font-size:20px;cursor:pointer}
+.no-data{padding:12px;color:#9fb7d6}
+.error{color:#ffb4b4}
+@media(max-width:720px){.veh-docs-modal{min-width:320px;padding:10px}.veh-docs-table th,.veh-docs-table td{padding:6px;font-size:12px}}

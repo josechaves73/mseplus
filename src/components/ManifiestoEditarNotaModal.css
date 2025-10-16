@@ -1,0 +1,261 @@
+/* Modal Editar Nota de Manifiesto */
+.manifiesto-editar-nota-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.manifiesto-editar-nota-modal {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 598px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid #444;
+}
+
+.manifiesto-editar-nota-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  border-bottom: 1px solid #444;
+  background-color: #4b063f;
+  border-radius: 12px 12px 0 0;
+}
+
+.manifiesto-editar-nota-modal-title {
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.manifiesto-editar-nota-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.manifiesto-editar-nota-modal-close:hover:not(:disabled) {
+  background-color: #444;
+}
+
+.manifiesto-editar-nota-modal-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.manifiesto-editar-nota-modal-body {
+  padding: 85px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-label {
+  display: block;
+  color: #ffd700 !important;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #493d3d;
+  color: #e2d6d6;
+  font-size: 20px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+}
+
+.form-input.readonly {
+  background-color: #333;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #444;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.form-textarea:focus {
+  border-color: #007bff;
+}
+
+.form-textarea:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.manifiesto-editar-nota-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #444;
+  background-color: #333;
+  border-radius: 0 0 12px 12px;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-cancel {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+.btn-save {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-save:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.btn-cancel:disabled,
+.btn-save:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Modal de mensaje flotante */
+.floating-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.floating-message {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid #444;
+  padding: 16px 24px;
+  min-width: 300px;
+  max-width: 500px;
+  animation: slideIn 0.3s ease-out;
+  pointer-events: auto;
+}
+
+.floating-message.success {
+  border-color: #28a745;
+}
+
+.floating-message.error {
+  border-color: #dc3545;
+}
+
+.floating-message-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.floating-message-icon {
+  font-size: 20px;
+}
+
+.floating-message-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .manifiesto-editar-nota-modal-overlay {
+    padding: 10px;
+  }
+
+  .manifiesto-editar-nota-modal {
+    max-width: 100%;
+  }
+
+  .manifiesto-editar-nota-modal-header,
+  .manifiesto-editar-nota-modal-body,
+  .manifiesto-editar-nota-modal-footer {
+    padding: 16px 20px;
+  }
+
+  .manifiesto-editar-nota-modal-footer {
+    flex-direction: column;
+  }
+
+  .btn-cancel,
+  .btn-save {
+    width: 100%;
+    justify-content: center;
+  }
+}

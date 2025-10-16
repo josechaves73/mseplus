@@ -1,0 +1,1047 @@
+.transportes-docu-modal-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Modal principal - ocupa 100% del espacio disponible */
+.transportes-docu-modal {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: calc(100vh - 64px);
+  background: white;
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Estilos de los botones dentro del placeholder .config-actions (han de estar fuera de otros bloques) */
+.config-actions .btn-nuevo {
+  background: linear-gradient(135deg, #ffedd5, #ffcc9b); /* suave crema-naranja */
+  color: #5b2b00;
+  border: 1px solid rgba(91,43,0,0.06);
+}
+.config-actions .btn-nuevo:hover {
+  background: linear-gradient(135deg, #ffd89a, #ffb86b);
+}
+
+.config-actions .btn-editar {
+  background: linear-gradient(135deg, #dbeafe, #bcdcff); /* azul suave */
+  color: #0b3a66;
+  border: 1px solid rgba(11,58,102,0.06);
+}
+.config-actions .btn-editar:hover {
+  background: linear-gradient(135deg, #9fc9ff, #78b6ff);
+}
+
+.config-actions .btn-eliminar {
+  background: linear-gradient(135deg, #ffe4e6, #ffc1c4); /* rosa suave para peligro */
+  color: #5b0b0b;
+  border: 1px solid rgba(91,11,11,0.06);
+}
+.config-actions .btn-eliminar:hover {
+  background: linear-gradient(135deg, #ffb4b4, #ff8f8f);
+}
+
+.config-actions .btn-actualizar {
+  background: linear-gradient(135deg, #fff7ed, #ffe6b8); /* amarillo suave */
+  color: #6b3d00;
+  border: 1px solid rgba(107,61,0,0.06);
+}
+.config-actions .btn-actualizar:hover {
+  background: linear-gradient(135deg, #ffd580, #ffbd4d);
+}
+
+/* Barra de título - restaurada a rosa oscuro */
+.transportes-docu-header {
+  background: linear-gradient(135deg, #be185d, #ec4899) !important;
+  color: white !important;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(190, 24, 93, 0.3);
+  flex-shrink: 0;
+}
+
+.transportes-docu-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botón de cerrar */
+.close-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Contenedor de pestañas */
+.transportes-docu-tabs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header de pestañas */
+.tabs-header {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  flex-shrink: 0;
+}
+
+/* Botones de pestañas */
+.btn-nuevo {
+  background: linear-gradient(135deg, #16a34a, #059669);
+  color: white;
+}
+
+.btn-editar {
+  background: linear-gradient(135deg, #6b7280, #4b5563); /* gray tones */
+  color: white;
+}
+
+.btn-eliminar {
+  background: linear-gradient(135deg, #e85a4f, #c94232);
+  color: white;
+}
+
+.btn-actualizar {
+  background: linear-gradient(135deg, #c55a00, #8a3e00); /* naranja oscuro */
+  color: white;
+}
+
+.btn-action:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+
+.tabs-header .tab-button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+/* Colores persistentes por pestaña (vehículos, conductores, configurar) */
+.tabs-header .tab-button:nth-child(1) {
+  background: linear-gradient(135deg, #16a34a, #059669) !important; /* verde - Vehículos */
+}
+.tabs-header .tab-button:nth-child(2) {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9) !important; /* morado - Conductores */
+}
+.tabs-header .tab-button:nth-child(3) {
+  background: linear-gradient(135deg, #c55a00, #8a3e00) !important; /* naranja oscuro - Configurar */
+}
+
+/* Estado activo: no cambiar color de fondo, solo enfatizar con sombreado/borde */
+.tab-button.active {
+  outline: 0;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+/* Contenido de pestañas */
+.tabs-content {
+  flex: 1;
+  overflow: auto;
+  background: white;
+}
+
+/* Panel de pestaña */
+.tab-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header del panel */
+.panel-header {
+  background: #4a5568;
+  padding: 12px 24px;
+  border-bottom: 1px solid #2d3748;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-header p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+/* Contenido del panel */
+.panel-content {
+  flex: 1;
+  padding: 24px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Para la pestaña conductores, ajustar fondo y asegurar que el contenedor ocupe todo el alto disponible */
+.tab-panel[data-tab="conductores"] .panel-content {
+  padding: 24px;
+  background: linear-gradient(135deg, #a5d6a7, #81c784);
+  overflow: hidden; /* ✅ Evitar scroll en la pestaña conductores */
+  min-height: 0; /* ✅ Permitir que el contenedor se ajuste correctamente */
+}
+
+/* Contenedor principal de conductores - layout horizontal */
+.conductores-container {
+  display: grid;
+  grid-template-columns: 0.3fr 0.3fr 0.4fr;
+  gap: 16px;
+  flex: 1;
+  height: 88%; /* ✅ Reducir altura en 12% (100% - 12% = 88%) */
+  max-height: 88%; /* ✅ Asegurar que no exceda este límite */
+  padding: 0;
+  align-items: stretch;
+}
+
+/* Placeholder base */
+.conductores-placeholder {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box; /* Include padding/border in height calculations */
+}
+
+/* Placeholder 1: Grid de Choferes (30% izquierda) */
+.choferes-grid {
+  min-width: 0;
+}
+
+/* Placeholder 2: Grid de Documentos (30% centro) */
+.documentos-grid {
+  min-width: 0;
+  font-family: Verdana, sans-serif; /* ✅ Tipo de fuente Verdana */
+  box-sizing: border-box; /* Include padding/border in height calculations */
+}
+
+/* Placeholder 3: Espacio futuro (40% derecha) */
+.future-implementation {
+  min-width: 0;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border: 2px dashed #64748b;
+  display: flex;
+  flex-direction: column; /* stack header above content */
+  justify-content: flex-start; /* align content to top */
+  align-items: center; /* center horizontally */
+  color: #cbd5e1;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 20px 12px 20px; /* slightly reduce bottom padding */
+  /* ✅ Heredar height: 100% de .conductores-placeholder para igualar con los otros placeholders */
+  box-sizing: border-box; /* Make border and padding count inside height */
+}
+
+/* Right placeholder content */
+.future-header h4 {
+  margin: 0 0 12px 0;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.future-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* stack children vertically: details grid first, dates row below */
+  align-items: center;    /* keep horizontal centering */
+  justify-content: flex-start;
+}
+
+.conductor-details {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.conductor-details label {
+  color: #cbd5e1;
+  font-size: 12px;
+  text-align: left;
+}
+
+.conductor-details input[readonly] {
+  background: #0b1220;
+  color: #ffffff;
+  border: 1px solid #243447;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+/* Documento details (right placeholder) */
+.documento-details {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.documento-details label {
+  color: #cbd5e1;
+  font-size: 12px;
+  text-align: left;
+}
+
+.documento-details input[readonly] {
+  background: #0b1220;
+  color: #ffffff;
+  border: 1px solid #243447;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+/* Grid de detalles 2x2 en placeholder derecho */
+.details-grid {
+  display: grid;
+  /* left column smaller, right column larger to give name inputs more horizontal space */
+  grid-template-columns: 1fr 1.8fr;
+  gap: 12px 16px;
+  width: 100%;
+  max-width: 640px; /* increased max width to allow wider inputs */
+}
+
+.detail-cell label {
+  display: block;
+  color: #cbd5e1;
+  font-size: 12px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.detail-cell input[readonly] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #243447;
+  background: #0b1220;
+  color: #ffffff;
+}
+
+/* Give extra horizontal room to the right-column cells (Nombre Conductor / Nombre Documento) */
+.details-grid .detail-cell:nth-child(2),
+.details-grid .detail-cell:nth-child(4) {
+  min-width: 260px;
+}
+
+/* Dates row under details */
+.dates-row {
+  display: flex;
+  flex-direction: column; /* stack Fecha Emisión above Fecha Vencimiento */
+  gap: 12px; /* vertical gap between dates */
+  width: 100%;
+  max-width: 640px; /* match details-grid max-width for visual alignment */
+  margin-top: 12px; /* push Fecha Emisión down ~12px from the details grid */
+}
+
+.date-cell label {
+  display: block;
+  color: #cbd5e1;
+  font-size: 12px;
+  margin-bottom: 6px;
+  text-align: left; /* ensure label aligns to the left edge */
+}
+
+.date-cell input[type="date"] {
+  /* Alineación y tamaño consistente: alineado a la izquierda dentro del container
+     y con un ancho fijo para evitar asimetrías. */
+  width: 40%;
+  max-width: 260px;
+  display: block; /* block + margin-left:0 para alinearse con la etiqueta */
+  margin-left: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #243447;
+  background: #0b1220;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* Asegurar que el contenedor de cada date-cell ocupe todo el ancho disponible
+   y que el campo de fecha quede alineado al lado izquierdo para simetría */
+.date-cell {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* important: keep label+input left-aligned */
+}
+
+/* Evitar que el textarea de notas sea redimensionable manualmente */
+.notes-row textarea {
+  resize: none;
+}
+
+/* Flash modal global styles */
+.flash-modal-overlay {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  align-items: center; /* center vertically */
+  justify-content: center; /* center horizontally */
+  background: rgba(0,0,0,0.25); /* subtle backdrop to make modal prominent */
+  pointer-events: auto; /* block interactions behind the modal (modal-like) */
+  padding: 16px;
+  z-index: 9999;
+}
+.flash-modal {
+  pointer-events: auto;
+  background: rgba(20,20,20,0.95);
+  color: white;
+  padding: 14px 18px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  font-weight: 600;
+  max-width: 520px;
+  width: min(92%, 520px);
+  text-align: center;
+}
+.flash-modal.success { background: #16a34a; }
+.flash-modal.error { background: #ef4444; }
+
+/* Estilos para alertas/modales grandes */
+.flash-modal.alert,
+.flash-modal.confirm {
+  background: linear-gradient(180deg,#1f2937,#111827);
+  color: #fff;
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 18px 48px rgba(2,6,23,0.6);
+  font-weight: 700;
+  max-width: 760px; /* más grande */
+  width: 60vw; /* 50% más grande que ~40vw */
+  min-width: 480px;
+}
+
+.flash-modal.alert .modal-title,
+.flash-modal.confirm .modal-title {
+  font-size: 20px; /* base +5px */
+  margin-bottom: 12px;
+  color: #fffdfa;
+}
+
+.flash-modal.alert .modal-body,
+.flash-modal.confirm .modal-body {
+  font-size: 17px; /* base +5px */
+  margin-bottom: 18px;
+  color: #d1d5db;
+}
+
+.flash-modal.confirm .modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.flash-modal .btn-action {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.28);
+}
+
+.flash-modal .btn-eliminar {
+  background: linear-gradient(135deg,#ff7a7a,#ff4d4d);
+  color: #fff;
+  border: none;
+}
+
+.flash-modal .btn-editar {
+  background: linear-gradient(135deg,#93c5fd,#60a5fa);
+  color: #042c54;
+  border: none;
+}
+
+/* Normalizar altura de inputs en el panel derecho para evitar solapamientos
+   Se usa una altura fija práctica que mantiene simetría con los inputs de la izquierda */
+:root {
+  --detail-input-height: 40px; /* base practical */
+}
+
+/* Todos los inputs del details-grid usarán esta altura y box-sizing */
+.details-grid .detail-cell input[readonly],
+.input-small,
+.input-large {
+  height: var(--detail-input-height) !important;
+  box-sizing: border-box;
+  line-height: 20px;
+  padding: 8px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.empty-placeholder p {
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Headers de placeholders */
+.choferes-grid h4,
+.documentos-grid h4 {
+  margin: 0;
+  padding: 12px 16px;
+  background: #4a5568;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  flex-shrink: 0; /* Evita que se comprima */
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  padding: 12px 16px 8px 16px;
+  flex-shrink: 0; /* Evita que se comprima */
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #374151;
+  color: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #be185d;
+  box-shadow: 0 0 0 3px rgba(190, 24, 93, 0.1);
+  background: #4b5563;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Contenido de grids */
+.choferes-grid-content,
+.documentos-grid-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0; /* Permite que el contenido se ajuste */
+}
+
+/* Headers de grid en conductores */
+.choferes-grid-content .grid-header,
+.documentos-grid-content .grid-header {
+  background: #000000; /* ✅ Fondo negro para headers */
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.choferes-grid-content .grid-header .grid-col,
+.documentos-grid-content .grid-header .grid-col {
+  padding: 10px 16px;
+  font-weight: 600;
+  color: #ffffff; /* ✅ Texto blanco sobre fondo negro */
+  font-size: 13px;
+  text-align: left;
+  border-right: 1px solid #e2e8f0;
+  white-space: nowrap; /* ✅ Texto en una sola línea */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.choferes-grid-content .grid-header .grid-col:last-child,
+.documentos-grid-content .grid-header .grid-col:last-child {
+  border-right: none;
+}
+
+/* Body de grid en conductores */
+.choferes-grid-content .grid-body,
+.documentos-grid-content .grid-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.choferes-grid-content .grid-row,
+.documentos-grid-content .grid-row {
+  display: flex;
+  border-bottom: 1px solid #1e40af;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: #1e40af;
+}
+
+.choferes-grid-content .grid-row:hover,
+.documentos-grid-content .grid-row:hover {
+  background: #1f2937;
+}
+
+.choferes-grid-content .grid-row.selected,
+.documentos-grid-content .grid-row.selected {
+  background: #374151;
+  border-left: 4px solid #fbbf24;
+}
+
+.choferes-grid-content .grid-row .grid-col,
+.documentos-grid-content .grid-row .grid-col {
+  padding: 10px 16px;
+  color: #ffffff;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-right: 1px solid #1e40af;
+}
+
+.choferes-grid-content .grid-row .grid-col:last-child,
+.documentos-grid-content .grid-row .grid-col:last-child {
+  border-right: none;
+}
+
+/* Vehiculos grid specific styles */
+.vehiculos-grid h4 {
+  margin: 0;
+  padding: 12px 16px;
+  background: linear-gradient(135deg,#0b2540,#12263a); /* dark blue header */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.vehiculos-grid .vehiculos-grid-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.vehiculos-grid .grid-header {
+  display: flex;
+  background: #071633; /* darker blue */
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.vehiculos-grid .grid-header .grid-col {
+  padding: 10px 12px;
+  font-weight: 700;
+  color: #cfe8ff;
+  font-size: 13px;
+}
+
+.vehiculos-grid .grid-body {
+  overflow-y: auto;
+}
+
+.vehiculos-grid .grid-row {
+  display: flex;
+  border-bottom: 1px dashed rgba(255,255,255,0.02);
+  background: linear-gradient(180deg,#112b4a,#0d243f); /* dark blue band */
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.vehiculos-grid .grid-row:hover {
+  background: linear-gradient(180deg,#133050,#0f2b45);
+}
+
+.vehiculos-grid .grid-row.selected {
+  background: linear-gradient(180deg,#073a21,#06321b); /* dark green */
+  border-left: 4px solid #16a34a;
+}
+
+.vehiculos-grid .grid-col { padding: 12px 16px; color: #e6f3ff; }
+.col-placa { flex: 0 0 120px; }
+.col-marca { flex: 1; }
+
+/* When in the Vehículos tab, use a dark green theme for the central documentos grid */
+.tab-panel[data-tab="vehiculos"] .documentos-grid-content {
+  background: linear-gradient(180deg,#082b1d,#062417); /* dark green background */
+  border-radius: 6px;
+  padding: 0;
+}
+
+.tab-panel[data-tab="vehiculos"] .documentos-grid-content .grid-header {
+  background: linear-gradient(180deg,#0b3b23,#08321a);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.tab-panel[data-tab="vehiculos"] .documentos-grid-content .grid-row {
+  background: linear-gradient(180deg,#0a3520,#082a1a);
+  border-bottom: 1px dashed rgba(255,255,255,0.02);
+}
+
+.tab-panel[data-tab="vehiculos"] .documentos-grid-content .grid-row:hover {
+  background: linear-gradient(180deg,#0d4b2b,#0b3f23);
+}
+
+.tab-panel[data-tab="vehiculos"] .documentos-grid-content .grid-row.selected {
+  background: linear-gradient(180deg,#06421b,#05361a);
+  border-left: 4px solid #22c55e;
+}
+
+/* ✅ Estilos específicos para el placeholder central (documentos) */
+.documentos-grid-content .grid-row .grid-col {
+  font-size: 15px; /* ✅ Aumentar 2px (de 13px a 15px) */
+  font-family: Verdana, sans-serif; /* ✅ Tipo de fuente Verdana */
+}
+
+/* Columnas específicas */
+.col-nombre {
+  flex: 1;
+}
+
+.col-documento {
+  flex: 1;
+}
+
+/* Mensajes de loading y error en conductores */
+.choferes-grid .loading-message,
+.choferes-grid .error-message,
+.documentos-grid .loading-message,
+.documentos-grid .error-message {
+  padding: 20px 16px;
+  text-align: center;
+  color: #64748b;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choferes-grid .error-message,
+.documentos-grid .error-message {
+  color: #dc2626;
+}
+
+/* No data message en conductores */
+.choferes-grid .no-data,
+.documentos-grid .no-data {
+  padding: 20px 16px;
+  text-align: center;
+  color: #9ca3af;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========================================
+   ESTILOS PARA PESTAÑA CONFIGURAR
+   ======================================== */
+
+/* Contenedor principal de configuración - layout horizontal */
+.config-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Grid de configuraciones - lado izquierdo */
+.config-grid-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* Reduce height by 8% relative to parent to make placeholders slightly smaller */
+  height: calc(100% - 8%);
+  max-height: calc(100% - 8%);
+  box-sizing: border-box;
+}
+
+.config-grid-container h4 {
+  margin: 0;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #c55a00, #f57c00); /* naranja oscuro a naranja */
+  color: #fffdfa;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Ajuste de altura del grid: único bloque definitivo (usar 85%) */
+.docu-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Altura fija relativa al contenedor para evitar que el grid expanda el layout */
+  height: 85%;
+  max-height: 85%;
+  box-sizing: border-box;
+}
+
+/* Asegurar que el cuerpo del grid use todo el espacio disponible y tenga scroll vertical */
+.docu-grid .grid-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100%;
+}
+
+.docu-grid .grid-header {
+  display: flex;
+  background: linear-gradient(135deg,#8a3e00,#c55a00); /* naranja oscuro header */
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+.docu-grid .grid-header .grid-col {
+  padding: 12px 16px;
+  font-weight: 700; /* bold */
+  color: #ffffff; /* white text */
+  font-size: 15px; /* +2px */
+  text-align: left;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(135deg,#4a0000,#7a0000); /* rojo oscuro por columna */
+}
+
+.docu-grid .grid-header .grid-col:last-child {
+  border-right: none;
+}
+
+.docu-grid .grid-body {
+  flex: 1 1 auto;
+  overflow-y: auto; /* always show vertical scroll when content exceeds area */
+  overflow-x: hidden;
+  background: linear-gradient(180deg,#7a3000,#a44b00); /* naranja oscuro fondo del grid */
+  max-height: 100%; /* constrain to parent .docu-grid height */
+}
+
+.docu-grid .grid-row {
+  display: flex;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: background-color 0.16s ease, transform 0.12s ease;
+  background: transparent; /* show orange background */
+}
+
+.docu-grid .grid-row:hover {
+  background: rgba(255,255,255,0.04);
+  transform: translateX(2px);
+}
+
+.docu-grid .grid-row.selected {
+  background: rgba(0,0,0,0.08);
+  border-left: 4px solid #fffdfa; /* light border for contrast */
+}
+
+.docu-grid .grid-row .grid-col {
+  padding: 12px 16px;
+  color: #ffffff; /* white text */
+  font-size: 15px; /* +2px */
+  font-weight: 700; /* bold */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,0.03);
+}
+
+.docu-grid .grid-row .grid-col:last-child {
+  border-right: none;
+}
+
+/* Columnas específicas del grid configurar */
+.col-aplica {
+  flex: 0 0 140px;
+}
+
+.col-documento {
+  flex: 1;
+  min-width: 200px;
+}
+
+.col-nota {
+  flex: 1;
+  min-width: 200px;
+}
+
+.col-autoridad {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Badge para aplica_a */
+.aplica-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.aplica-badge.vehiculo {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.aplica-badge.conductor {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+/* Mensajes de estado en configurar */
+.loading-message,
+.error-message {
+  padding: 40px 20px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-message p {
+  color: #64748b;
+  font-size: 16px;
+}
+
+.error-message p {
+  color: #dc2626;
+  font-size: 16px;
+}
+
+.no-data {
+  padding: 40px 20px;
+  text-align: center;
+  color: #64748b;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-data p {
+  font-size: 16px;
+}
+
+/* Zona de botones de acción - lado derecho */
+.config-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 18px;
+  /* Cambiado a paleta naranja coherente con docu-grid */
+  background: linear-gradient(135deg, #fbe7d0, #ffd9b8);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(163, 78, 11, 0.08);
+  min-width: 220px; /* slightly wider for symmetry */
+  /* Reduce height by 8% to match grid placeholder size */
+  height: calc(100% - 8%);
+  max-height: calc(100% - 8%);
+  box-sizing: border-box;
+  border: 1px solid rgba(165, 78, 11, 0.08);
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.btn-action {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-action:active {
+  transform: translateY(0);
+}
+.btn-action {
+  padding: 10px 14px; /* symmetric padding */
+  height: 44px; /* fixed height for symmetry */
+  border-radius: 8px;
+  font-weight: 700;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  display: inline-flex;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.btn-action:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+.btn-action:active { transform: translateY(0); }
+
+.btn-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Los estilos específicos de los botones dentro de .config-actions se han definido más arriba
+  para mantener contraste sobre el fondo naranja. Evitamos duplicados aquí. */
+
+/* fin de archivo CSS */

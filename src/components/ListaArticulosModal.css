@@ -1,0 +1,931 @@
+.lista-articulos-modal-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.lista-articulos-modal {
+  background-color: #333; /* Gris oscuro */
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lista-articulos-modal-header {
+  background-color: #0f3a6b; /* Azul oscuro */
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.lista-articulos-modal-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Header sizing scoped to this modal: ensure both filter/header rows and thead use 18px */
+#lista-articulos-modal-root .filter-row th,
+#lista-articulos-modal-root .header-row th,
+#lista-articulos-modal-root .articulos-table thead th,
+#lista-articulos-modal-root .articulos-table-header th,
+#lista-articulos-modal-root .articulos-table thead th * {
+  font-size: 18px !important;
+  line-height: 1.1 !important;
+  padding: 6px 6px !important;
+  white-space: nowrap;
+}
+
+/* Reduce title size slightly if it competes visually */
+.lista-articulos-modal-title { font-size: 20px }
+
+/* High-specificity scoping for table styles to avoid leakage from other modals */
+#lista-articulos-modal-root .articulos-table,
+#lista-articulos-modal-root .articulos-table table,
+#lista-articulos-modal-root .articulos-table td,
+#lista-articulos-modal-root .articulos-table th,
+#lista-articulos-modal-root .articulos-table tbody tr,
+#lista-articulos-modal-root .articulos-table tbody tr:hover,
+#lista-articulos-modal-root .articulos-table tbody tr.selected {
+  /* Ensure local defaults for table appearance inside this modal */
+  color: #fff;
+  background: transparent;
+}
+
+#lista-articulos-modal-root .articulos-table td,
+#lista-articulos-modal-root .articulos-table th {
+  font-size: 14px;
+  padding: 10px 8px;
+  border-bottom: 1px solid #555;
+}
+
+#lista-articulos-modal-root .articulos-table thead th {
+  background-color: #0f3a6b;
+  color: #fff;
+}
+
+.lista-articulos-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.lista-articulos-modal-close:hover {
+  background-color: #444;
+}
+
+.lista-articulos-modal-body {
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  padding: 16px 20px;
+  border-bottom: 1px solid #444;
+  background-color: #333;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #444;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+
+.column-filter-select {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.column-filter-select:focus {
+  border-color: #007bff;
+}
+
+.column-filter-select option {
+  background-color: #444;
+  color: #fff;
+}
+
+.filter-row th {
+  padding: 4px 8px;
+  border-bottom: 1px solid #555;
+}
+
+/* Asegurar que ambos headers (filtros y columnas) usen 18px */
+#lista-articulos-modal-root .filter-row th,
+#lista-articulos-modal-root .header-row th {
+  font-size: 18px !important;
+  padding: 6px 8px !important;
+  line-height: 1.1 !important;
+}
+
+.filter-row .filter-col-codigo,
+.filter-row .filter-col-descripcion,
+.filter-row .filter-col-categoria,
+.filter-row .filter-col-tipo {
+  background-color: #222;
+}
+
+.header-row th {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 2px solid #555;
+  font-weight: 600;
+  color: #fff;
+  background-color: #222;
+}
+
+.articulos-table-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px 10px 20px;
+}
+
+.articulos-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
+  border: 1px solid #fff;
+  outline: none;
+}
+
+.articulos-table-header {
+  position: sticky;
+  top: 0;
+  background-color: #0f3a6b; /* Azul oscuro */
+  z-index: 10;
+}
+
+.articulos-table-header th {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 2px solid #555;
+  font-weight: 600;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* Header sizing and column adjustments scoped to this modal via id */
+#lista-articulos-modal-root .filter-row th,
+#lista-articulos-modal-root .header-row th,
+#lista-articulos-modal-root .articulos-table thead th,
+#lista-articulos-modal-root .articulos-table-header th {
+  font-size: 18px !important;
+  line-height: 1.1 !important;
+  padding: 6px 8px !important;
+  white-space: nowrap;
+}
+
+#lista-articulos-modal-root .articulos-table td:nth-child(2),
+#lista-articulos-modal-root .articulos-table th:nth-child(2) {
+  width: 40%;
+  max-width: 40%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#lista-articulos-modal-root .articulos-table th {
+  font-size: 18px;
+}
+
+/* Ensure table headers use dark-blue background in this modal */
+#lista-articulos-modal-root .articulos-table thead th,
+#lista-articulos-modal-root .articulos-table-header thead th {
+  background-color: #0f3a6b;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* Force table cell font-size to a reasonable value to avoid oversized text */
+.lista-articulos-modal .articulos-table td,
+.lista-articulos-modal .articulos-table td * {
+  font-size: 14px;
+}
+
+.articulos-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.articulos-table tbody tr:hover {
+  background-color: #444;
+}
+
+.articulos-table tbody tr.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.articulos-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #555;
+}
+
+/* Force-correct styles to avoid unexpected yellow overrides from other styles */
+.articulos-table tbody tr {
+  background-color: transparent !important;
+  color: #fff !important;
+}
+.articulos-table tbody tr:hover {
+  background-color: #444 !important;
+}
+.articulos-table tbody tr.selected {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+
+/* Scope: asegurar que cambios no afecten otros modales -> usar id #lista-articulos-modal-root */
+#lista-articulos-modal-root.lista-articulos-modal {
+  position: relative; /* crear contexto para posicionar elementos absolutos */
+}
+
+/* Colocar los botones de acción en la esquina superior derecha (específico a este modal) */
+#lista-articulos-modal-root .action-buttons {
+  /* Volver al flujo: sidebar derecho dentro de content-wrapper */
+  position: relative; /* dentro del flujo */
+  align-self: flex-start; /* alineado al tope del contenido */
+  width: 180px; /* ancho fijo de la barra lateral */
+  flex: 0 0 180px; /* no crecer ni encoger */
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #2b2b2b; /* mantener look de container gris oscuro */
+  border-left: 1px solid rgba(255,255,255,0.03);
+  box-shadow: none;
+  margin-left: 12px;
+  z-index: 2;
+}
+
+/* Ajuste de botones (específico) para mantener apariencia pero evitar afectar globales */
+#lista-articulos-modal-root .action-buttons .action-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+/* Responsive: en pantallas estrechas volvemos a un layout en columna pegado al bottom para evitar solapamiento */
+@media (max-width: 720px) {
+  #lista-articulos-modal-root .action-buttons {
+    position: static; /* volver al flujo normal */
+    width: 100%;
+    padding: 10px 16px;
+    flex-direction: row; /* horizontal en móvil si cabe */
+    justify-content: space-between;
+    gap: 8px;
+    margin-left: 0;
+    background: transparent;
+  }
+}
+
+.action-buttons {
+  width: 180px;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-btn.nuevo {
+  background-color: #28a745;
+}
+
+.action-btn.nuevo:hover {
+  background-color: #218838;
+}
+
+.action-btn.editar {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.action-btn.editar:hover {
+  background-color: #e0a800;
+}
+
+.action-btn.exportar {
+  background-color: #17a2b8;
+}
+
+.action-btn.exportar:hover {
+  background-color: #138496;
+}
+
+
+.action-btn.eliminar {
+  background-color: #dc3545;
+}
+
+.action-btn.actualizar {
+  background-color: #e040fb;
+  color: #fff;
+}
+.action-btn.actualizar:hover {
+  background-color: #ad1fa3;
+}
+
+.action-btn.trazabilidad {
+  background-color: #7c3aed; /* Púrpura */
+}
+
+.action-btn.trazabilidad:hover {
+  background-color: #6d28d9; /* Púrpura más oscuro para hover */
+}
+
+.action-btn.eliminar:hover {
+  background-color: #c82333;
+}
+
+.unidad-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unidad-filter-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 5px;
+  padding: 2px;
+}
+
+.unidad-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  border: 1px solid #555;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.unidad-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #fff;
+  border-bottom: 1px solid #555;
+}
+
+.unidad-option:hover {
+  background-color: #555;
+}
+
+.filter-indicator {
+  color: #007bff;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* Modal de Exportación */
+.export-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.export-modal {
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.export-modal-header {
+  background-color: #222;
+  padding: 20px;
+  border-bottom: 1px solid #555;
+}
+
+.export-modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.export-modal-body {
+  padding: 20px;
+}
+
+.export-modal-body p {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #ccc;
+}
+
+.export-info {
+  background-color: #444;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #007bff;
+}
+
+.export-modal-footer {
+  padding: 20px;
+  border-top: 1px solid #555;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.export-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.export-btn.export-excel {
+  background-color: #28a745;
+  color: #fff;
+  width: 100%;
+}
+
+.export-btn.export-excel:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+.export-modal-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.export-btn.export-accept {
+  background-color: #007bff;
+  color: #fff;
+  flex: 1;
+}
+
+.export-btn.export-accept:hover {
+  background-color: #0056b3;
+}
+
+.export-btn.export-cancel {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 12px 30px;
+}
+
+.export-btn.export-cancel:hover {
+  background-color: #c82333;
+}
+
+.familia-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.familia-filter-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 5px;
+  padding: 2px;
+}
+
+.familia-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  border: 1px solid #555;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.familia-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #fff;
+  border-bottom: 1px solid #555;
+}
+
+.familia-option:hover {
+  background-color: #555;
+}
+
+/* Estilos para el modal de eliminación */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.delete-modal {
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 600px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.delete-modal-header {
+  background-color: #dc3545;
+  padding: 20px;
+  border-bottom: 1px solid #555;
+}
+
+.delete-modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.delete-modal-body {
+  padding: 20px;
+}
+
+.delete-article-info {
+  background-color: #444;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.delete-article-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.delete-status {
+  margin-bottom: 20px;
+}
+
+.delete-message {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.delete-message.checking {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.delete-message.allowed {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.delete-message.denied {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.related-tables {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.related-tables strong {
+  color: #fff;
+}
+
+.related-tables ul {
+  margin: 10px 0 0 0;
+  padding-left: 20px;
+}
+
+.related-tables li {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.delete-modal-footer {
+  padding: 20px;
+  border-top: 1px solid #555;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.delete-btn.check-relations {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.delete-btn.check-relations:hover {
+  background-color: #e0a800;
+}
+
+.delete-btn.confirm-delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.delete-btn.confirm-delete:hover {
+  background-color: #c82333;
+}
+
+.delete-btn.cancel {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.delete-btn.cancel:hover {
+  background-color: #545b62;
+}
+
+.delete-btn.close {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.delete-btn.close:hover {
+  background-color: #218838;
+}
+
+/* Estilos para el modal de cambiar código */
+.cambiar-codigo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.cambiar-codigo-modal {
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.cambiar-codigo-modal-header {
+  background-color: #0f3a6b;
+  padding: 20px;
+  border-bottom: 1px solid #555;
+}
+
+.cambiar-codigo-modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cambiar-codigo-modal-body {
+  padding: 20px;
+}
+
+.cambiar-codigo-article-info {
+  background-color: #444;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.cambiar-codigo-article-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.cambiar-codigo-form {
+  margin-bottom: 20px;
+}
+
+.cambiar-codigo-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #ccc;
+}
+
+.cambiar-codigo-input {
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+}
+
+.cambiar-codigo-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.cambiar-codigo-modal-footer {
+  padding: 20px;
+  border-top: 1px solid #555;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.cambiar-codigo-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cambiar-codigo-btn.apply {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.cambiar-codigo-btn.apply:hover {
+  background-color: #218838;
+}
+
+.cambiar-codigo-btn.cancel {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.cambiar-codigo-btn.cancel:hover {
+  background-color: #545b62;
+}
+
+.cambiar-codigo-result {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.cambiar-codigo-result.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.cambiar-codigo-result.success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.tablas-afectadas {
+  margin-top: 10px;
+}
+
+.tablas-afectadas strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.tablas-afectadas ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tablas-afectadas li {
+  margin: 2px 0;
+}

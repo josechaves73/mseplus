@@ -1,0 +1,171 @@
+.reporte-boletas-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.reporte-boletas-modal {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  max-width: none; /* full width like ListaArticulos */
+  height: 100%; /* full height inside overlay */
+  display: flex;
+  flex-direction: column;
+  border-radius: 0; /* match ListaArticulos modal */
+  overflow: hidden;
+}
+.reporte-boletas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #6b176b;
+}
+.reporte-boletas-header h2 { margin: 0; }
+.reporte-boletas-header .close-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer }
+.reporte-boletas-filters { padding: 12px 16px; background: #2b2b2b; border-bottom: 1px solid #444; }
+.reporte-boletas-filters .filter-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
+.reporte-boletas-filters label { font-size: 13px; color: #ddd }
+.reporte-boletas-filters input, .reporte-boletas-filters select { padding: 6px 8px; border-radius: 4px; border: 1px solid #555; background: #444; color: #fff }
+.reporte-boletas-filters .filter-row input[type="date"] { margin-left: 5px; }
+.apply-btn { background: #007bff; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer }
+.reporte-boletas-body { padding: 12px 16px; overflow: auto; flex: 1; display: flex; flex-direction: column }
+
+/* Make modal layout consistent with ListaBoletas modal size and sidebar behavior */
+.reporte-boletas-modal #reporte-boletas-root, .reporte-boletas-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.reporte-boletas-modal .content-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 1 auto; /* take remaining space */
+  overflow: hidden;
+}
+
+/* Scoped to ID root to avoid conflicts and ensure same behavior as ListaBoletas */
+#reporte-boletas-modal-root {
+  display: flex;
+  flex-direction: column;
+}
+
+#reporte-boletas-modal-root .content-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Sidebar action-buttons similar to ListaArticulos (scoped to root id to avoid leakage) */
+#reporte-boletas-modal-root .action-buttons,
+.reporte-boletas-modal .action-buttons {
+  position: relative;
+  align-self: flex-start;
+  width: 180px;
+  flex: 0 0 180px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #2b2b2b;
+  border-left: 1px solid rgba(255,255,255,0.03);
+  box-shadow: none;
+  margin-left: 12px;
+  z-index: 2;
+}
+
+/* Ensure the sidebar is forced to the top and doesn't get pushed down */
+#reporte-boletas-modal-root .action-buttons {
+  order: 0 !important;
+  margin-top: 0 !important;
+  align-self: flex-start !important;
+}
+
+/* Strong override block: prevent other global .action-buttons rules from affecting this modal */
+#reporte-boletas-modal-root .action-buttons {
+  position: relative !important;
+  width: 180px !important;
+  flex: 0 0 180px !important;
+  padding: 12px 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  background: #2b2b2b !important;
+  border-left: 1px solid rgba(255,255,255,0.03) !important;
+  box-shadow: none !important;
+  margin-left: 12px !important;
+  z-index: 9999 !important;
+}
+
+#reporte-boletas-modal-root .action-buttons > * { margin-top: 0 !important }
+
+#reporte-boletas-modal-root .content-wrapper { display: flex !important; flex-direction: row !important; align-items: flex-start !important; height: 100% !important; }
+
+#reporte-boletas-modal-root .reporte-table-container { flex: 1 1 auto !important; overflow-y: auto !important; height: 100% !important; }
+
+.reporte-boletas-modal .action-buttons > * { margin-top: 0 !important }
+
+/* Ensure modal body and table container fill vertical space like ListaArticulos */
+.reporte-boletas-body { flex: 1 1 auto; display: flex; flex-direction: column; overflow: hidden }
+.reporte-boletas-body .reporte-table-container { flex: 1 1 auto; overflow-y: auto; }
+
+/* Match ListaArticulos overlay/modal exact sizing rules */
+.reporte-boletas-overlay { top: 64px; height: calc(100vh - 64px); }
+.reporte-boletas-modal { height: 100%; }
+
+/* Align header sizing to match ListaArticulos */
+#reporte-boletas-modal-root .reporte-boletas-header, #reporte-boletas-modal-root .reporte-boletas-filters { padding: 16px 20px }
+
+/* Responsive behavior: same as ListaArticulos */
+@media (max-width: 720px) {
+  #reporte-boletas-modal-root .action-buttons {
+    position: static;
+    width: 100%;
+    padding: 10px 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    margin-left: 0;
+    background: transparent;
+  }
+}
+
+/* Button adjustments inside sidebar */
+.reporte-boletas-modal .action-buttons .action-btn { padding: 8px 12px; font-size: 13px }
+
+@media (max-width: 720px) {
+  .reporte-boletas-modal .action-buttons {
+    position: static;
+    width: 100%;
+    padding: 10px 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    margin-left: 0;
+    background: transparent;
+  }
+}
+
+/* Table container: occupy remaining space and allow scroll */
+#reporte-boletas-modal-root .reporte-table-container {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.reporte-boletas-body .actions { display:flex; gap:8px; margin-bottom:8px }
+.reporte-boletas-body .action { background:#17a2b8; color:#fff; border:none; padding:8px 10px; border-radius:4px; cursor:pointer }
+.reporte-table { width:100%; border-collapse: collapse; background:#222 }
+.reporte-table th, .reporte-table td { padding:8px; border:1px solid #444; font-size:14px }
+.reporte-table th { background:#2b2b2b }
+.reporte-table tbody tr:hover { background:#3a3a3a }
+.footer { padding:8px 0; color:#ccc }

@@ -1,0 +1,151 @@
+/* Reloj Analógico con Estilo Glassmorphism */
+.reloj-analogico-container {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+}
+
+.reloj-analogico {
+  width: 132px;
+  height: 132px;
+  /* background definido dinámicamente por JavaScript */
+  /* backdrop-filter definido dinámicamente por JavaScript */
+  /* border definido dinámicamente por JavaScript */
+  border-radius: 50%;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.reloj-analogico:hover {
+  /* background definido dinámicamente, no sobreescribir */
+  transform: scale(1.05);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.clock-face {
+  width: 100%;
+  height: 100%;
+}
+
+.clock-circle {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 1;
+}
+
+.clock-number {
+  fill: var(--clock-color, rgba(255, 255, 255, 0.9));
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.clock-hour-mark {
+  stroke: var(--clock-color, rgba(255, 255, 255, 0.6));
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.clock-minute-mark {
+  stroke: var(--clock-color, rgba(255, 255, 255, 0.3));
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.clock-center {
+  fill: var(--clock-color, rgba(255, 255, 255, 0.8));
+  stroke: var(--clock-color, rgba(255, 255, 255, 0.5));
+  stroke-width: 1;
+}
+
+.clock-hand {
+  stroke-linecap: round;
+  transform-origin: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clock-hour-hand {
+  stroke: var(--clock-color, rgba(255, 255, 255, 0.9));
+  stroke-width: 3;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.clock-minute-hand {
+  stroke: var(--clock-color, rgba(255, 255, 255, 0.9));
+  stroke-width: 2;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.clock-second-hand {
+  stroke: #ff6b6b;
+  stroke-width: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Animación sutil para el efecto de vidrio */
+@keyframes glass-shimmer {
+  0% { background: rgba(255, 255, 255, 0.1); }
+  50% { background: rgba(255, 255, 255, 0.15); }
+  100% { background: rgba(255, 255, 255, 0.1); }
+}
+
+.reloj-analogico {
+  animation: glass-shimmer 4s ease-in-out infinite;
+}
+
+/* Fecha debajo del reloj */
+.reloj-fecha {
+  margin-top: 10px;
+  margin-left: -7px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reloj-analogico-container {
+    bottom: 15px;
+    left: 15px;
+  }
+
+  .reloj-analogico {
+    width: 110px;
+    height: 110px;
+  }
+
+  .clock-number {
+    font-size: 8px;
+  }
+
+  .reloj-fecha {
+    font-size: 10px;
+    max-width: 120px;
+    padding: 3px 6px;
+  }
+}

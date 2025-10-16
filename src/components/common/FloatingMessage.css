@@ -1,0 +1,146 @@
+﻿/* Floating Message Component - Matching MensajeModal design */
+.floating-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999 !important;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.floating-message {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideIn 0.3s ease-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  max-width: 465px;
+  width: 90%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.floating-message.show {
+  opacity: 1;
+}
+
+/* Header - Barra azul */
+.floating-message-header {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: white;
+  padding: 24px 32px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.floating-message-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.floating-message-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+/* Body - Blanco con letras negras centradas */
+.floating-message-body {
+  padding: 24px 32px;
+  flex: 1;
+  overflow-y: auto;
+  background-color: #ffffff;
+  color: #111827;
+  text-align: center;
+}
+
+.floating-message-body p {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111827 !important;
+}
+
+.floating-message-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.floating-message-actions {
+  padding: 24px 32px;
+  background-color: #ffffff;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* Botón ACEPTAR verde como en MensajeModal */
+.floating-message-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.floating-message-btn:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+/* All types use the same blue header */
+.floating-message.success .floating-message-header,
+.floating-message.error .floating-message-header,
+.floating-message.warning .floating-message-header,
+.floating-message.info .floating-message-header {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

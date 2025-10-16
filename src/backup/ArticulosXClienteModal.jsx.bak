@@ -1,0 +1,74 @@
+// Backup of ArticulosXClienteModal.jsx
+
+import React, { useState } from 'react';
+import './ArticulosXClienteModal.css';
+
+const ArticulosXClienteModal = ({ isOpen, onClose }) => {
+  const [activeTab, setActiveTab] = useState('clientes');
+
+  if (!isOpen) return null;
+
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        {/* Barra de título con botón cerrar */}
+        <div className="modal-header">
+          <h2 className="modal-title">Artículos por Cliente</h2>
+          <button className="close-btn" onClick={onClose}>×</button>
+        </div>
+
+        {/* Tres pestañas con diferentes colores */}
+        <div className="tabs-container">
+          <button 
+            className={`tab-btn ${activeTab === 'clientes' ? 'active' : ''}`}
+            onClick={() => handleTabClick('clientes')}
+          >
+            👥 Lista de Clientes
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'asignacion' ? 'active' : ''}`}
+            onClick={() => handleTabClick('asignacion')}
+          >
+            📋 Asignación
+          </button>
+          <button 
+            className={`tab-btn ${activeTab === 'asignados' ? 'active' : ''}`}
+            onClick={() => handleTabClick('asignados')}
+          >
+            📄 Artículos Asignados
+          </button>
+        </div>
+
+        {/* Contenido de las pestañas */}
+        <div className="tab-content">
+          {activeTab === 'clientes' && (
+            <div className="tab-panel">
+              <h3>Lista de Clientes</h3>
+              <p>Aquí aparecerá la lista de clientes disponibles.</p>
+            </div>
+          )}
+
+          {activeTab === 'asignacion' && (
+            <div className="tab-panel">
+              <h3>Asignación</h3>
+              <p>Aquí se podrán asignar artículos al cliente seleccionado.</p>
+            </div>
+          )}
+
+          {activeTab === 'asignados' && (
+            <div className="tab-panel">
+              <h3>Artículos Asignados</h3>
+              <p>Aquí aparecerán los artículos ya asignados al cliente.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ArticulosXClienteModal;

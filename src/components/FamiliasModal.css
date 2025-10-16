@@ -1,0 +1,230 @@
+/* Estilos específicos para el modal de familias */
+.familias-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.familias-modal {
+  background-color: #333;
+  border-radius: 8px;
+  width: 500px;
+  max-height: 600px;
+  border: 1px solid #555;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.familias-modal-header {
+  background-color: #222;
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #555;
+}
+
+.familias-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.familias-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.familias-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.familias-tabs {
+  display: flex;
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #555;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background-color: transparent;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.tab-button.active {
+  color: #fff;
+}
+
+/* Colores específicos para cada pestaña */
+.tab-button.active:nth-child(1) {
+  background-color: #007bff;
+  border-bottom-color: #007bff;
+}
+
+.tab-button.active:nth-child(2) {
+  background-color: #28a745;
+  border-bottom-color: #28a745;
+}
+
+.tab-button.active:nth-child(3) {
+  background-color: #ffc107;
+  color: #000;
+  border-bottom-color: #ffc107;
+}
+
+.familias-modal-body {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+  background-color: #333;
+  color: #fff;
+}
+
+.tab-content {
+  height: 100%;
+}
+
+.tab-content h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.tab-content p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Estilos para el contenido placeholder */
+.content-placeholder {
+  min-height: 300px;
+  border: 2px dashed #555;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2a2a2a;
+}
+
+.placeholder-content {
+  text-align: center;
+  color: #666;
+}
+
+.placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.placeholder-text {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.placeholder-subtext {
+  font-size: 12px;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .familias-modal {
+    width: 90%;
+    max-height: 90vh;
+  }
+  
+  .tab-button {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+  
+  .familias-modal-body {
+    padding: 16px;
+  }
+}
+
+/* Animaciones para notificaciones */
+@keyframes fadeInScale {
+  from {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutScale {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Estilos adicionales para notificaciones */
+.notification-enter {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.notification-exit {
+  animation: fadeOutScale 0.3s ease-in;
+}

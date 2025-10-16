@@ -1,0 +1,421 @@
+/* Estilos específicos para el botón Tipos de Boletas */
+.action-btn.tipos-boletas {
+  background-color: #6f42c1;
+  color: #fff;
+}
+
+.action-btn.tipos-boletas:hover {
+  background-color: #5a32a3;
+}
+
+/* Estilos específicos para el botón Auditar */
+.action-btn.auditar {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.action-btn.auditar:hover {
+  background-color: #1e40af;
+}
+
+.action-btn.auditar:disabled {
+  background-color: #475569;
+  color: #94a3b8;
+}
+
+/* Estilos específicos para el botón Anular Boleta */
+.action-btn.anular {
+  background-color: #991b1b;
+  color: #fff;
+}
+
+.action-btn.anular:hover {
+  background-color: #7f1d1d;
+}
+
+.action-btn.anular:disabled {
+  background-color: #450a0a;
+  color: #fca5a5;
+}
+
+.action-btn.cambiar-tipo {
+  background-color: #4c1d95; /* púrpura más oscuro */
+  color: white;
+}
+
+.action-btn.cambiar-tipo:hover:not(:disabled) {
+  background-color: #3b0764; /* aún más oscuro en hover */
+}
+
+.action-btn.cambiar-tipo:disabled {
+  background-color: #2d1b69; /* púrpura muy oscuro para disabled */
+  color: #c4b5fd;
+}
+
+/* Botón Manifiestos Asociados (fucsia oscuro) */
+.action-btn.manifiestos-asociados {
+  background: #831843; /* fucsia oscuro */
+  color: #fff;
+}
+
+.action-btn.manifiestos-asociados:hover:not(:disabled) {
+  background: #6f1133;
+}
+
+.action-btn.manifiestos-asociados:disabled {
+  background: #3f1f28;
+  color: #e6b6c4;
+}
+
+/* Updated: 2025-10-02 - Cambiar Tipo button color made darker */
+
+/* Estilos base para action-btn (si no están definidos en otro lugar) */
+.action-btn {
+  padding: 8px 12px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Scoped action-buttons para ListaBoletas: evitar que reglas globales afecten otros modales */
+/* Añadir un id-root en el JSX (si no existe) debe ser: id="lista-boletas-modal-root" en el contenedor principal */
+#lista-boletas-modal-root .action-buttons {
+  position: relative; /* dentro del flujo del layout */
+  align-self: flex-start;
+  width: 180px;
+  flex: 0 0 180px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #2b2b2b; /* fondo oscuro para la barra lateral */
+  border-left: 1px solid rgba(255,255,255,0.03);
+  box-shadow: none;
+  margin-left: 12px;
+  z-index: 2;
+}
+
+/* Forzar que la barra lateral y sus hijos se alineen al tope */
+#lista-boletas-modal-root {
+  /* Aseguramos un contexto flex donde la sidebar sea parte del flujo */
+  display: flex;
+  flex-direction: column;
+}
+
+#lista-boletas-modal-root .content-wrapper,
+#lista-boletas-modal-root .modal-content,
+#lista-boletas-modal-root .modal-body {
+  /* si existe un wrapper de contenido, aseguramos que sea row para sidebar+contenido */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* importante: alinear elementos al tope */
+}
+
+/* Evitar que .action-buttons empuje hacia abajo */
+#lista-boletas-modal-root .action-buttons {
+  order: 0 !important;
+  margin-top: 0 !important;
+  align-self: flex-start !important;
+}
+
+/* También forzar que ningún hijo tenga margin-top:auto que lo empuje */
+#lista-boletas-modal-root .action-buttons > * {
+  margin-top: 0 !important;
+}
+
+/* Ajustes específicos de botones dentro del scope */
+#lista-boletas-modal-root .action-buttons .action-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+/* Responsive: en pantallas estrechas volvemos a layout horizontal/estático */
+@media (max-width: 720px) {
+  #lista-boletas-modal-root .action-buttons {
+    position: static;
+    width: 100%;
+    padding: 10px 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    margin-left: 0;
+    background: transparent;
+  }
+}
+
+/* Estilos para badges de estado en la tabla */
+.estado-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.estado-abierto {
+  background-color: #16a34a; /* verde */
+  color: white;
+}
+
+.estado-cerrado {
+  background-color: #dc2626; /* rojo */
+  color: white;
+}
+
+.estado-anulada {
+  background-color: #7c2d12; /* marrón rojizo oscuro */
+  color: white;
+}
+
+.estado-pendiente {
+  background-color: #ca8a04; /* amarillo */
+  color: white;
+}
+
+/* Leyenda de manifiestos en ListaBoletasModal */
+.manifiestos-leyenda {
+  margin: 8px 0 12px 0;
+  font-size: 13px;
+  color: #cbd5e1; /* texto claro pero no tan blanco */
+}
+.manifiestos-leyenda-text {
+  display: inline-block;
+}
+.manifiestos-leyenda-count {
+  display: inline-block;
+  padding: 2px 6px;
+  margin: 0 6px;
+  background: linear-gradient(90deg,#0ea5a4,#06b6d4); /* celeste gradient */
+  color: white;
+  font-weight: 700;
+  border-radius: 6px;
+  min-width: 28px;
+  text-align: center;
+}
+
+/* Modal de Exportación Mejorado */
+.export-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Modal de Exportación Mejorado - Selector ultra específico */
+.export-modal-overlay .export-modal {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  max-width: 465px !important; /* AUMENTADO +45px - ULTRA FORZADO */
+  width: 90% !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  animation: slideIn 0.3s ease-out !important;
+  overflow: hidden !important;
+}
+
+.export-modal h3 {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: white;
+  margin: 0;
+  padding: 24px 32px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.export-modal h3::before {
+  content: "📊";
+  font-size: 24px;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+.export-modal p {
+  padding: 24px 32px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #374151;
+  text-align: center;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.export-modal p strong {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.export-modal-buttons {
+  padding: 24px 32px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.export-confirm-btn,
+.export-cancel-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.export-confirm-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.export-confirm-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.export-cancel-btn {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #374151;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.export-cancel-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.export-confirm-btn:disabled,
+.export-cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .export-modal {
+    margin: 20px;
+    max-width: none;
+    width: calc(100% - 40px);
+  }
+
+  .export-modal h3 {
+    padding: 20px 24px 16px;
+    font-size: 18px;
+  }
+
+  .export-modal p {
+    padding: 20px 24px;
+    font-size: 15px;
+  }
+
+  .export-modal-buttons {
+    padding: 20px 24px;
+    flex-direction: column;
+  }
+
+  .export-confirm-btn,
+  .export-cancel-btn {
+    width: 100%;
+  }
+}
+
+/* ============================================ */
+/* ESTILOS PARA LABELS DE CAMPOS EN AMARILLO */
+/* ============================================ */
+
+/* Headers de la tabla (labels de columnas) */
+.conductores-table-header th,
+.header-row th {
+  color: #ffd700 !important; /* Amarillo brillante */
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Placeholder del input de búsqueda */
+.search-input::placeholder {
+  color: #ffd700 !important; /* Amarillo brillante */
+  opacity: 0.8 !important;
+}
+
+/* Estilo adicional para el input de búsqueda cuando tiene foco */
+.search-input:focus::placeholder {
+  color: #ffed4e !important; /* Amarillo más claro cuando enfocado */
+}

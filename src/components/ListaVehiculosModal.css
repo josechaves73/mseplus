@@ -1,0 +1,464 @@
+.lista-vehiculos-modal-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.lista-vehiculos-modal {
+  background-color: #333; /* Gris oscuro */
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lista-vehiculos-modal-header {
+  background-color: #000; /* Negro */
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.lista-vehiculos-modal-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.lista-vehiculos-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.lista-vehiculos-modal-close:hover {
+  background-color: #444;
+}
+
+.lista-vehiculos-modal-body {
+  flex: 1;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  padding: 16px 20px;
+  border-bottom: 1px solid #444;
+  background-color: #333;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #444;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  padding-bottom: 20px;
+  height: calc(100vh - 160px);
+}
+
+.column-filter-select {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.column-filter-select:focus {
+  border-color: #007bff;
+}
+
+.column-filter-select option {
+  background-color: #444;
+  color: #fff;
+}
+
+.filter-row th {
+  padding: 4px 8px;
+  border-bottom: 1px solid #555;
+}
+
+.filter-row .filter-col-placa,
+.filter-row .filter-col-marca,
+.filter-row .filter-col-nombre,
+.filter-row .filter-col-anotacion,
+.filter-row .filter-col-estado {
+  background-color: #222;
+}
+
+.header-row th {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 2px solid #555;
+  font-weight: 600;
+  color: #fff;
+  background-color: #222;
+}
+
+.vehiculos-table-container {
+  flex: 1;
+  overflow-y: auto;
+  /* dejar espacio adicional a la derecha para que el scrollbar no cubra botones */
+  padding: 0 40px 10px 20px;
+  height: 100%;
+  max-height: calc(100vh - 200px);
+  /* reservar gutter del scrollbar en navegadores compatibles */
+  scrollbar-gutter: stable;
+  position: relative; /* necesario para que los overlays absolutos queden dentro */
+}
+
+/* Loading overlay inside vehiculos modal */
+.lista-loading-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:220;pointer-events:auto}
+.lista-loading-content{background:rgba(2,6,23,0.92);padding:24px 28px;border-radius:8px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(0,0,0,0.6)}
+.lista-loading-message{font-size:20px;color:#ffd54f;font-weight:800}
+.lista-loading-bar{width:360px;height:10px;background:#12232b;border-radius:999px;overflow:hidden;position:relative}
+.lista-loading-progress{position:absolute;top:0;left:-40%;height:100%;width:40%;background:linear-gradient(90deg,#28a745,#ffc107,#00bcd4);animation:lista-progress 1.4s linear infinite}
+@keyframes lista-progress{
+  0%{transform:translateX(0%)}
+  50%{transform:translateX(220%)}
+  100%{transform:translateX(420%)}
+}
+
+.vehiculos-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
+  border: 1px solid #fff;
+  outline: none;
+  table-layout: fixed;
+}
+
+.vehiculos-table th:nth-child(1), /* Placa */
+.vehiculos-table td:nth-child(1) {
+  width: 120px;
+}
+
+.vehiculos-table th:nth-child(2), /* Marca */
+.vehiculos-table td:nth-child(2) {
+  width: 150px;
+}
+
+.vehiculos-table th:nth-child(3), /* Nombre */
+.vehiculos-table td:nth-child(3) {
+  width: 200px;
+}
+
+.vehiculos-table th:nth-child(4), /* Anotación */
+.vehiculos-table td:nth-child(4) {
+  width: auto;
+  min-width: 300px;
+}
+
+.vehiculos-table th:nth-child(5), /* Estado Documentación */
+.vehiculos-table td:nth-child(5) {
+  width: 300px; /* aumentar para dejar espacio al estado + botón y evitar solapamiento con scrollbar */
+  min-width: 260px;
+}
+
+/* Añadir padding interno a la celda final para separar del borde/scrollbar */
+.vehiculos-table td:nth-child(5) {
+  padding-right: 14px;
+}
+
+/* Asegurar que el encabezado largo pueda hacer wrap si es necesario */
+.vehiculos-table th:nth-child(5) {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.vehiculos-table-header {
+  position: sticky;
+  top: 0;
+  background-color: #222;
+  z-index: 10;
+}
+
+.vehiculos-table-header th {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 2px solid #555;
+  font-weight: 600;
+  color: #fff;
+}
+
+.vehiculos-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.vehiculos-table tbody tr:hover {
+  background-color: #444;
+}
+
+.vehiculos-table tbody tr.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.vehiculos-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #555;
+}
+
+/* Estado Documentación styles */
+.estado-celda {
+  display: flex;
+  flex-direction: row; /* mantener en una sola fila: estado + botón */
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.estado-text {
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.estado-vigente .estado-text {
+  background-color: #1b5e20; /* verde oscuro */
+  color: #e8f5e9;
+}
+.estado-por-vencer .estado-text {
+  background-color: #ff9800; /* naranja */
+  color: #1b1b17;
+}
+.estado-vencido .estado-text {
+  background-color: #c62828; /* rojo */
+  color: #fff;
+}
+.estado-sin-doc .estado-text {
+  background-color: transparent;
+  color: #ccc;
+  font-weight: 600;
+}
+.ver-doc-btn {
+  padding: 6px 10px;
+  background: #00bcd4; /* celeste */
+  border: none;
+  color: #012; /* texto oscuro para contraste */
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ver-doc-btn { min-width: 108px; }
+.ver-doc-btn:hover {
+  background: #00a3b6;
+}
+.ver-doc-btn .icon {
+  font-size: 14px;
+}
+
+.action-buttons {
+  width: 180px;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Scoped action-buttons para ListaVehiculos: evitar reglas globales que afecten otros modales */
+#lista-vehiculos-modal-root .action-buttons {
+  position: relative;
+  align-self: flex-start;
+  width: 180px;
+  flex: 0 0 180px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #2b2b2b;
+  border-left: 1px solid rgba(255,255,255,0.03);
+  box-shadow: none;
+  margin-left: 12px;
+  z-index: 2;
+}
+
+#lista-vehiculos-modal-root .action-buttons .action-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+/* Forzar top alignment */
+#lista-vehiculos-modal-root {
+  display: flex;
+  flex-direction: column;
+}
+
+#lista-vehiculos-modal-root .content-wrapper,
+#lista-vehiculos-modal-root .modal-content,
+#lista-vehiculos-modal-root .modal-body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+#lista-vehiculos-modal-root .action-buttons {
+  order: 0 !important;
+  margin-top: 0 !important;
+  align-self: flex-start !important;
+}
+
+#lista-vehiculos-modal-root .action-buttons > * {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 720px) {
+  #lista-vehiculos-modal-root .action-buttons {
+    position: static;
+    width: 100%;
+    padding: 10px 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    margin-left: 0;
+    background: transparent;
+  }
+}
+
+.action-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.action-btn.nuevo {
+  background-color: #28a745;
+}
+
+.action-btn.nuevo:hover {
+  background-color: #218838;
+}
+
+.action-btn.editar {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.action-btn.editar:hover {
+  background-color: #e0a800;
+}
+
+.action-btn.exportar {
+  background-color: #17a2b8;
+}
+
+.action-btn.exportar:hover {
+  background-color: #138496;
+}
+
+/* Botón Boletas Relacionadas - fucsia oscuro solicitado */
+.action-btn.boletas-rel {
+  background-color: #9b1f6a; /* fucsia oscuro */
+  color: #fff;
+}
+.action-btn.boletas-rel:hover {
+  background-color: #7f1654;
+}
+
+.action-btn.eliminar {
+  background-color: #dc3545;
+}
+
+.action-btn.actualizar {
+  background-color: #e040fb;
+  color: #fff;
+}
+
+.action-btn.actualizar:hover {
+  background-color: #ad1fa3;
+}
+
+.action-btn.eliminar:hover {
+  background-color: #c82333;
+}
+
+.action-btn:disabled {
+  background-color: #666;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action-btn:disabled:hover {
+  background-color: #666;
+  transform: none;
+}
+
+.error {
+  color: #ff4444;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Fin de estilos */

@@ -1,0 +1,460 @@
+/* ============================================ */
+/* ESTILOS PARA CONFIGURACION EMAIL MODAL */
+/* ============================================ */
+
+/* Overlay del modal */
+.config-email-modal-overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+/* Contenedor principal del modal */
+.config-email-modal {
+  background-color: #2d3748;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  width: 95%;
+  max-width: 1400px;
+  height: 90%;
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header del modal */
+.config-email-modal-header {
+  background: linear-gradient(135deg, #2b6cb0, #3182ce);
+  color: white;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.config-email-modal-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-email-modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.config-email-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Body del modal */
+.config-email-modal-body {
+  flex: 1;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  overflow-y: auto;
+  background-color: #1a202c;
+}
+
+/* Secciones principales */
+.email-form-section,
+.cuentas-list-section {
+  background-color: #2d3748;
+  border-radius: 10px;
+  padding: 24px;
+  border: 1px solid #4a5568;
+}
+
+.section-title {
+  color: #e2e8f0;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #4a5568;
+}
+
+/* ============================================ */
+/* FORMULARIO DE CONFIGURACIÓN */
+/* ============================================ */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.checkbox-group {
+  justify-content: center;
+}
+
+.form-group label {
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  background-color: #4a5568;
+  color: #e2e8f0;
+  border: 1px solid #718096;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+  background-color: #2d3748;
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+/* Contenedor de contraseña con botón de mostrar/ocultar */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  flex: 1;
+  padding-right: 45px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.password-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Checkbox personalizado */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #e2e8f0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.checkmark {
+  font-size: 14px;
+}
+
+/* Texto de ayuda */
+.help-text {
+  background-color: #2a4365;
+  color: #90cdf4;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  border-left: 4px solid #3182ce;
+  margin-bottom: 20px;
+}
+
+/* Botones de acción del formulario */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-probar,
+.btn-guardar,
+.btn-cancelar {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-probar {
+  background-color: #805ad5;
+  color: white;
+}
+
+.btn-probar:hover {
+  background-color: #6b46c1;
+  transform: translateY(-1px);
+}
+
+.btn-guardar {
+  background-color: #38a169;
+  color: white;
+}
+
+.btn-guardar:hover {
+  background-color: #2f855a;
+  transform: translateY(-1px);
+}
+
+.btn-cancelar {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background-color: #c53030;
+  transform: translateY(-1px);
+}
+
+/* ============================================ */
+/* LISTA DE CUENTAS */
+/* ============================================ */
+
+.loading,
+.error,
+.no-cuentas {
+  text-align: center;
+  padding: 40px 20px;
+  color: #a0aec0;
+  font-style: italic;
+}
+
+.error {
+  color: #fc8181;
+  background-color: rgba(197, 48, 48, 0.1);
+  border-radius: 8px;
+  border: 1px solid #fc8181;
+}
+
+.cuentas-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.cuenta-card {
+  background-color: #1a202c;
+  border: 1px solid #4a5568;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.cuenta-card:hover {
+  border-color: #3182ce;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.1);
+}
+
+.cuenta-card.default {
+  border-color: #f6e05e;
+  background-color: #2a2a0e;
+}
+
+.cuenta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cuenta-nombre {
+  color: #e2e8f0;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.default-badge {
+  background-color: #f6e05e;
+  color: #2d3748;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cuenta-details {
+  margin-bottom: 16px;
+}
+
+.cuenta-details p {
+  margin: 6px 0;
+  font-size: 13px;
+  color: #a0aec0;
+}
+
+.cuenta-details strong {
+  color: #e2e8f0;
+}
+
+.cuenta-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-editar,
+.btn-default,
+.btn-eliminar {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-editar {
+  background-color: #3182ce;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #2b6cb0;
+}
+
+.btn-default {
+  background-color: #d69e2e;
+  color: white;
+}
+
+.btn-default:hover {
+  background-color: #b7791f;
+}
+
+.btn-eliminar {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #c53030;
+}
+
+/* ============================================ */
+/* FOOTER DEL MODAL */
+/* ============================================ */
+
+.config-email-modal-footer {
+  padding: 16px 24px;
+  background-color: #2d3748;
+  border-top: 1px solid #4a5568;
+  display: flex;
+  justify-content: center;
+  border-radius: 0 0 12px 12px;
+}
+
+.btn-cerrar {
+  background-color: #4a5568;
+  color: #e2e8f0;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-cerrar:hover {
+  background-color: #718096;
+}
+
+/* ============================================ */
+/* RESPONSIVE */
+/* ============================================ */
+
+@media (max-width: 1200px) {
+  .config-email-modal-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .config-email-modal {
+    width: 98%;
+    height: 95%;
+    margin: 0;
+  }
+  
+  .config-email-modal-body {
+    padding: 16px;
+  }
+  
+  .email-form-section,
+  .cuentas-list-section {
+    padding: 16px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-probar,
+  .btn-guardar,
+  .btn-cancelar {
+    width: 100%;
+    justify-content: center;
+  }
+}

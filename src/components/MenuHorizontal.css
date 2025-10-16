@@ -1,0 +1,86 @@
+.menu-horizontal {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  background: #334155;
+  padding: 0 0.5rem;
+  min-height: 56px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+  z-index: 98;
+}
+.menu-item-group {
+  position: relative;
+}
+.menu-item {
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  margin: 0 0.2rem;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.menu-item:hover, .menu-item:focus {
+  background: #334155;
+  color: #fff !important;
+}
+.menu-icon {
+  margin-right: 0.7rem;
+  font-size: 1.3rem;
+}
+.menu-arrow {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+.menu-arrow.open {
+  transform: rotate(180deg);
+}
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #23272f;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+  min-width: 220px;
+  padding: 0.5rem 0;
+  z-index: 100;
+  animation: fadeIn 0.2s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.submenu-item {
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.7rem 1.5rem;
+  width: 100%;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.submenu-item:hover, .submenu-item:focus {
+  background: #334155;
+  color: #fff !important;
+}
+.submenu-icon {
+  margin-right: 0.7rem;
+  font-size: 1.1rem;
+}

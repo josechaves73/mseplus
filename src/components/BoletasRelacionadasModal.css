@@ -1,0 +1,169 @@
+.boletas-rel-overlay {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1100;
+}
+
+.boletas-rel-modal {
+  margin-top: 24px;
+  width: min(1375px, 95vw); /* 1100px * 1.25 = 1375px, con tope 95vw */
+  max-height: calc(100vh - 120px); /* limitar altura para que no se pierda abajo */
+  background: linear-gradient(180deg, #0b1b2b 0%, #0f2436 100%); /* azul oscuro */
+  color: #e6eef6;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.boletas-rel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px; /* más espacio para mejorar simetría */
+  min-height: 64px; /* asegura altura y centrado vertical */
+  background-color: rgba(10,20,30,0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  position: relative; /* allow absolute positioning of search wrapper inside header */
+  /* control variables for the close button */
+  --close-h-offset: 72px; /* horizontal offset (positive => move right) */
+  --close-v-offset: -33px; /* vertical offset (negative => move up) */
+}
+
+.boletas-rel-header h3 {
+  margin: 0 0 4px 0;
+  color: #f0f6fb;
+  font-size: 18px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative; /* allow absolute positioning of the input wrapper */
+  padding-right: 64px; /* space for close button and breathing room */
+}
+
+.client-search-input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: 360px; /* ancho aumentado 50% */
+}
+
+.client-search-wrapper {
+  position: absolute;
+  /* place wrapper near the top-right but horizontal position is set by JS to align with Cliente column */
+  top: 12px;
+  right: 24px; /* fallback position if JS alignment fails */
+  width: 360px; /* default width, overwritten by inline style from JS */
+  z-index: 50;
+  pointer-events: auto;
+  background: transparent;
+}
+
+.client-search-input::placeholder { color: rgba(255,255,255,0.45); }
+
+.conductor-info {
+  color: #f8f1e0;
+  margin-bottom: 6px;
+}
+
+.boletas-count {
+  color: #ffd8a8; /* naranja tenue */
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.boletas-rel-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 29px;
+  cursor: pointer;
+  padding: 8px 10px;
+  /* position relative so we can nudge it up and right without breaking layout */
+  position: relative;
+  top: var(--close-v-offset);
+  left: var(--close-h-offset);
+  margin-left: 0; /* reset margin that could push it */
+  display: inline-flex;
+  align-items: center;
+  z-index: 50; /* aseguramos visibilidad sobre el input */
+}
+
+.boletas-rel-body {
+  padding: 14px 18px 22px 18px;
+  background-color: #09151c; /* gris oscuro, más contraste */
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.boletas-rel-table-wrap {
+  overflow: auto;
+  background: linear-gradient(180deg, #3f2100 0%, #311700 100%); /* naranja oscuro */
+  border-radius: 6px;
+  padding: 10px;
+  flex: 1 1 auto;
+}
+
+.boletas-rel-scroll {
+  /* reducir altura en ~5% para dejar más margen */
+  max-height: calc((100vh - 240px) * 0.95);
+  overflow: auto;
+}
+
+.boletas-rel-table thead th {
+  position: sticky;
+  top: 0;
+  /* fondo muy oscuro, casi opaco */
+  background: rgba(2,8,12,0.94);
+  color: #fff9f0; /* contraste con naranja oscuro */
+  z-index: 6;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.boletas-rel-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #e6eef6;
+}
+
+.boletas-rel-table th,
+.boletas-rel-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  text-align: left;
+  color: #fff9f0; /* texto claro sobre naranja oscuro */
+}
+
+/* removed duplicate transparent thead rule to prevent blending */
+
+.boletas-rel-table tbody tr:hover {
+  background-color: rgba(255,255,255,0.03);
+}
+
+.boletas-rel-table tbody tr.selected {
+  background-color: rgba(255,183,77,0.18); /* naranja claro suave */
+  color: #fff9f0;
+}
+
+.boletas-rel-table td:nth-child(5) { /* estado */
+  font-weight: 600;
+  color: #ffd8a8; /* naranja suave para destacar estado */
+}
+
+.error { color: #ffb4a2; }

@@ -1,0 +1,345 @@
+/* Overlay del modal */
+.modal-overlay-tipos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Container principal del modal */
+.modal-container-tipos {
+  background: #2d3748;  /* Fondo oscuro */
+  color: #ffffff;  /* Texto blanco */
+  border-radius: 8px;
+  width: 80%;
+  max-width: 900px;
+  height: 80%;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Header del modal */
+.modal-header-tipos {
+  background: #1e3a8a;  /* Azul oscuro como otros modales */
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header-tipos h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.close-button-tipos {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.close-button-tipos:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Content principal */
+.modal-content-tipos {
+  flex: 1;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Sección del grid (izquierda) */
+.grid-section-tipos {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-container-tipos {
+  flex: 1;
+  border: 1px solid #4a5568;  /* Borde gris oscuro */
+  border-radius: 4px;
+  overflow: auto;
+  margin-bottom: 15px;
+  max-height: 400px;
+  background-color: #374151;  /* Fondo gris oscuro para el grid */
+}
+
+.grid-table-tipos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.grid-table-tipos thead {
+  background-color: #2a2a2a;  /* Header oscuro */
+  position: sticky;
+  top: 0;
+}
+
+.grid-table-tipos th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #4a5568;
+  font-weight: 600;
+  color: #ffffff;  /* Texto blanco */
+}
+
+.grid-table-tipos td {
+  padding: 12px;
+  border-bottom: 1px solid #4a5568;
+  cursor: pointer;
+  color: #e2e8f0;  /* Texto gris claro */
+}
+
+.grid-table-tipos tbody tr:hover {
+  background-color: #4a5568;  /* Hover gris oscuro */
+}
+
+.grid-table-tipos tbody tr.selected-tipos {
+  background-color: #1e3a8a;  /* Selección azul oscura */
+  color: #ffffff;
+}
+
+.loading-tipos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  color: #e2e8f0;  /* Texto gris claro */
+}
+
+/* Botones de acción */
+.action-buttons-tipos {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.action-btn-tipos {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  min-width: 80px;
+}
+
+.action-btn-tipos.nuevo-tipos {
+  background-color: #28a745;
+  color: white;
+}
+
+.action-btn-tipos.nuevo-tipos:hover {
+  background-color: #218838;
+}
+
+.action-btn-tipos.editar-tipos {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.action-btn-tipos.editar-tipos:hover:not(.disabled-tipos) {
+  background-color: #e0a800;
+}
+
+.action-btn-tipos.eliminar-tipos {
+  background-color: #dc3545;
+  color: white;
+}
+
+.action-btn-tipos.eliminar-tipos:hover:not(.disabled-tipos) {
+  background-color: #c82333;
+}
+
+.action-btn-tipos.disabled-tipos {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #4a5568 !important;  /* Gris oscuro para deshabilitado */
+  color: #ccc !important;
+}
+
+/* Sección de edición (derecha) */
+.edit-section-tipos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.textbox-container-tipos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textbox-container-tipos label {
+  font-weight: 600;
+  color: #ffffff;  /* Texto blanco */
+}
+
+.textbox-tipos {
+  padding: 12px;
+  border: 1px solid #4a5568;  /* Borde gris oscuro */
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background-color: #374151;  /* Fondo gris oscuro */
+  color: #ffffff;  /* Texto blanco */
+}
+
+.textbox-tipos:focus {
+  outline: none;
+  border-color: #1e3a8a;  /* Azul oscuro para focus */
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2);
+}
+
+.textbox-tipos:disabled {
+  background-color: #2d3748;  /* Fondo más oscuro para deshabilitado */
+  color: #9ca3af;  /* Texto gris claro */
+  cursor: not-allowed;
+}
+
+/* Botones de edición */
+.edit-buttons-tipos {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.save-btn-tipos {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.save-btn-tipos:hover {
+  background-color: #218838;
+}
+
+.cancel-btn-tipos {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.cancel-btn-tipos:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-container-tipos {
+    width: 95%;
+    height: 90%;
+  }
+  
+  .modal-content-tipos {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .grid-section-tipos,
+  .edit-section-tipos {
+    flex: none;
+  }
+  
+  .action-buttons-tipos {
+    flex-wrap: wrap;
+  }
+}
+
+/* Placeholder personalizado para el textbox */
+.textbox-tipos::placeholder {
+  color: #9ca3af;
+}
+
+/* Animación para notificaciones */
+@keyframes fadeInScale {
+  from {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Confirm modal overlay (elegante) */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75));
+  z-index: 1200;
+}
+.confirm-modal {
+  background: linear-gradient(180deg,#0f172a,#0b1220);
+  color: #e6eef8;
+  padding: 22px;
+  border-radius: 12px;
+  /* Incrementado 30% desde 720px -> 936px (fijo, no responsivo) */
+  width: 936px !important;
+  min-width: 936px !important;
+  max-width: none !important;
+  box-shadow: 0 12px 40px rgba(4,6,15,0.6);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-sizing: border-box;
+}
+.confirm-modal h3 { margin-top: 0; color: #cfe9ff; }
+.confirm-modal p { color: #cbd5e1; }
+.confirm-modal ul { margin: 12px 0 16px 18px; color: #e6eef8; }
+.confirm-modal code { background: rgba(255,255,255,0.03); padding: 2px 6px; border-radius: 6px; color: #dbeafe; }
+.confirm-actions { display:flex; gap:12px; justify-content:flex-end; }
+.confirm-actions .confirm-cancel { background:#374151; color:#e6eef8; padding:10px 14px; border-radius:8px; border:none; cursor:pointer; }
+.confirm-actions .confirm-ok { background:linear-gradient(90deg,#06b6d4,#0ea5a4); color:#032; padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:700; }
+
+/* Success modal (grande, persistente) */
+.success-modal {
+  background: linear-gradient(180deg,#04263a,#022034);
+  color: #e6f7ff;
+  padding: 28px;
+  border-radius: 14px;
+  width: 820px;
+  max-width: min(820px, calc(100vw - 48px));
+  box-shadow: 0 20px 60px rgba(2,12,26,0.7);
+  border: 1px solid rgba(14,165,233,0.08);
+  box-sizing: border-box;
+}
+.success-modal h2 { margin:0 0 8px 0; color:#d6f0ff; }
+.success-grid { display:flex; gap:18px; margin-top:16px; flex-wrap: wrap; justify-content: center; }
+.success-item { background: rgba(255,255,255,0.03); padding:18px; border-radius:10px; flex:1 1 160px; min-width: 140px; max-width: 220px; text-align:center; box-sizing: border-box; }
+.success-count { font-size:28px; font-weight:800; color:#a7f3d0; }
+.success-label { margin-top:8px; color:#dbeafe; }
+.success-actions { display:flex; justify-content:center; margin-top:18px; }
+.success-close { padding:12px 20px; background:linear-gradient(90deg,#10b981,#059669); color:#022; border:none; border-radius:10px; font-weight:700; cursor:pointer; }
+

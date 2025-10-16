@@ -1,0 +1,203 @@
+/* CambiarTipoBoletaModal.css */
+
+.cambiar-tipo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.cambiar-tipo-modal {
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cambiar-tipo-modal-header {
+  background-color: #217734; /* azul para cambiar tipo */
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.cambiar-tipo-modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.cambiar-tipo-modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cambiar-tipo-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.cambiar-tipo-modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.boleta-info-section h3,
+.tipo-selection-section h3 {
+  margin: 0 0 12px 0;
+  color: #e5e7eb;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.boleta-info {
+  background-color: #1f2937;
+  padding: 12px;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas */
+  gap: 12px;
+  align-items: start;
+}
+
+.info-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.info-field label {
+  font-weight: 600;
+  color: #9ca3af;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-field span {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 10px;
+  background-color: #111827;
+  border-radius: 4px;
+  border: 1px solid #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-field-full {
+  grid-column: span 2; /* Ocupa ambas columnas */
+}
+
+.tipo-select {
+  width: 100%;
+  padding: 10px;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+.tipo-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.tipo-select option {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.error-message {
+  background-color: #dc2626;
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.success-message {
+  background-color: #059669;
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.action-buttons-container {
+  display: flex !important;
+  gap: 20px !important;
+  justify-content: center !important;
+  margin-top: 24px !important;
+  padding: 20px !important;
+  background-color: #1e40af !important; /* azul oscuro */
+  border: 1px solid #ffffff !important; /* borde blanco más grueso para asegurar visibilidad */
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.action-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 120px;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-btn.cancelar {
+  background-color: #ef4444;
+  color: white;
+}
+
+.action-btn.cancelar:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.action-btn.confirmar {
+  background-color: #10b981;
+  color: white;
+}
+
+.action-btn.confirmar:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+/* Force CSS reload - Updated: 2025-10-02 - Azul oscuro con borde blanco */

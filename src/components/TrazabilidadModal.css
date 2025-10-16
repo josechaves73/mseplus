@@ -1,0 +1,911 @@
+/* Overlay */
+.trazabilidad-modal-overlay {
+  position: fixed;
+  top: 64px; /* mismo offset que Listas */
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* mantener similar a ListaArticulos */
+}
+
+.trazabilidad-modal {
+  background-color: #333; /* igual que ListaArticulos */
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* allow absolute positioned controls inside modal */
+.trazabilidad-modal { position: relative }
+
+.trazabilidad-modal-header {
+  background-color: #20c997; /* turquesa */
+  color: #003a3a;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trazabilidad-modal-title { margin: 0; font-size: 22px; font-weight: 700; color: #032a2a }
+
+.trazabilidad-modal-close { background:none; border:none; font-size:18px; cursor:pointer }
+
+.trazabilidad-modal-body { padding: 0; display:flex; flex-direction:column; gap:12px; overflow: hidden; background-color: #333; color: #fff }
+
+.trazabilidad-tabs { display:flex; background-color: #2a2a2a; border-bottom: 1px solid #555 }
+.trazabilidad-tabs .tab-button { flex: 1; padding: 12px 16px; border: none; background-color: transparent; color: #ccc; cursor: pointer; font-size: 18px; font-weight: 500; transition: all 0.2s; border-bottom: 3px solid transparent }
+.trazabilidad-tabs .tab-button:hover { background-color: rgba(255,255,255,0.03); color:#fff }
+.trazabilidad-tabs .tab-button.active { color: #20558671 }
+
+/* Specific turquoise colors for active tabs */
+.trazabilidad-tabs .tab-button.active:nth-child(1) { background: linear-gradient(180deg,#a8f3e0,#7fe7cf); border-bottom-color: #7fe7cf; color: #003a3a }
+.trazabilidad-tabs .tab-button.active:nth-child(2) { background: linear-gradient(180deg,#2bb6a6,#178f7f); border-bottom-color: #178f7f; color: #fff }
+.trazabilidad-tabs .tab-button:disabled { opacity: 0.45; cursor: not-allowed }
+
+.trazabilidad-tab-content { padding: 8px; border-radius: 6px; background: #205f61; min-height: 260px }
+
+/* Scope guard: ensure no other modal styles leak here */
+#trazabilidad-modal-root * { box-sizing: border-box }
+
+/* Configurable column width variables: modifica estos valores para ajustar columnas desde un sólo lugar */
+:root {
+  /* ancho de la columna BOLETA (columna 2) */
+  --col-boleta-width: 5%;
+  /* ancho de la columna MOVER (columna accion - última columna) */
+  --col-mover-width: 13%;
+  /* ancho de la columna CANTIDAD (columna 6) */
+  --col-cantidad-width: 6%;
+}
+
+/* Placeholder color specifically for the Origen panel (pestaña #1) */
+#trazabilidad-modal-root .origen-panel ::placeholder { color: #003a3a; opacity: 1 }
+#trazabilidad-modal-root .origen-panel ::-webkit-input-placeholder { color: #003a3a }
+#trazabilidad-modal-root .origen-panel ::-moz-placeholder { color: #003a3a }
+#trazabilidad-modal-root .origen-panel :-ms-input-placeholder { color: #003a3a }
+#trazabilidad-modal-root .origen-panel :-moz-placeholder { color: #003a3a }
+
+/* Layout for the right-side boxes inside the Origen panel */
+#trazabilidad-modal-root .origen-panel { display: flex; gap: 16px; align-items: flex-start }
+#trazabilidad-modal-root .origen-placeholder { flex: 0 0 70%; max-width: 70%; color: #333; background: #fff; padding: 12px; border-radius: 6px }
+
+#trazabilidad-modal-root .origen-sidebars { display: flex; gap: 12px }
+#trazabilidad-modal-root .origen-sidebars .box { width: 360px; background: #2b2b2b; color: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 2px 0 rgba(0,0,0,0.25) }
+#trazabilidad-modal-root .origen-sidebars .box .box-title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 12px; color: #a8f3e0 }
+#trazabilidad-modal-root .origen-sidebars .box .box-body { display:flex; flex-direction: column; gap: 28px }
+#trazabilidad-modal-root .origen-sidebars .box .box-btn { padding: 16px 12px; background: transparent; border: 3px solid rgba(255,255,255,0.08); color: #fff; cursor:pointer; border-radius:6px; text-align:left; font-size: 19px }
+#trazabilidad-modal-root .origen-sidebars .box .box-btn:hover { background: rgba(255,255,255,0.04) }
+
+/* Selected state for buttons */
+#trazabilidad-modal-root .origen-sidebars .box .box-btn.selected { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14) }
+
+/* Disabled state for buttons */
+#trazabilidad-modal-root .origen-sidebars .box .box-btn:disabled,
+#trazabilidad-modal-root .origen-sidebars .box .box-btn[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: rgba(0,0,0,0.12);
+  border-color: rgba(255,255,255,0.03);
+}
+
+#trazabilidad-modal-root .origen-sidebars .box .box-btn:disabled .btn-icon,
+#trazabilidad-modal-root .origen-sidebars .box .box-btn[disabled] .btn-icon {
+  opacity: 0.45;
+  filter: grayscale(100%);
+}
+
+/* Combined code display */
+#trazabilidad-modal-root .combined-code { margin-top: 12px; padding: 8px 12px; background: #072f2d; color: #a8f3e0; border-radius: 6px; font-weight:700; display:inline-block }
+
+/* Slight visual difference for destino box */
+#trazabilidad-modal-root .origen-sidebars .destinos-box { background: linear-gradient(180deg,#1f6f66,#154f47) }
+#trazabilidad-modal-root .origen-sidebars .destinos-box .box-title { color: #d2fff0 }
+
+/* Summary box showing selected labels */
+#trazabilidad-modal-root .summary-box { width: 495px; background: #183f3e; color: #e6fff9; border-radius: 8px; padding: 24px; display:flex; flex-direction: column; gap:12px; align-self: flex-start }
+#trazabilidad-modal-root .summary-box .summary-row { font-size: 18px }
+
+#trazabilidad-modal-root .date-box { width: 360px; background: #2b2b2b; color: #fff; border-radius: 8px; padding: 12px; display:flex; flex-direction: column; gap:12px; box-shadow: 0 2px 0 rgba(0,0,0,0.25); align-self: flex-start }
+#trazabilidad-modal-root .date-box .date-box-body { display:flex }
+#trazabilidad-modal-root .date-box .tm-fecha-input { width:100%; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.06); padding: 10px; border-radius:6px; font-size: 19px }
+
+/* Make date-box title match other boxes */
+#trazabilidad-modal-root .date-box .box-title { font-size: 18px; font-weight: 750; text-align: center; margin-bottom: 10px; color: #a8f3e0 }
+
+/* Small input visual tweak and error message */
+#trazabilidad-modal-root .date-box .tm-fecha-input { background: #1f1f1f; color: #e6fff8; border: 1px solid rgba(255,255,255,0.06); padding: 8px; border-radius: 6px }
+#trazabilidad-modal-root .fecha-error { color: #ffb4a2; background: rgba(255,120,90,0.06); padding: 8px; border-radius: 6px; font-size: 13px }
+
+/* Flatpickr small overrides to keep modal theme consistent (scoped) */
+#trazabilidad-modal-root .flatpickr-calendar { background: linear-gradient(180deg, #123a39, #0f2b2a) !important; color: #e6fff9 !important; border-radius: 6px !important; box-shadow: 0 8px 18px rgba(0,0,0,0.5) !important }
+#trazabilidad-modal-root .flatpickr-day { color: #fff !important }
+#trazabilidad-modal-root .flatpickr-day.selected { background: rgba(32,201,151,0.9) !important; color: #003a3a !important }
+
+/* CONTINUAR button placement and style */
+#trazabilidad-modal-root .trazabilidad-continue-wrap { position: absolute; right: 24px; bottom: 22px; z-index: 120; }
+#trazabilidad-modal-root .trazabilidad-continue-btn { display:flex; align-items:center; gap:10px; background: #012a6b; color: #fff; border: none; padding: 12px 18px; border-radius: 8px; font-weight: 860; font-size: 19px; cursor: pointer; box-shadow: 0 6px 18px rgba(1,42,107,0.35) }
+#trazabilidad-modal-root .trazabilidad-continue-btn .btn-icon { font-size: 19px }
+#trazabilidad-modal-root .trazabilidad-continue-btn:hover { background: #003884 }
+#trazabilidad-modal-root .trazabilidad-continue-btn:active { transform: translateY(1px) }
+
+/* Movement summary box in Boletas tab - single horizontal line */
+#trazabilidad-modal-root .movement-summary-box {
+  background: linear-gradient(180deg,#0e3b3a,#0a2d2c);
+  color: #e6fff9;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#trazabilidad-modal-root .movement-summary-box .ms-row {
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e6fff9;
+}
+
+#trazabilidad-modal-root .movement-summary-box .ms-row strong { color: #a8f3e0; font-weight:700 }
+
+/* Boletas tab - filters and grid */
+#trazabilidad-modal-root .boletas-filters {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding: 10px 4px 16px;
+}
+
+/* Search input slightly smaller: use flex-basis and min-width for predictability */
+#trazabilidad-modal-root .boletas-filters .bf-search {
+  flex: 0 0 38%;
+  min-width: 180px;
+  padding: 8px 10px;
+  border-radius:6px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #0f2b2a;
+  color: #e6fff9;
+  height: 38px;
+  box-sizing: border-box;
+}
+
+#trazabilidad-modal-root .boletas-filters .bf-dates {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex: 0 0 auto;
+}
+
+/* Date selects wider but fixed width to keep alignment */
+#trazabilidad-modal-root .boletas-filters .bf-date {
+  padding: 8px 10px;
+  border-radius:4px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #102e2d;
+  color: #e6fff9;
+  width: 150px;
+  height: 38px;
+  box-sizing: border-box;
+}
+
+/* Checkbox label and checkbox alignment */
+#trazabilidad-modal-root .boletas-filters .bf-hidezero {
+  margin-left: 8px;
+  color: #e6fff9;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#trazabilidad-modal-root .boletas-filters .bf-hidezero input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+/* Filter button aligned and same height */
+#trazabilidad-modal-root .boletas-filters .bf-filter-btn {
+  background:#0275d8;
+  color:#fff;
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:700;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Grid container */
+/* Prevent horizontal scrolling by hiding overflow-x and allowing vertical scroll */
+#trazabilidad-modal-root .boletas-grid-wrap { margin-top: 8px; overflow-y: auto; overflow-x: hidden; max-height: 52vh; border-radius:6px; }
+
+/* Table base and cells */
+/* Use fixed table layout so column widths are respected and long content truncates instead of expanding the table
+  Remove the hard min-width which used to force horizontal scrolling */
+#trazabilidad-modal-root .boletas-grid { width:100%; border-collapse: collapse; table-layout: fixed; min-width: 0 }
+
+#trazabilidad-modal-root .boletas-grid th,
+#trazabilidad-modal-root .boletas-grid td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Cell selection styles */
+#trazabilidad-modal-root .boletas-grid td {
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, transform 120ms ease;
+}
+
+/* Selección por fila: aplicar esta clase en <tr> para resaltar toda la fila */
+#trazabilidad-modal-root .boletas-grid tr.row-selected td {
+  background: linear-gradient(180deg, #ff8f3b, #ff6f1f); /* naranja cálido */
+  color: #081217;
+  font-weight: 700;
+}
+
+/* Opaque sticky header so content behind doesn't show through when scrolling */
+#trazabilidad-modal-root .boletas-grid thead th {
+  background: #1f4950;
+  color: #dff6f0;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(5),
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(5) { width: 16%; }
+
+#trazabilidad-modal-root .boletas-grid thead th { background: #1f4950; color:#dff6f0; position: sticky; top: 0; z-index: 30; box-shadow: 0 3px 6px rgba(0,0,0,0.25) }
+
+#trazabilidad-modal-root .boletas-grid .hidden-col { display:none }
+
+/* Small move button inside table cells - responsive and interactive
+   Make the button adapt to the cell width so it doesn't force the table wider */
+#trazabilidad-modal-root .boletas-grid .small-move-btn {
+  margin: 4px 8px;
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: #ffc857; /* visible warm color */
+  color: #082032;
+  border: none;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: transform 140ms cubic-bezier(.2,.9,.2,1), box-shadow 140ms cubic-bezier(.2,.9,.2,1), background 140ms ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.14);
+  min-width: 0;
+  width: 100%; /* fill the table cell width */
+  max-width: 235px; /* avoid extremely wide buttons on large screens */
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#trazabilidad-modal-root .boletas-grid .small-move-btn:hover {
+  transform: translateY(-4px);
+  background: #ffb030;
+  box-shadow: 0 12px 30px rgba(2,40,80,0.18);
+}
+
+#trazabilidad-modal-root .boletas-grid .small-move-btn:focus {
+  outline: none;
+  box-shadow: 0 12px 30px rgba(2,40,80,0.22);
+}
+
+#trazabilidad-modal-root .boletas-grid .small-move-btn:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+/* Disabled state for action button: visually and functionally inactive */
+#trazabilidad-modal-root .boletas-grid .small-move-btn[disabled],
+#trazabilidad-modal-root .boletas-grid .small-move-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Debug column smaller font */
+#trazabilidad-modal-root .boletas-grid td.debug-col { font-size: 12px; color: #e6fff9; opacity: 0.95 }
+#trazabilidad-modal-root .boletas-grid td .debug-mov { margin-top: 4px; font-size: 11px; color: #a8f3e0 }
+
+/* Reduce Cliente 15% (6% -> 5.1%) and add that to Descri (16% -> 16.9%) */
+/* Use round numbers: cliente 5%, descri 17% for better layout and single-line descri */
+#trazabilidad-modal-root .boletas-grid td.col-cliente, #trazabilidad-modal-root .boletas-grid th.col-cliente { width: 5%; max-width: 18%; }
+#trazabilidad-modal-root .boletas-grid td.col-descri, #trazabilidad-modal-root .boletas-grid th.col-descri { width: 17%; max-width: 17%; }
+
+/* Column color scheme: left -> right (ebodega -> despachado) progressive greens */
+/* Ebodega: strong green */
+#trazabilidad-modal-root .boletas-grid th.col-ebodega, #trazabilidad-modal-root .boletas-grid td.col-ebodega {
+  background: linear-gradient(180deg, #0f7a3a, #0b5d2d);
+  color: #eafff1;
+  font-size: 18px;
+  width: 6%;
+  max-width: 6%;
+}
+
+/* Eproceso: slightly lighter */
+#trazabilidad-modal-root .boletas-grid th.col-eproceso, #trazabilidad-modal-root .boletas-grid td.col-eproceso {
+  background: linear-gradient(180deg, #14975b, #0f7a3a);
+  color: #eafff1;
+  font-size: 18px;
+  width: 6%;
+  max-width: 6%;
+}
+
+/* Eterminado: softer green */
+#trazabilidad-modal-root .boletas-grid th.col-eterminado, #trazabilidad-modal-root .boletas-grid td.col-eterminado {
+  background: linear-gradient(180deg, #39b87a, #17a15f);
+  color: #003726;
+  font-size: 18px;
+  width: 6%;
+  max-width: 6%;
+}
+
+/* Despachado: pale green */
+#trazabilidad-modal-root .boletas-grid th.col-despachado, #trazabilidad-modal-root .boletas-grid td.col-despachado {
+  background: linear-gradient(180deg, #8ce0b0, #57d394);
+  color: #002918;
+  font-size: 18px;
+  width: 6%;
+  max-width: 6%;
+}
+
+/* Ensure hover increases contrast slightly */
+#trazabilidad-modal-root .boletas-grid td.col-ebodega:hover,
+#trazabilidad-modal-root .boletas-grid td.col-eproceso:hover,
+#trazabilidad-modal-root .boletas-grid td.col-eterminado:hover,
+#trazabilidad-modal-root .boletas-grid td.col-despachado:hover {
+  filter: brightness(1.04);
+}
+
+/* nth-child fallback if ths don't have class names */
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(4), #trazabilidad-modal-root .boletas-grid tbody td:nth-child(4) { width: 15%; }
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(5), #trazabilidad-modal-root .boletas-grid tbody td:nth-child(5) { width: 18%; }
+
+/* Ajuste fácil para la columna BOLETA (columna 2) usando la variable --col-boleta-width */
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(2),
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(2) {
+  width: var(--col-boleta-width, 8%);
+  max-width: var(--col-boleta-width, 8%);
+}
+
+/* Ajuste fácil para la columna MOVER (última columna). Si la tabla cambia, actualiza nth-child(12) acorde */
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(12),
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(12) {
+  width: var(--col-mover-width, 10%);
+  max-width: var(--col-mover-width, 10%);
+}
+
+/* Ajuste fácil para la columna CANTIDAD (columna 6) */
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(6),
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(6) {
+  width: var(--col-cantidad-width, 6%);
+  max-width: var(--col-cantidad-width, 6%);
+}
+
+/* Ajustes adicionales solicitados */
+/* Fecha (-5% menos ancho) -> asumimos la columna 1 */
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(1),
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(1) { width: 5%; }
+
+/* Tipo (-5% menos ancho) -> asumimos la columna 3 */
+#trazabilidad-modal-root .boletas-grid thead th:nth-child(3),
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(3) { width: 6%; }
+
+/* Cliente en una sola línea con ellipsis */
+/* Cliente: single line with ellipsis */
+#trazabilidad-modal-root .boletas-grid td.col-cliente,
+#trazabilidad-modal-root .boletas-grid th.col-cliente {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Descri: force single line with ellipsis to avoid multi-line wrap */
+#trazabilidad-modal-root .boletas-grid td.col-descri,
+#trazabilidad-modal-root .boletas-grid th.col-descri,
+#trazabilidad-modal-root .boletas-grid tbody td:nth-child(5) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pagination controls */
+#trazabilidad-modal-root .boletas-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px 0 20px 0;
+}
+#trazabilidad-modal-root .boletas-pagination button {
+  padding: 6px 10px;
+  background: #1f4950;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#trazabilidad-modal-root .boletas-pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+#trazabilidad-modal-root .boletas-pagination .page-info {
+  font-size: 0.95rem;
+  color: #dff6f0;
+}
+
+/* Transfer Modal Styles */
+.transfer-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.transfer-modal {
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 95%; /* Aumentado de 90% a 95% */
+  max-width: 600px; /* Aumentado significativamente para probar */
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #fff;
+}
+
+.transfer-modal-header {
+  background-color: #20c997;
+  color: #003a3a;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.transfer-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.transfer-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #003a3a;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transfer-modal-body {
+  padding: 24px; /* Aumentado de 20px a 24px para acomodar elementos más grandes */
+}
+
+.transfer-modal-body > div {
+  margin-bottom: 12px;
+  font-size: 17px; /* Aumentado 3px */
+}
+
+.transfer-row-values {
+  display: flex;
+  gap: 20px;
+  margin: 16px 0;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+}
+
+.transfer-row-values > div {
+  flex: 1;
+}
+
+.transfer-modal-body label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 500;
+  font-size: 17px; /* Aumentado 3px para consistencia */
+}
+
+.transfer-modal-body input {
+  width: 100%;
+  padding: 8px 12px;
+  margin-top: 8px;
+  background-color: #1a1a1a;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.transfer-qty-input {
+  width: 120px !important;
+  max-width: 120px !important;
+  font-size: 22px !important; /* Aumentado 4px más (era 18px) */
+  padding: 10px 14px !important; /* Ajustado padding para mejor proporción */
+}
+
+.transfer-qty-placeholder {
+  background-color: #1a1a1a;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-top: 8px;
+}
+
+.transfer-qty-placeholder label {
+  display: block;
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.transfer-modal-body input:focus {
+  outline: none;
+  border-color: #20c997;
+}
+
+.transfer-error {
+  color: #ff6b6b;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.transfer-modal-actions {
+  padding: 16px 20px 20px 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  border-top: 1px solid #444;
+}
+
+.transfer-modal-actions button {
+  padding: 10px 20px; /* Aumentado 20% (era 8px 16px) */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 17px; /* Aumentado 20% (era 14px) */
+  font-weight: 500;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Global .btn-icon definition - consolidado */
+.btn-icon {
+  font-size: 19px; /* Aumentado 20% (era 16px) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Specific overrides for origen sidebars */
+#trazabilidad-modal-root .origen-sidebars .box .box-btn .btn-icon {
+  margin-right: 10px;
+  display: inline-block;
+  width: 22px;
+  text-align: center;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #20c997;
+  color: #003a3a;
+}
+
+.btn-primary:hover {
+  background-color: #17a2b8;
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Manifiesto input styles */
+.manifiesto-input {
+  margin-left: 8px;
+  padding: 4px 8px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  width: 120px;
+}
+
+.manifiesto-input:focus {
+  outline: none;
+  border-color: #20c997;
+}
+
+/* Validar button styles */
+.btn-validar {
+  margin-left: 8px;
+  padding: 4px 12px;
+  background-color: #20c997;
+  color: #003a3a;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-validar:hover {
+  background-color: #17a2b8;
+}
+
+.btn-validar:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Ver Manifiesto button styles */
+.btn-ver-manifiesto {
+  margin-left: 8px;
+  padding: 4px 12px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-ver-manifiesto:hover {
+  background-color: #218838;
+}
+
+.btn-ver-manifiesto .btn-icon {
+  font-size: 16px;
+}
+
+/* Confirmation modal styles */
+.confirm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm-modal {
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 400px;
+  color: #fff;
+}
+
+.confirm-modal-header {
+  background-color: #20c997;
+  color: #003a3a;
+  padding: 16px 20px;
+  border-radius: 8px 8px 0 0;
+}
+
+.confirm-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Ver Manifiesto Modal Styles */
+.ver-manifiesto-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+}
+
+.ver-manifiesto-modal {
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 1000px;
+  max-height: 80vh;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.ver-manifiesto-modal-header {
+  background-color: #20c997;
+  color: #003a3a;
+  padding: 16px 20px;
+  border-radius: 8px 8px 0 0;
+}
+
+.manifiesto-info-placeholder {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.ver-manifiesto-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: calc(70vh - 200px); /* Ajustar para dejar espacio suficiente para header, footer y botones */
+}
+
+.ver-manifiesto-modal-footer {
+  padding: 15px 20px;
+  background-color: #2b2b2b;
+  border-top: 1px solid #444;
+  flex-shrink: 0; /* Evitar que se encoja */
+}
+
+.loading-message, .error-message {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.error-message {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  border-radius: 4px;
+}
+
+.manifiesto-grid-container {
+  margin-bottom: 20px;
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 400px; /* Altura máxima para activar scroll */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.manifiesto-grid {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative; /* Para que los sticky funcionen */
+}
+
+.manifiesto-grid th {
+  background-color: #20c997;
+  color: #003a3a;
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.manifiesto-grid td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #444;
+  font-size: 14px;
+}
+
+.manifiesto-grid tbody tr:hover {
+  background-color: rgba(32, 201, 151, 0.1);
+}
+
+.peso-total-placeholder {
+  background-color: #1a1a1a;
+  border: 2px solid #20c997;
+  border-radius: 6px;
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #e6fff9;
+}
+
+.ver-manifiesto-modal-actions {
+  padding: 16px 20px 20px 20px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #444;
+}
+
+.btn-cerrar-rojo {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-cerrar-rojo:hover {
+  background-color: #c82333;
+}
+
+.btn-cerrar-rojo .btn-icon {
+  font-size: 18px;
+  display: inline-flex;
+}
+
+.confirm-modal-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.confirm-modal-body p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.confirm-modal-actions {
+  padding: 16px 20px 20px 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+

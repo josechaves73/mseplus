@@ -1,0 +1,432 @@
+.nuevo-vehiculo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; /* Cubrir toda la ventana para evitar scrolls en el overlay */
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000; /* Aumentado para estar por encima de otros modales */
+}
+
+.nuevo-vehiculo-modal {
+  background-color: #333;
+  border-radius: 0;
+  box-shadow: none;
+  width: 90vw;
+  max-width: 1250px;
+  height: 85vh; /* Altura fija más conservadora */
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  
+
+.nuevo-vehiculo-modal-header {
+  background-color: #144627; /* Azul */
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.nuevo-vehiculo-modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nuevo-vehiculo-modal-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.nuevo-vehiculo-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Notificaciones */
+.notification {
+  padding: 12px 20px;
+  margin: 0;
+  border-left: 4px solid;
+  animation: slideInDown 0.3s ease-out;
+  position: relative;
+  z-index: 10;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  border-left-color: #28a745;
+  color: #155724;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  border-left-color: #dc3545;
+  color: #721c24;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-icon {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notification-message {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+}
+
+.nuevo-vehiculo-modal-body {
+  flex: 1;
+  padding: 0;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Clave para que flexbox funcione en contenedores con scroll */
+  
+
+/* Contenido del modal sin pestañas */
+.contenido-sin-pestanas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  overflow-y: auto; /* Scroll solo en el contenido */
+  background-color: #333;
+  border-top: 1px solid #444;
+}
+}
+
+/* Estilos del formulario */
+.form-container {
+  max-width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Sin scroll en el contenedor del formulario */
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  flex: 1 1 100%;
+}
+
+.form-group label {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Aplicamos la misma clase general para inputs del formulario */
+.form-input {
+  padding: 10px;
+  border: 1px solid #635555;
+  border-radius: 4px;
+  background-color: #000 !important;
+  color: #2f19a84d;
+  font-size: 16px !important;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #276c9b;
+  box-shadow: 0 0 5px rgba(0, 122, 204, 0.3);
+}
+
+.form-input.readonly {
+  background-color: #1a1a1a;
+  color: #ccc;
+  cursor: not-allowed;
+  border-color: #444;
+}
+
+.form-textarea {
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #007acc;
+  box-shadow: 0 0 5px rgba(0, 122, 204, 0.3);
+}
+
+.btn-guardar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.btn-guardar:hover {
+  background-color: #218838;
+}
+
+.btn-guardar:active {
+  background-color: #1e7e34;
+}
+
+/* Información del vehículo en pestañas */
+.vehiculo-info {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+}
+
+.info-row {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-item label {
+  color: #ccc;
+  font-weight: bold;
+  font-size: 14px;
+  min-width: 60px;
+}
+
+.info-value {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #1a1a1a;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  min-width: 120px;
+}
+
+/* Modal para ver imagen completa */
+.imagen-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+}
+
+.imagen-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background-color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.imagen-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.imagen-modal-close:hover {
+  background-color: #c82333;
+}
+
+.imagen-modal-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.imagen-modal-title {
+  color: #fff;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Modal de confirmación para eliminar imagen */
+.confirm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 400; /* Más alto que el modal de imagen */
+}
+
+.confirm-modal-content {
+  background-color: #333;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 90%;
+  overflow: hidden;
+}
+
+.confirm-modal-header {
+  background-color: #dc3545;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+.confirm-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.confirm-modal-body {
+  padding: 20px;
+  text-align: center;
+}
+
+.confirm-modal-body p {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.confirm-imagen-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.confirm-imagen-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #555;
+}
+
+.confirm-modal-footer {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  justify-content: center;
+  background-color: #2a2a2a;
+}
+
+.btn-confirm-no,
+.btn-confirm-si {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.btn-confirm-no {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-confirm-no:hover {
+  background-color: #5a6268;
+}
+
+.btn-confirm-si {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-confirm-si:hover {
+  background-color: #c82333;
+}

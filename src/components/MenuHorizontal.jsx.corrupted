@@ -1,0 +1,108 @@
+// This file was a corrupted backup of MenuHorizontal and has been cleared.
+// It is intentionally left empty to avoid duplicate menu entries.
+  },
+  { 
+    label: 'Utilidades', 
+    icon: '🔧', 
+    color: '#06b6d4',
+    sub: [
+      { label: 'Enviar Email', icon: '📬', color: '#0891b2' },
+      { label: 'Historial de Emails', icon: '📧', color: '#0e7490' }
+    ]
+  },
+  { 
+    label: 'Configuración', 
+    icon: '⚙️', 
+    color: '#a78bfa',
+    sub: [
+      { label: 'Configuración de Emails', icon: '�', color: '#c084fc' }
+    ]
+  },
+  { label: 'Salir', icon: '🚪', color: '#ef4444' },
+];
+
+const MenuHorizontal = ({ onOpenListaArticulos, onOpenListaVehiculos, onOpenListaConductores, onOpenListaBoletas, onOpenFamilias, onOpenReportes, onOpenListaClientes, onOpenClientePorArticulos, onOpenListaManifiestos, onOpenTrazabilidad, onOpenReporteAgrupado, onOpenConfiguracionEmail, onOpenEnviarEmail, onOpenHistorialEmails }) => {
+  const [open, setOpen] = useState(null);
+  const menuRef = useRef(null);
+
+  const handleClick = idx => {
+    setOpen(open === idx ? null : idx);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <nav className="menu-horizontal" ref={menuRef}>
+      {menuData.map((item, idx) => (
+        <div key={item.label} className="menu-item-group">
+          <button
+            className="menu-item"
+            style={{ color: item.color }}
+            onClick={() => item.sub ? handleClick(idx) : setOpen(null)}
+          >
+            <span className="menu-icon">{item.icon}</span>
+            <span className="menu-label">{item.label}</span>
+            {item.sub && <span className={`menu-arrow ${open === idx ? 'open' : ''}`}>▼</span>}
+          </button>
+          {item.sub && open === idx && (
+            <div className="submenu">
+                {item.sub.map(sub => (
+                <button key={sub.label} className="submenu-item" style={{ color: sub.color }} onClick={() => {
+                  setOpen(null);
+                  if (sub.label === 'Lista de Artículos' && onOpenListaArticulos) {
+                    onOpenListaArticulos();
+                  } else if (sub.label === 'Lista de Vehículos' && onOpenListaVehiculos) {
+                    onOpenListaVehiculos();
+                  } else if (sub.label === 'Lista de Conductores' && onOpenListaConductores) {
+                    onOpenListaConductores();
+                  } else if (sub.label === 'Lista de Boletas' && onOpenListaBoletas) {
+                    onOpenListaBoletas();
+                  } else if (sub.label === 'Trazabilidad' && onOpenTrazabilidad) {
+                    onOpenTrazabilidad();
+                  } else if (sub.label === 'Familias' && onOpenFamilias) {
+                    onOpenFamilias();
+                  } else if (sub.label === 'Reportes' && onOpenReportes) {
+                    onOpenReportes();
+                  } else if (sub.label === 'Lista de Clientes' && onOpenListaClientes) {
+                    onOpenListaClientes();
+                  } else if (sub.label === 'Lista de Manifiestos' && onOpenListaManifiestos) {
+                    onOpenListaManifiestos();
+                  } else if (sub.label === 'Artículos por Cliente' && onOpenClientePorArticulos) {
+                    onOpenClientePorArticulos();
+                  } else if (sub.label === 'Reporte Agrupado' && onOpenReporteAgrupado) {
+                    onOpenReporteAgrupado();
+                  } else if (sub.label === 'Configuración de Emails' && onOpenConfiguracionEmail) {
+                    console.log('🔧 MenuHorizontal - Clic en Configuración de Emails');
+                    onOpenConfiguracionEmail();
+                  } else if (sub.label === 'Enviar Email' && onOpenEnviarEmail) {
+                    console.log('📬 MenuHorizontal - Clic en Enviar Email');
+                    onOpenEnviarEmail();
+                  } else if (sub.label === 'Historial de Emails' && onOpenHistorialEmails) {
+                    console.log('📧 MenuHorizontal - Clic en Historial de Emails');
+                    onOpenHistorialEmails();
+                  }
+                }}>
+                  <span className="submenu-icon">{sub.icon}</span>
+                  <span className="submenu-label">{sub.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+  );
+};
+
+export default MenuHorizontal;
