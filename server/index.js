@@ -362,6 +362,7 @@ app.post('/api/login', async (req, res) => {
       success: false,
       message: 'Error interno del servidor'
     });
+  }
 });
 
 // Endpoint para procesar reversión de línea (transaccional)
