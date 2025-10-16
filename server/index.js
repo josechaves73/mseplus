@@ -274,6 +274,9 @@ app.get('/api/test', async (req, res) => {
     });
   }
 });
+
+// Endpoint de login
+app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   console.log('🔐 Intento de login:', { username, password: '***' });
@@ -359,7 +362,6 @@ app.get('/api/test', async (req, res) => {
       success: false,
       message: 'Error interno del servidor'
     });
-  }
 });
 
 // Endpoint para procesar reversión de línea (transaccional)
