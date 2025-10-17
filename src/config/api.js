@@ -1,7 +1,7 @@
 // Configuración de API para desarrollo y producción
 const API_CONFIG = {
-  // Usa VITE_API_URL si está definida, sino localhost para desarrollo
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api',
+  // En producción (Render), usa ruta relativa. En desarrollo, localhost
+  baseURL: import.meta.env.PROD ? '/api' : 'http://localhost:4000/api',
   
   // Configuración para diferentes ambientes
   endpoints: {

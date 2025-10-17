@@ -63,7 +63,7 @@ const ListaManifiestosModal = ({ isOpen, onClose }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:4000/api/manifiestos');
+      const response = await fetch('/api/manifiestos');
       if (!response.ok) throw new Error('Error al cargar manifiestos');
       const data = await response.json();
       setManifiestos(data.manifiestos || []);

@@ -61,7 +61,7 @@ const ListaBoletasModal = ({ isOpen, onClose, onOpenNuevaBoleta }) => {
     setError('');
     try {
       const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
-      const response = await fetch(`http://localhost:4000/api/boletas?page=${page}&limit=${recordsPerPage}${searchParam}`);
+      const response = await fetch(`/api/boletas?page=${page}&limit=${recordsPerPage}${searchParam}`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       

@@ -129,7 +129,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:4000/api/articulos');
+      const response = await fetch('/api/articulos');
       if (!response.ok) {
         throw new Error('Error al cargar artículos');
       }
@@ -151,7 +151,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
 
   const fetchUnidades = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/unidades');
+      const response = await fetch('/api/unidades');
       if (!response.ok) {
         throw new Error('Error al cargar unidades');
       }
@@ -171,7 +171,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
 
   const fetchFamilias = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/familias');
+      const response = await fetch('/api/familias');
       if (!response.ok) {
         throw new Error('Error al cargar familias');
       }
