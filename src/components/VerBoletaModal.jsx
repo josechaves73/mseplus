@@ -89,8 +89,6 @@ const VerBoletaModal = ({ isOpen, onClose, boletaSeleccionada }) => {
                       <div className="info-row">
                         <div className="info-label">Fecha</div>
                         <div className="info-value">{ formatFechaLatina((boletaHeader && boletaHeader.fecha) || boletaSeleccionada.fecha) }</div>
-                      </div>
-                      <div className="info-row">
                         <div className="info-label">Chofer</div>
                         <div className="info-value">{ (boletaHeader && boletaHeader.chofer) || boletaSeleccionada.chofer || '-' }</div>
                       </div>
