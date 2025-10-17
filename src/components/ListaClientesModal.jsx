@@ -32,7 +32,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
   const [emailSeleccionado, setEmailSeleccionado] = useState('');
   const [permisoDenegadoMensaje, setPermisoDenegadoMensaje] = useState({ show: false, accion: '' });
 
-  // Función helper para mostrar mensaje de permisos denegados
+  // FunciÃ³n helper para mostrar mensaje de permisos denegados
   const mostrarMensajePermisoDenegado = (accion) => {
     setPermisoDenegadoMensaje({ show: true, accion });
   };
@@ -41,14 +41,14 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
     setPermisoDenegadoMensaje({ show: false, accion: '' });
   };
 
-  // Función para alternar el orden
+  // FunciÃ³n para alternar el orden
   const toggleSortOrder = () => {
     const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
     setSortOrder(newOrder);
     fetchClientes(searchTerm.trim() || '', newOrder);
   };
 
-  // Filtrar clientes según el término de búsqueda
+  // Filtrar clientes segÃºn el tÃ©rmino de bÃºsqueda
   const filteredClientes = clientes;
 
   // Cargar clientes desde el backend
@@ -76,7 +76,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Búsqueda con debounce
+  // BÃºsqueda con debounce
   useEffect(() => {
     if (!isOpen) return;
     
@@ -99,17 +99,17 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
 
   // Al hacer clic en Nuevo
   const handleNuevoCliente = () => {
-    console.log('?? Verificando permiso para nuevo cliente:', hasPermission('Clientes', 'Clientes', 'nuevo'));
+    console.log('ğŸ” Verificando permiso para nuevo cliente:', hasPermission('Clientes', 'Clientes', 'nuevo'));
     if (!hasPermission('Clientes', 'Clientes', 'nuevo')) {
       mostrarMensajePermisoDenegado('Nuevo Cliente');
       return;
     }
-    console.log(' Nuevo cliente solicitado');
-    setEditClienteData(null); // Resetear datos de edición
+    console.log('â• Nuevo cliente solicitado');
+    setEditClienteData(null); // Resetear datos de ediciÃ³n
     setShowNuevoClienteModal(true);
   };
 
-  // Función para manejar el cierre del modal de cliente
+  // FunciÃ³n para manejar el cierre del modal de cliente
   const handleClienteModalClose = (shouldRefresh = false) => {
     setShowNuevoClienteModal(false);
     setEditClienteData(null);
@@ -120,14 +120,14 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
   };
 
   const handleEditarCliente = () => {
-    console.log('?? Verificando permiso para editar cliente:', hasPermission('Clientes', 'Clientes', 'editar'));
+    console.log('ğŸ” Verificando permiso para editar cliente:', hasPermission('Clientes', 'Clientes', 'editar'));
     if (!hasPermission('Clientes', 'Clientes', 'editar')) {
       mostrarMensajePermisoDenegado('Editar Cliente');
       return;
     }
     if (selectedIndex >= 0 && filteredClientes[selectedIndex]) {
       const clienteSeleccionado = filteredClientes[selectedIndex];
-      console.log('?? Editando cliente:', clienteSeleccionado);
+      console.log('âœï¸ Editando cliente:', clienteSeleccionado);
       setEditClienteData(clienteSeleccionado);
       setShowNuevoClienteModal(true);
     } else {
@@ -136,14 +136,14 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
   };
 
   const handleEliminarCliente = () => {
-    console.log('?? Verificando permiso para eliminar cliente:', hasPermission('Clientes', 'Clientes', 'eliminar'));
+    console.log('ğŸ” Verificando permiso para eliminar cliente:', hasPermission('Clientes', 'Clientes', 'eliminar'));
     if (!hasPermission('Clientes', 'Clientes', 'eliminar')) {
       mostrarMensajePermisoDenegado('Eliminar Cliente');
       return;
     }
     if (selectedIndex >= 0 && filteredClientes[selectedIndex]) {
       const clienteSeleccionado = filteredClientes[selectedIndex];
-      console.log('??? Eliminando cliente:', clienteSeleccionado);
+      console.log('ğŸ—‘ï¸ Eliminando cliente:', clienteSeleccionado);
       setShowDeleteModal(true);
     } else {
       alert('Selecciona un cliente para eliminar');
@@ -153,7 +153,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
   const handleConfirmDelete = async () => {
     if (selectedIndex >= 0 && filteredClientes[selectedIndex]) {
       const clienteSeleccionado = filteredClientes[selectedIndex];
-      console.log('??? Confirmando eliminación de cliente:', clienteSeleccionado);
+      console.log('ğŸ—‘ï¸ Confirmando eliminaciÃ³n de cliente:', clienteSeleccionado);
 
       try {
         const response = await fetch(`/api/clientes/${clienteSeleccionado.codigo}`, {
@@ -163,7 +163,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
         const data = await response.json();
 
         if (response.ok && data.success) {
-          // Éxito: refrescar la lista y mostrar mensaje
+          // Ã‰xito: refrescar la lista y mostrar mensaje
           fetchClientes(searchTerm, sortOrder);
           setSelectedIndex(-1);
           setShowDeleteModal(false);
@@ -172,7 +172,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
             message: data.message,
             type: 'success'
           });
-          console.log('? Cliente eliminado exitosamente:', data.clienteEliminado);
+          console.log('âœ… Cliente eliminado exitosamente:', data.clienteEliminado);
         } else {
           // Error: mostrar mensaje de error
           setShowDeleteModal(false);
@@ -181,14 +181,14 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
             message: data.error,
             type: 'error'
           });
-          console.error('? Error al eliminar cliente:', data.error);
+          console.error('âŒ Error al eliminar cliente:', data.error);
         }
       } catch (error) {
-        console.error('? Error de conexión al eliminar cliente:', error);
+        console.error('âŒ Error de conexiÃ³n al eliminar cliente:', error);
         setShowDeleteModal(false);
         setFloatingMessage({
           isVisible: true,
-          message: 'Error de conexión al eliminar el cliente: ' + error.message,
+          message: 'Error de conexiÃ³n al eliminar el cliente: ' + error.message,
           type: 'error'
         });
       }
@@ -196,7 +196,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
   };
 
   const handleBoletasRelacionadas = () => {
-    console.log('?? Verificando permiso para ver boletas relacionadas:', hasPermission('Clientes', 'Clientes', 'boletas_relacionadas'));
+    console.log('ğŸ” Verificando permiso para ver boletas relacionadas:', hasPermission('Clientes', 'Clientes', 'boletas_relacionadas'));
     if (!hasPermission('Clientes', 'Clientes', 'boletas_relacionadas')) {
       mostrarMensajePermisoDenegado('Ver Boletas Relacionadas');
       return;
@@ -252,7 +252,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
   };
 
   const handleExportClick = () => {
-    console.log('?? Verificando permiso para exportar clientes:', hasPermission('Clientes', 'Clientes', 'exportar'));
+    console.log('ğŸ” Verificando permiso para exportar clientes:', hasPermission('Clientes', 'Clientes', 'exportar'));
     if (!hasPermission('Clientes', 'Clientes', 'exportar')) {
       mostrarMensajePermisoDenegado('Exportar Clientes');
       return;
@@ -262,17 +262,17 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
 
   const handleExportToExcel = () => {
     const exportData = filteredClientes.map(cliente => ({
-      'Código': cliente.codigo,
+      'CÃ³digo': cliente.codigo,
       'Nombre': cliente.nombre,
-      'Dirección': cliente.dire,
-      'Teléfonos': cliente.telefonos,
+      'DirecciÃ³n': cliente.dire,
+      'TelÃ©fonos': cliente.telefonos,
       'Email': cliente.email,
       'Contacto 1': cliente.contacto1,
       'Comentarios': cliente.comenta,
       'Contacto 2': cliente.contacto2,
       'Contacto 3': cliente.contacto3,
       'Email 2': cliente.email2,
-      'Teléfono 2': cliente.telefono2
+      'TelÃ©fono 2': cliente.telefono2
     }));
     const worksheet = XLSX.utils.json_to_sheet(exportData);
     const workbook = XLSX.utils.book_new();
@@ -301,14 +301,14 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
           <div className="lista-clientes-modal-header">
             <h2 className="lista-clientes-modal-title">Lista de Clientes</h2>
             <div className="header-controls">
-              <button className="lista-clientes-modal-close" onClick={onClose}>?</button>
+              <button className="lista-clientes-modal-close" onClick={onClose}>âœ•</button>
             </div>
           </div>
           <div className="lista-clientes-modal-body">
             <div className="search-container">
               <input
                 type="text"
-                placeholder="Buscar por código, nombre, teléfono, email o contacto..."
+                placeholder="Buscar por cÃ³digo, nombre, telÃ©fono, email o contacto..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 className="search-input"
@@ -316,13 +316,13 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
               <button 
                 className={`sort-button ${sortOrder}`} 
                 onClick={toggleSortOrder}
-                title={`Ordenar por código ${sortOrder === 'asc' ? 'descendente' : 'ascendente'}`}
+                title={`Ordenar por cÃ³digo ${sortOrder === 'asc' ? 'descendente' : 'ascendente'}`}
               >
-                <span className="sort-icon">??</span>
+                <span className="sort-icon">â†•ï¸</span>
                 Ordenar
               </button>
               {isSearching && (
-                <div className="search-loading"> Buscando...</div>
+                <div className="search-loading">Buscando...</div>
               )}
             </div>
             
@@ -335,9 +335,9 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
                     <table className="clientes-table clientes-table-expanded">
                       <thead className="clientes-table-header">
                         <tr className="header-row">
-                          <th>Código</th>
+                          <th>CÃ³digo</th>
                           <th>Nombre</th>
-                          <th>Teléfonos</th>
+                          <th>TelÃ©fonos</th>
                           <th>Email</th>
                           <th>Contacto 1</th>
                           <th>Acciones</th>
@@ -359,7 +359,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
                                     onClick={(e) => handleEmailDropdownClick(e, cliente)}
                                     title="Enviar email"
                                   >
-                                    ??
+                                    âœ‰ï¸
                                   </button>
                                   <div className="email-dropdown-menu">
                                     {cliente.email && (
@@ -387,18 +387,18 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
                       </tbody>
                     </table>
                     {filteredClientes.length === 0 && searchTerm && (
-                      <p>No se encontraron clientes que coincidan con la búsqueda.</p>
+                      <p>No se encontraron clientes que coincidan con la bÃºsqueda.</p>
                     )}
                   </>
                 )}
               </div>
               <div className="action-buttons">
-                <button className="action-btn nuevo" onClick={handleNuevoCliente}>? Nuevo</button>
-                <button className="action-btn editar" onClick={handleEditarCliente} disabled={selectedIndex<0} title={selectedIndex<0?'Selecciona un cliente':'Editar cliente'}>?? Editar</button>
-                <button className="action-btn exportar" onClick={handleExportClick}>?? Exportar</button>
-                <button className="action-btn eliminar" onClick={handleEliminarCliente} disabled={selectedIndex<0} title={selectedIndex<0?'Selecciona un cliente':'Eliminar cliente'}>??? Eliminar</button>
-                <button className="action-btn boletas-relacionadas" onClick={handleBoletasRelacionadas} disabled={selectedIndex<0} title={selectedIndex<0?'Selecciona un cliente':'Ver boletas relacionadas'}>?? Boletas Relacionadas</button>
-                <button className="action-btn actualizar" onClick={handleActualizarClick}>?? Actualizar</button>
+                <button className="action-btn nuevo" onClick={handleNuevoCliente}>â• Nuevo</button>
+                <button className="action-btn editar" onClick={handleEditarCliente} disabled={selectedIndex<0} title={selectedIndex<0?'Selecciona un cliente':'Editar cliente'}>âœï¸ Editar</button>
+                <button className="action-btn exportar" onClick={handleExportClick}>ğŸ“Š Exportar</button>
+                <button className="action-btn eliminar" onClick={handleEliminarCliente} disabled={selectedIndex<0} title={selectedIndex<0?'Selecciona un cliente':'Eliminar cliente'}>ğŸ—‘ï¸ Eliminar</button>
+                <button className="action-btn boletas-relacionadas" onClick={handleBoletasRelacionadas} disabled={selectedIndex<0} title={selectedIndex<0?'Selecciona un cliente':'Ver boletas relacionadas'}>ğŸ“‹ Boletas Relacionadas</button>
+                <button className="action-btn actualizar" onClick={handleActualizarClick}>ğŸ”„ Actualizar</button>
               </div>
             </div>
           </div>
@@ -412,7 +412,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
         editData={editClienteData}
       />
 
-      {/* Modal de Exportación usando MensajeModal */}
+      {/* Modal de ExportaciÃ³n usando MensajeModal */}
       <MensajeModal
         isOpen={showExportModal}
         onClose={handleCloseExportModal}
@@ -421,13 +421,13 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
         buttons={[
           {
             label: "Exportar Excel",
-            icon: "??",
+            icon: "ğŸ“Š",
             onClick: handleExportToExcel,
             disabled: loading
           },
           {
             label: "Cancelar",
-            icon: "?",
+            icon: "âŒ",
             onClick: handleCloseExportModal,
             className: "btn-secondary",
             disabled: loading
@@ -435,45 +435,45 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
         ]}
       >
         <p>
-          Se exportarán <strong>{filteredClientes.length}</strong> cliente(s) a un archivo Excel con todos los campos disponibles.
+          Se exportarÃ¡n <strong>{filteredClientes.length}</strong> cliente(s) a un archivo Excel con todos los campos disponibles.
         </p>
         <p>
-          <small>• Código • Nombre • Dirección • Teléfonos • Email • Contactos • Comentarios</small>
+          â€¢ CÃ³digo â€¢ Nombre â€¢ DirecciÃ³n â€¢ TelÃ©fonos â€¢ Email â€¢ Contactos â€¢ Comentarios
         </p>
         <p>
-          ¿Deseas continuar con la exportación?
+          Â¿Deseas continuar con la exportaciÃ³n?
         </p>
       </MensajeModal>
 
-      {/* Modal de confirmación de eliminación usando MensajeModal */}
+      {/* Modal de confirmaciÃ³n de eliminaciÃ³n usando MensajeModal */}
       <MensajeModal
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
-        title="Confirmar Eliminación"
+        title="Confirmar EliminaciÃ³n"
         size="medium"
         buttons={[
           {
             label: "Eliminar",
-            icon: "???",
+            icon: "ğŸ—‘ï¸",
             onClick: handleConfirmDelete,
             className: "btn-danger"
           },
           {
             label: "Cancelar",
-            icon: "?",
+            icon: "âŒ",
             onClick: () => setShowDeleteModal(false),
             className: "btn-secondary"
           }
         ]}
       >
         <p>
-          ¿Está seguro de que desea eliminar el cliente:
+          Â¿EstÃ¡ seguro de que desea eliminar el cliente:
         </p>
         <p>
           <strong>"{filteredClientes[selectedIndex]?.codigo} - {filteredClientes[selectedIndex]?.nombre}"</strong>
         </p>
         <p style={{ color: '#dc2626', fontWeight: '500' }}>
-          ?? Esta acción no se puede deshacer.
+          âš ï¸ Esta acciÃ³n no se puede deshacer.
         </p>
       </MensajeModal>
 
@@ -490,7 +490,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
           }
         ]}
       >
-        <p>No dispone de permisos para realizar la acción: <strong>{permisoDenegadoMensaje.accion}</strong></p>
+        <p>No dispone de permisos para realizar la acciï¿½n: <strong>{permisoDenegadoMensaje.accion}</strong></p>
       </MensajeModal>
 
       {/* Mensaje flotante para feedback */}
@@ -508,7 +508,7 @@ const ListaClientesModal = ({ isOpen, onClose }) => {
         clienteSeleccionado={selectedIndex >= 0 ? filteredClientes[selectedIndex] : null}
       />
 
-      {/* Modal de envío de email */}
+      {/* Modal de envÃ­o de email */}
       <EnviarEmailModal
         isOpen={showEnviarEmailModal}
         onClose={handleEnviarEmailModalClose}
