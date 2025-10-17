@@ -411,6 +411,14 @@
   background-color: #6d28d9; /* Púrpura más oscuro para hover */
 }
 
+.action-btn.cambiar-codigo {
+  background-color: #e65100; /* Naranja oscuro */
+}
+
+.action-btn.cambiar-codigo:hover {
+  background-color: #bf360c; /* Naranja más oscuro para hover */
+}
+
 .action-btn.eliminar:hover {
   background-color: #c82333;
 }

@@ -44,7 +44,7 @@
 }
 
 .shortcuts-card:not(.glassmorphism-active) {
-  background: linear-gradient(180deg, #021630, #03284a);
+  background: linear-gradient(180deg, #1a365d, #2d5a8f); /* PRUEBA DE CAMBIO - Color más claro */
 }
 
 .shortcuts-card.glassmorphism-active {

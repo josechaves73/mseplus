@@ -5,6 +5,7 @@ import NuevoArticuloModal from './NuevoArticuloModal';
 import ArticulosXBoletaModal from './ArticulosXBoletaModal';
 import MensajeModal from './MensajeModal';
 import { useAuth } from '../contexts/AuthContext';
+import { API_BASE_URL } from '../config/api';
 
 const ListaArticulosModal = ({ isOpen, onClose }) => {
   const { hasPermission } = useAuth();
@@ -151,7 +152,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
 
   const fetchUnidades = async () => {
     try {
-      const response = await fetch('/api/unidades');
+      const response = await fetch(`${API_BASE_URL}/unidades`);
       if (!response.ok) {
         throw new Error('Error al cargar unidades');
       }
