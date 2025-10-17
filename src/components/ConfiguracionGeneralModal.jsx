@@ -132,7 +132,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
 
   const cargarColorGuardado = useCallback(async () => {
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/dashboard_color_botones');
+      const response = await apiCall('/api/configuracion/dashboard_color_botones');
       const data = await response.json();
       
       if (data.success && data.configuracion) {
@@ -145,7 +145,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
 
   const cargarConfiguracionClima = useCallback(async () => {
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/estado_tiempo_config');
+      const response = await apiCall('/api/configuracion/estado_tiempo_config');
       const data = await response.json();
       
       if (data.success && data.configuracion) {
@@ -159,7 +159,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
 
   const cargarConfiguracionNoticias = useCallback(async () => {
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/noticias_fuentes_rss');
+      const response = await apiCall('/api/configuracion/noticias_fuentes_rss');
       const data = await response.json();
       
       if (data.success && data.configuracion) {
@@ -178,7 +178,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
     console.log('💾 ConfiguracionGeneralModal - Guardando color para usuario:', userId, 'Color:', colorSeleccionado);
     
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion', {
+      const response = await apiCall('/api/configuracion', {
         method: 'POST',
         body: JSON.stringify({
           clave: 'dashboard_color_botones',
@@ -230,7 +230,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
     setGuardandoClima(true);
     
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion', {
+      const response = await apiCall('/api/configuracion', {
         method: 'POST',
         body: JSON.stringify({
           clave: 'estado_tiempo_config',
@@ -284,7 +284,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
     setGuardandoNoticias(true);
     
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion', {
+      const response = await apiCall('/api/configuracion', {
         method: 'POST',
         body: JSON.stringify({
           clave: 'noticias_fuentes_rss',
@@ -316,7 +316,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
 
   const cargarConfiguracionDashboard = useCallback(async () => {
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/dashboard_widgets_visibility');
+      const response = await apiCall('/api/configuracion/dashboard_widgets_visibility');
       const data = await response.json();
       
       if (data.success && data.configuracion) {
@@ -366,7 +366,7 @@ const ConfiguracionGeneralModal = ({ isOpen, onClose }) => {
     setGuardandoDashboard(true);
     
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion', {
+      const response = await apiCall('/api/configuracion', {
         method: 'POST',
         body: JSON.stringify({
           clave: 'dashboard_widgets_visibility',

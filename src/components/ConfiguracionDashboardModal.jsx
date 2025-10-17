@@ -19,7 +19,7 @@ const ConfiguracionDashboardModal = ({ isOpen, onClose }) => {
   // Cargar configuración actual del wallpaper
   const loadCurrentWallpaper = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/configuracion/dashboard_wallpaper_url`, {
+      const response = await fetch(`/api/configuracion/dashboard_wallpaper_url`, {
         headers: {
           'x-usuario-id': currentUserId.toString()
         }
@@ -114,7 +114,7 @@ const ConfiguracionDashboardModal = ({ isOpen, onClose }) => {
       if (selected) {
         try {
           // Guardar en la base de datos usando la API de configuraciones
-          const response = await fetch('http://localhost:4000/api/configuracion', {
+          const response = await fetch('/api/configuracion', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

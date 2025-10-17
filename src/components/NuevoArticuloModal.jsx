@@ -272,14 +272,14 @@ const NuevoArticuloModal = ({ isOpen, onClose, editMode = false, articuloEditar 
           setGuardando(false);
           return;
         }
-        response = await fetch(`http://localhost:4000/api/articulos/${codigoUrl}`, {
+        response = await fetch(`/api/articulos/${codigoUrl}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(cambios),
         });
       } else {
         // Modo nuevo: POST y sí revisa duplicados
-        response = await fetch('http://localhost:4000/api/articulos', {
+        response = await fetch('/api/articulos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

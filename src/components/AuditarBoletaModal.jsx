@@ -29,7 +29,7 @@ const AuditarBoletaModal = ({ isOpen, onClose, boleta }) => {
       try {
         const numero = boleta.numero || '';
         const tipo = boleta.tipo || '';
-        const url = `http://localhost:4000/api/materiales_proceso?search=${encodeURIComponent(numero)}&tipo=${encodeURIComponent(tipo)}&pageSize=1000`;
+        const url = `/api/materiales_proceso?search=${encodeURIComponent(numero)}&tipo=${encodeURIComponent(tipo)}&pageSize=1000`;
         const response = await fetch(url);
         
         if (!response.ok) {
@@ -81,7 +81,7 @@ const AuditarBoletaModal = ({ isOpen, onClose, boleta }) => {
       try {
         const numero = boleta.numero || '';
         const tipo = boleta.tipo || '';
-        const url = `http://localhost:4000/api/transa_ar?codigo=${encodeURIComponent(codigo)}&boleta=${encodeURIComponent(numero)}&tipox=${encodeURIComponent(tipo)}&pageSize=1000`;
+        const url = `/api/transa_ar?codigo=${encodeURIComponent(codigo)}&boleta=${encodeURIComponent(numero)}&tipox=${encodeURIComponent(tipo)}&pageSize=1000`;
         
         const response = await fetch(url);
         
@@ -146,7 +146,7 @@ const AuditarBoletaModal = ({ isOpen, onClose, boleta }) => {
         const tipo = boleta?.tipo || '';
 
         try {
-          const url = `http://localhost:4000/api/transa_ar?codigo=${encodeURIComponent(codigo)}&boleta=${encodeURIComponent(numero)}&tipox=${encodeURIComponent(tipo)}&pageSize=1000`;
+          const url = `/api/transa_ar?codigo=${encodeURIComponent(codigo)}&boleta=${encodeURIComponent(numero)}&tipox=${encodeURIComponent(tipo)}&pageSize=1000`;
           const response = await fetch(url);
           
           if (response.ok) {

@@ -18,7 +18,7 @@ const ManifiestosCambiarNumeroModal = ({ isOpen, onClose, manifiesto, onCambioAp
     setLoading(true);
     setWarning('');
     try {
-      const resp = await fetch(`http://localhost:4000/api/manifiestos/${manifiesto.numero}/cambiar-numero`, {
+      const resp = await fetch(`/api/manifiestos/${manifiesto.numero}/cambiar-numero`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nuevoNumero: nuevoNumero.trim() })

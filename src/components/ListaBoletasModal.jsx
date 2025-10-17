@@ -154,7 +154,7 @@ const ListaBoletasModal = ({ isOpen, onClose, onOpenNuevaBoleta }) => {
       setLoading(true);
       // Obtener todos los datos filtrados para exportación
       const searchParam = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : '';
-      const response = await fetch(`http://localhost:4000/api/boletas/export${searchParam ? '?' + searchParam.substring(1) : ''}`);
+      const response = await fetch(`/api/boletas/export${searchParam ? '?' + searchParam.substring(1) : ''}`);
       if (!response.ok) throw new Error('Error al obtener datos para exportar');
       
       const allData = await response.json();

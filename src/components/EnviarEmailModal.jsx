@@ -38,7 +38,7 @@ const EnviarEmailModal = ({ isOpen, onClose, clientePreseleccionado = null, emai
   // Función para obtener cuentas de email
   const fetchCuentasEmail = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/email-accounts');
+      const response = await fetch('/api/email-accounts');
       if (!response.ok) {
         throw new Error('Error al obtener cuentas de email');
       }
@@ -63,7 +63,7 @@ const EnviarEmailModal = ({ isOpen, onClose, clientePreseleccionado = null, emai
   // Función para obtener plantillas
   const fetchPlantillas = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/email-templates');
+      const response = await fetch('/api/email-templates');
       if (!response.ok) {
         throw new Error('Error al obtener plantillas');
       }
@@ -197,7 +197,7 @@ const EnviarEmailModal = ({ isOpen, onClose, clientePreseleccionado = null, emai
         clienteCodigo: clienteSeleccionado?.codigo || null
       };
 
-      const response = await fetch('http://localhost:4000/api/send-email', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -19,7 +19,7 @@ const ClientesXBoletaModal = ({ isOpen, onClose, clienteSeleccionado }) => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch(`http://localhost:4000/api/boletas-x-cliente/${clienteSeleccionado.codigo}`);
+      const response = await fetch(`/api/boletas-x-cliente/${clienteSeleccionado.codigo}`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
 

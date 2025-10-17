@@ -16,7 +16,7 @@ const HistorialEmailsModal = ({ isOpen, onClose }) => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://localhost:4000/api/email-history');
+      const response = await fetch('/api/email-history');
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       

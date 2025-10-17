@@ -26,7 +26,7 @@ const NoticiasModal = ({ onClose }) => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:4000/api/noticias');
+      const response = await fetch('/api/noticias');
       const data = await response.json();
 
       if (data.success) {

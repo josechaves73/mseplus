@@ -37,7 +37,7 @@ const ManifiestoEditarNotaModal = ({ isOpen, onClose, manifiesto, onNotaUpdated 
 
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:4000/api/manifiestos/${manifiesto.numero}/nota`, {
+      const response = await fetch(`/api/manifiestos/${manifiesto.numero}/nota`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

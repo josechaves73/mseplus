@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 // Servicio centralizado para peticiones HTTP
 class ApiService {
   constructor() {
-    this.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+    this.baseURL = import.meta.env.VITE_API_URL || '/api';
   }
 
   // Método para obtener headers con usuario-id

@@ -55,7 +55,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:4000/api/docu-config');
+      const response = await fetch('/api/docu-config');
       const data = await response.json();
       if (data.success) {
         const sortedData = data.documentos.sort((a, b) => {
@@ -81,7 +81,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
     setLoadingChoferes(true);
     setErrorChoferes(null);
     try {
-      const response = await fetch('http://localhost:4000/api/chofer');
+      const response = await fetch('/api/chofer');
       const data = await response.json();
       if (data.success) {
         setChoferes(data.choferes);
@@ -100,7 +100,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
     setLoadingDocumentos(true);
     setErrorDocumentos(null);
     try {
-      const response = await fetch('http://localhost:4000/api/docu-config');
+      const response = await fetch('/api/docu-config');
       const data = await response.json();
       if (data.success) {
         const documentosFiltrados = data.documentos.filter(doc => doc.aplica_a === aplica);
@@ -143,7 +143,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
   useEffect(() => {
     const fetchVehiculos = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/vehiculos');
+        const res = await fetch('/api/vehiculos');
         const data = await res.json();
         if (data.vehiculos) setVehiculos(data.vehiculos);
       } catch (err) {
@@ -204,7 +204,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
     };
 
     try {
-      const res = await fetch('http://localhost:4000/api/vehiculo-documento', {
+      const res = await fetch('/api/vehiculo-documento', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -269,7 +269,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
     };
 
     try {
-      const res = await fetch('http://localhost:4000/api/conductor-documento', {
+      const res = await fetch('/api/conductor-documento', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -308,7 +308,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
   const handleDeleteConfig = async () => {
     if (!selectedRow) return;
     try {
-      const res = await fetch(`http://localhost:4000/api/docu-config/${selectedRow.id}/check-relations`);
+      const res = await fetch(`/api/docu-config/${selectedRow.id}/check-relations`);
       const data = await res.json();
       if (!data.success) {
         showToast('error', 'Error verificando relaciones');
@@ -328,7 +328,7 @@ const TransportesDocuModal = ({ isOpen, onClose, onOpenNuevoDocumento }) => {
       if (!ok) return;
 
       // Proceder a eliminar
-      const delRes = await fetch(`http://localhost:4000/api/docu-config/${selectedRow.id}`, { method: 'DELETE' });
+      const delRes = await fetch(`/api/docu-config/${selectedRow.id}`, { method: 'DELETE' });
       const delData = await delRes.json();
       if (delData.success) {
         showGlobalFlash('success', 'Configuración eliminada', 3000);

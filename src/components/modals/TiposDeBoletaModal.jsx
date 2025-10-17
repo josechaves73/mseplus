@@ -50,7 +50,7 @@ const TiposDeBoletaModal = ({ isOpen, onClose }) => {
   const cargarTiposBoletas = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/tipo-boletas');
+      const response = await fetch('/api/tipo-boletas');
       const data = await response.json();
       
       if (data.success) {
@@ -103,7 +103,7 @@ const TiposDeBoletaModal = ({ isOpen, onClose }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/api/tipo-boletas', {
+      const response = await fetch('/api/tipo-boletas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ const TiposDeBoletaModal = ({ isOpen, onClose }) => {
 
     // Antes de ejecutar la actualización, pedir contadores y confirmar con el usuario
     try {
-      const countsResp = await fetch(`http://localhost:4000/api/tipo-boletas/counts/${encodeURIComponent(selectedTipo.nombre)}`);
+      const countsResp = await fetch(`/api/tipo-boletas/counts/${encodeURIComponent(selectedTipo.nombre)}`);
       if (!countsResp.ok) throw new Error('No se pudieron obtener conteos previos');
       const countsData = await countsResp.json();
       if (!countsData.success) throw new Error('Error al obtener conteos');
@@ -178,7 +178,7 @@ const TiposDeBoletaModal = ({ isOpen, onClose }) => {
     setShowConfirmModal(false);
     setIsProcessing(true);
     try {
-      const response = await fetch('http://localhost:4000/api/tipo-boletas', {
+      const response = await fetch('/api/tipo-boletas', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombreOriginal: selectedTipo.nombre, nombreNuevo: nombreEdit.trim() })
@@ -268,7 +268,7 @@ const TiposDeBoletaModal = ({ isOpen, onClose }) => {
     if (!selectedTipo) return;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/tipo-boletas/${encodeURIComponent(selectedTipo.nombre)}`, {
+      const response = await fetch(`/api/tipo-boletas/${encodeURIComponent(selectedTipo.nombre)}`, {
         method: 'DELETE',
       });
 

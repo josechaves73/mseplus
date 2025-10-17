@@ -13,8 +13,8 @@ export default function ConductorDocumentosModal({ isOpen, onClose, codigo, nomb
       setError(null);
       try {
         // Run two requests in parallel: one that returns docu_config (+ left-join), and one that returns only conductor rows
-        const urlAll = `http://localhost:4000/api/conductor-documento/${encodeURIComponent(codigo)}?includeAll=1`;
-        const urlOwn = `http://localhost:4000/api/conductor-documento/${encodeURIComponent(codigo)}`;
+        const urlAll = `/api/conductor-documento/${encodeURIComponent(codigo)}?includeAll=1`;
+        const urlOwn = `/api/conductor-documento/${encodeURIComponent(codigo)}`;
         const [resAll, resOwn] = await Promise.all([fetch(urlAll), fetch(urlOwn)]);
         const [dataAll, dataOwn] = await Promise.all([resAll.json(), resOwn.json()]);
 

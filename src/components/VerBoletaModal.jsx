@@ -13,7 +13,7 @@ const VerBoletaModal = ({ isOpen, onClose, boletaSeleccionada }) => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch(`http://localhost:4000/api/materiales-boleta/${boletaSeleccionada.numero}/${boletaSeleccionada.tipo}`);
+      const response = await fetch(`/api/materiales-boleta/${boletaSeleccionada.numero}/${boletaSeleccionada.tipo}`);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
 
@@ -24,7 +24,7 @@ const VerBoletaModal = ({ isOpen, onClose, boletaSeleccionada }) => {
       }
       // También obtener cabecera/metadata de la boleta si no viene completa
       try {
-        const r2 = await fetch(`http://localhost:4000/api/boletas/${boletaSeleccionada.numero}/${boletaSeleccionada.tipo}`);
+        const r2 = await fetch(`/api/boletas/${boletaSeleccionada.numero}/${boletaSeleccionada.tipo}`);
         if (r2.ok) {
           const header = await r2.json();
           setBoletaHeader(header || null);

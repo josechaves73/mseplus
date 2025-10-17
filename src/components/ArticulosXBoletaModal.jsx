@@ -17,7 +17,7 @@ const ArticulosXBoletaModal = ({ isOpen, onClose, articuloSeleccionado }) => {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:4000/api/materiales_proceso/boletas-por-articulo?codigo=${articuloSeleccionado.codigo}`);
+      const response = await fetch(`/api/materiales_proceso/boletas-por-articulo?codigo=${articuloSeleccionado.codigo}`);
       const data = await response.json();
 
       if (data.success) {
@@ -40,7 +40,7 @@ const ArticulosXBoletaModal = ({ isOpen, onClose, articuloSeleccionado }) => {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:4000/api/materiales_proceso/trazabilidad?boleta=${selectedBoleta}&codigo=${articuloSeleccionado.codigo}`);
+      const response = await fetch(`/api/materiales_proceso/trazabilidad?boleta=${selectedBoleta}&codigo=${articuloSeleccionado.codigo}`);
       const data = await response.json();
 
       if (data.success) {
@@ -84,7 +84,7 @@ const ArticulosXBoletaModal = ({ isOpen, onClose, articuloSeleccionado }) => {
         params.append('tipox', tipoxBoleta);
       }
 
-      const response = await fetch(`http://localhost:4000/api/materiales_proceso/movimientos-transa-ar?${params.toString()}`);
+      const response = await fetch(`/api/materiales_proceso/movimientos-transa-ar?${params.toString()}`);
       const data = await response.json();
 
       console.log('📊 Movimientos filtrados recibidos:', data.movimientos);

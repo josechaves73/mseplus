@@ -22,7 +22,7 @@ const CambiarTipoBoletaModal = ({ isOpen, onClose, boleta }) => {
 
   const fetchTiposBoleta = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/tipo-boletas');
+      const response = await fetch('/api/tipo-boletas');
       if (!response.ok) throw new Error('Error al cargar tipos de boleta');
       const data = await response.json();
       setTiposBoleta(data.data || []);
@@ -39,7 +39,7 @@ const CambiarTipoBoletaModal = ({ isOpen, onClose, boleta }) => {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:4000/api/cambiar-tipo-boleta`, {
+      const response = await fetch(`/api/cambiar-tipo-boleta`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

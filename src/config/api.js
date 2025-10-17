@@ -1,7 +1,7 @@
 // Configuración de API para desarrollo y producción
 const API_CONFIG = {
   // En producción (Render), usa ruta relativa. En desarrollo, localhost
-  baseURL: import.meta.env.PROD ? '/api' : 'http://localhost:4000/api',
+  baseURL: import.meta.env.PROD ? '/api' : '/api',
   
   // Configuración para diferentes ambientes
   endpoints: {

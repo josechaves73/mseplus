@@ -17,7 +17,7 @@ export const useClienteArticulos = () => {
     setLoadingClientes(true);
     setErrorClientes('');
     try {
-      const response = await fetch('http://localhost:4000/api/clientes-basico');
+      const response = await fetch('/api/clientes-basico');
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       console.log('✅ Clientes cargados:', data?.length || 0);
@@ -38,7 +38,7 @@ export const useClienteArticulos = () => {
     console.log('🔍 Verificando artículos del cliente:', codigoCliente);
     setLoadingArticulos(true);
     try {
-      const response = await fetch(`http://localhost:4000/api/articulos-x-cliente/${codigoCliente}`);
+      const response = await fetch(`/api/articulos-x-cliente/${codigoCliente}`);
       if (response.ok) {
         const data = await response.json();
         const articulosOrdenados = data.sort((a, b) => a.descri.localeCompare(b.descri));
@@ -72,7 +72,7 @@ export const useClienteArticulos = () => {
     console.log('🔍 Cargando artículos para asignación...');
     setLoadingArticulosParaAsignar(true);
     try {
-      const response = await fetch('http://localhost:4000/api/articulos-para-asignacion');
+      const response = await fetch('/api/articulos-para-asignacion');
       if (response.ok) {
         const data = await response.json();
         console.log('✅ Artículos para asignación cargados:', data?.length || 0);
@@ -103,7 +103,7 @@ export const useClienteArticulos = () => {
       tipo_res: articulo.tipo_res
     };
 
-    const response = await fetch('http://localhost:4000/api/asignar-articulo', {
+    const response = await fetch('/api/asignar-articulo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(asignacionData)
@@ -128,7 +128,7 @@ export const useClienteArticulos = () => {
   const eliminarArticulo = useCallback(async (clienteCodigo, articuloCodigo) => {
     console.log('🗑️ Eliminando artículo:', articuloCodigo, 'del cliente:', clienteCodigo);
 
-    const response = await fetch(`http://localhost:4000/api/articulos-x-cliente/${clienteCodigo}/${articuloCodigo}`, {
+    const response = await fetch(`/api/articulos-x-cliente/${clienteCodigo}/${articuloCodigo}`, {
       method: 'DELETE'
     });
 

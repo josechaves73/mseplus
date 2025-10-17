@@ -36,7 +36,7 @@ const VerDetalleManifiestoModal = ({ isOpen, onClose, manifiesto }) => {
       setErrorDetalles(null);
 
       try {
-        const response = await fetch(`http://localhost:4000/api/manifiesto3/${manifiesto.numero}`);
+        const response = await fetch(`/api/manifiesto3/${manifiesto.numero}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -416,7 +416,7 @@ const VerDetalleManifiestoModal = ({ isOpen, onClose, manifiesto }) => {
                           cantidad: reversarCantidad
                         };
 
-                        const resp = await fetch('http://localhost:4000/api/reversar-linea', {
+                        const resp = await fetch('/api/reversar-linea', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify(payload)
@@ -438,7 +438,7 @@ const VerDetalleManifiestoModal = ({ isOpen, onClose, manifiesto }) => {
                         // (evita doble fetch mientras el resumen está visible)
                         if (manifiesto?.numero) {
                           try {
-                            const r = await fetch(`http://localhost:4000/api/manifiesto3/${manifiesto.numero}`);
+                            const r = await fetch(`/api/manifiesto3/${manifiesto.numero}`);
                             if (r.ok) {
                               const d = await r.json();
                               setDetallesManifiesto(d.detalles || []);
@@ -497,7 +497,7 @@ const VerDetalleManifiestoModal = ({ isOpen, onClose, manifiesto }) => {
                       setResumenData(null);
                       if (manifiesto?.numero) {
                         try {
-                          const r = await fetch(`http://localhost:4000/api/manifiesto3/${manifiesto.numero}`);
+                          const r = await fetch(`/api/manifiesto3/${manifiesto.numero}`);
                           if (r.ok) {
                             const d = await r.json();
                             setDetallesManifiesto(d.detalles || []);

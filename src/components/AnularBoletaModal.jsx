@@ -44,7 +44,7 @@ const AnularBoletaModal = ({ isOpen, onClose, boleta }) => {
       const tipo = boleta.tipo || '';
 
       // Consultar materiales_proceso para esta boleta
-      const response = await fetch(`http://localhost:4000/api/materiales_proceso?boleta=${encodeURIComponent(numero)}&tipo=${encodeURIComponent(tipo)}&pageSize=1000`);
+      const response = await fetch(`/api/materiales_proceso?boleta=${encodeURIComponent(numero)}&tipo=${encodeURIComponent(tipo)}&pageSize=1000`);
 
       if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
@@ -104,7 +104,7 @@ const AnularBoletaModal = ({ isOpen, onClose, boleta }) => {
       const tipo = boleta.tipo || '';
 
       // Llamar al endpoint de anulación
-      const response = await fetch(`http://localhost:4000/api/anular-boleta`, {
+      const response = await fetch(`/api/anular-boleta`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

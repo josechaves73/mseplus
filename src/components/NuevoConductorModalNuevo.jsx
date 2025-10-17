@@ -197,7 +197,7 @@ const NuevoConductorModal = ({ isOpen, onClose, editData = null }) => {
         const publicId = publicIdWithExtension.split('.')[0];
         
         // Eliminar de Cloudinary
-        const cloudinaryResponse = await fetch('http://localhost:4000/api/delete-image', {
+        const cloudinaryResponse = await fetch('/api/delete-image', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ const NuevoConductorModal = ({ isOpen, onClose, editData = null }) => {
         
         // Si estamos en modo edición, también actualizar la base de datos
         if (isEditMode && editData) {
-          const dbResponse = await fetch(`http://localhost:4000/api/chofer/${editData.codigo_chofer}/imagen`, {
+          const dbResponse = await fetch(`/api/chofer/${editData.codigo_chofer}/imagen`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -254,8 +254,8 @@ const NuevoConductorModal = ({ isOpen, onClose, editData = null }) => {
 
     try {
       const url = isEditMode 
-        ? `http://localhost:4000/api/chofer/${editData.codigo_chofer}`
-        : 'http://localhost:4000/api/chofer';
+        ? `/api/chofer/${editData.codigo_chofer}`
+        : '/api/chofer';
       
       const method = isEditMode ? 'PUT' : 'POST';
       

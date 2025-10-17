@@ -21,7 +21,7 @@ const CambiarEstadoModal = ({ isOpen, onClose, manifiesto, onEstadoUpdated }) =>
       console.log(`🔄 Aplicando cambio de estado: ${estadoActual} → ${estadoObjetivo} para manifiesto ${manifiesto.numero}`);
 
       // Hacer la llamada a la API para actualizar el estado
-      const response = await fetch(`http://localhost:4000/api/manifiestos/${manifiesto.numero}/estado`, {
+      const response = await fetch(`/api/manifiestos/${manifiesto.numero}/estado`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

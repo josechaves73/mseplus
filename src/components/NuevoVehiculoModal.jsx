@@ -68,8 +68,8 @@ const NuevoVehiculoModal = ({ isOpen, onClose, editData = null }) => {
 
     try {
       const url = isEditMode 
-        ? `http://localhost:4000/api/vehiculos/${formData.placa}`
-        : 'http://localhost:4000/api/vehiculos';
+        ? `/api/vehiculos/${formData.placa}`
+        : '/api/vehiculos';
       
       const method = isEditMode ? 'PUT' : 'POST';
 

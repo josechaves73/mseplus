@@ -26,7 +26,7 @@ export const useSelectOptions = (endpoint, dataKey = null, fallbackData = [], ma
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`http://localhost:4000/api/${endpoint}`);
+      const response = await fetch(`/api/${endpoint}`);
       if (!response.ok) {
         throw new Error(`Error al cargar ${endpoint}`);
       }

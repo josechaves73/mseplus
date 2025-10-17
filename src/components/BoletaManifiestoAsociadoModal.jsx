@@ -19,7 +19,7 @@ const BoletaManifiestoAsociadoModal = ({ isOpen, onClose, boleta }) => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(`http://localhost:4000/api/manifiesto3/boleta/${encodeURIComponent(boleta.numero)}`);
+        const res = await fetch(`/api/manifiesto3/boleta/${encodeURIComponent(boleta.numero)}`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         // normalizar: el servidor puede devolver {detalles: [...] } u directamente un array

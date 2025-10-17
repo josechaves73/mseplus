@@ -107,7 +107,7 @@ const VehiculoNuevoModal = ({ isOpen, onClose, editData = null, onUpdated = () =
           anotacion: formData.anotacion || ''
         };
 
-        const saveRes = await fetch('http://localhost:4000/api/vehiculos', {
+        const saveRes = await fetch('/api/vehiculos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -152,7 +152,7 @@ const VehiculoNuevoModal = ({ isOpen, onClose, editData = null, onUpdated = () =
           anotacion: formData.anotacion || ''
         };
 
-        const updateRes = await fetch(`http://localhost:4000/api/vehiculos/${encodeURIComponent(placaEd)}`, {
+        const updateRes = await fetch(`/api/vehiculos/${encodeURIComponent(placaEd)}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)

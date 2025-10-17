@@ -36,7 +36,7 @@ const EstadoTiempoModal = ({ onClose }) => {
   // Función para cargar configuración
   const cargarConfiguracion = useCallback(async () => {
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/estado_tiempo_config');
+      const response = await apiCall('/api/configuracion/estado_tiempo_config');
       const data = await response.json();
       
       if (data.success && data.configuracion) {

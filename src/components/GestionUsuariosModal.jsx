@@ -36,7 +36,7 @@ const GestionUsuariosModal = ({ isOpen, onClose }) => {
   const cargarUsuarios = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/usuarios');
+      const response = await fetch('/api/usuarios');
       console.log('🔍 Response status:', response.status);
       
       if (response.ok) {
@@ -66,7 +66,7 @@ const GestionUsuariosModal = ({ isOpen, onClose }) => {
 
   const cargarPermisosCatalogo = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/permisos/modulos');
+      const response = await fetch('/api/permisos/modulos');
       if (response.ok) {
         const data = await response.json();
         setPermisosCatalogo(data);
@@ -78,7 +78,7 @@ const GestionUsuariosModal = ({ isOpen, onClose }) => {
 
   const cargarPermisosUsuario = async (usuarioId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/permisos/usuario/${usuarioId}`);
+      const response = await fetch(`/api/permisos/usuario/${usuarioId}`);
       if (response.ok) {
         const data = await response.json();
         // Convertir array a objeto para fácil acceso
@@ -133,7 +133,7 @@ const GestionUsuariosModal = ({ isOpen, onClose }) => {
         return { modulo, submodulo, accion, permitido };
       });
 
-      const response = await fetch(`http://localhost:4000/api/permisos/usuario/${usuarioSeleccionado.id}`, {
+      const response = await fetch(`/api/permisos/usuario/${usuarioSeleccionado.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ permisos: permisosArray })
@@ -166,7 +166,7 @@ const GestionUsuariosModal = ({ isOpen, onClose }) => {
 
   const handleCrearUsuario = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/usuarios', {
+      const response = await fetch('/api/usuarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevoUsuario)
@@ -221,7 +221,7 @@ const GestionUsuariosModal = ({ isOpen, onClose }) => {
         delete datosActualizar.password; // No actualizar contraseña si está vacía
       }
 
-      const response = await fetch(`http://localhost:4000/api/usuarios/${nuevoUsuario.id}`, {
+      const response = await fetch(`/api/usuarios/${nuevoUsuario.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datosActualizar)

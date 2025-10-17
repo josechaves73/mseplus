@@ -57,7 +57,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
       if (activeTab === 'unidades' && isOpen) {
         setLoading(true);
         try {
-          const response = await fetch('http://localhost:4000/api/unidades');
+          const response = await fetch('/api/unidades');
           if (response.ok) {
             const data = await response.json();
             setUnidades(data || []);
@@ -74,7 +74,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
       } else if (activeTab === 'familias' && isOpen) {
         setLoadingFamilias(true);
         try {
-          const response = await fetch('http://localhost:4000/api/familias');
+          const response = await fetch('/api/familias');
           if (response.ok) {
             const data = await response.json();
             setFamilias(data || []);
@@ -91,7 +91,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
       } else if (activeTab === 'categorias' && isOpen) {
         setLoadingCategorias(true);
         try {
-          const response = await fetch('http://localhost:4000/api/categorias');
+          const response = await fetch('/api/categorias');
           if (response.ok) {
             const data = await response.json();
             setCategorias(data || []);
@@ -114,7 +114,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
   const cargarUnidades = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/unidades');
+      const response = await fetch('/api/unidades');
       if (response.ok) {
         const data = await response.json();
         // Asegurar que data sea un array
@@ -216,7 +216,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
       
       if (editingUnidad) {
         // Actualizar unidad existente
-        response = await fetch(`http://localhost:4000/api/unidades/${editingUnidad.nombreu}`, {
+        response = await fetch(`/api/unidades/${editingUnidad.nombreu}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
         });
       } else {
         // Crear nueva unidad
-        response = await fetch('http://localhost:4000/api/unidades', {
+        response = await fetch('/api/unidades', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -281,7 +281,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
     
     if (confirm(`¿Estás seguro de que deseas eliminar la unidad "${selectedUnidad.nombreu}"?`)) {
       try {
-        const response = await fetch(`http://localhost:4000/api/unidades/${selectedUnidad.nombreu}`, {
+        const response = await fetch(`/api/unidades/${selectedUnidad.nombreu}`, {
           method: 'DELETE'
         });
         
@@ -305,7 +305,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
   const cargarFamilias = async () => {
     setLoadingFamilias(true);
     try {
-      const response = await fetch('http://localhost:4000/api/familias');
+      const response = await fetch('/api/familias');
       if (response.ok) {
         const data = await response.json();
         setFamilias(data || []);
@@ -385,7 +385,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
       
       if (editingFamilia) {
         // Modo edición: actualizar familia existente
-        response = await fetch(`http://localhost:4000/api/familias/${editingFamilia.nombref}`, {
+        response = await fetch(`/api/familias/${editingFamilia.nombref}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -396,7 +396,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
         });
       } else {
         // Modo nuevo: crear nueva familia
-        response = await fetch('http://localhost:4000/api/familias', {
+        response = await fetch('/api/familias', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -450,7 +450,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
     
     if (confirm(`¿Estás seguro de que deseas eliminar la familia "${selectedFamilia.nombref}"?`)) {
       try {
-        const response = await fetch(`http://localhost:4000/api/familias/${selectedFamilia.nombref}`, {
+        const response = await fetch(`/api/familias/${selectedFamilia.nombref}`, {
           method: 'DELETE'
         });
         
@@ -474,7 +474,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
   const cargarCategorias = async () => {
     setLoadingCategorias(true);
     try {
-      const response = await fetch('http://localhost:4000/api/categorias');
+      const response = await fetch('/api/categorias');
       if (response.ok) {
         const data = await response.json();
         setCategorias(data || []);
@@ -554,7 +554,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
       
       if (editingCategoria) {
         // Modo edición: actualizar categoría existente
-        response = await fetch(`http://localhost:4000/api/categorias/${editingCategoria.categoria}`, {
+        response = await fetch(`/api/categorias/${editingCategoria.categoria}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -565,7 +565,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
         });
       } else {
         // Modo nuevo: crear nueva categoría
-        response = await fetch('http://localhost:4000/api/categorias', {
+        response = await fetch('/api/categorias', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -619,7 +619,7 @@ const FamiliasModal = ({ isOpen, onClose }) => {
     
     if (confirm(`¿Estás seguro de que deseas eliminar la categoría "${selectedCategoria.categoria}"?`)) {
       try {
-        const response = await fetch(`http://localhost:4000/api/categorias/${selectedCategoria.categoria}`, {
+        const response = await fetch(`/api/categorias/${selectedCategoria.categoria}`, {
           method: 'DELETE'
         });
         

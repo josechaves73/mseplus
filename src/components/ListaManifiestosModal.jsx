@@ -344,7 +344,7 @@ const ListaManifiestosModal = ({ isOpen, onClose }) => {
 
     try {
       // Obtener detalles del manifiesto
-      const response = await fetch(`http://localhost:4000/api/manifiesto3/${manifiestoSeleccionado.numero}`);
+      const response = await fetch(`/api/manifiesto3/${manifiestoSeleccionado.numero}`);
       if (!response.ok) throw new Error('Error al obtener detalles del manifiesto');
 
       const data = await response.json();

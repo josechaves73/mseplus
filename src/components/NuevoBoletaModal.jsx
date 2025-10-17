@@ -209,7 +209,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       // En modo edición no verificamos existencia (editará la boleta existente)
       if (!isEdit) {
         // Verificar existencia por número + tipo llamando al endpoint dedicado
-        const checkUrl = `http://localhost:4000/api/boletas/exists?numero=${encodeURIComponent(numeroBoleta)}&tipo=${encodeURIComponent(selectedTipo || '')}`;
+        const checkUrl = `/api/boletas/exists?numero=${encodeURIComponent(numeroBoleta)}&tipo=${encodeURIComponent(selectedTipo || '')}`;
         const resCheck = await fetch(checkUrl);
         if (resCheck.ok) {
           const body = await resCheck.json();
@@ -286,7 +286,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       // Preferir tipoParam, luego selectedTipo, luego initialBoleta.tipo
       const tipoFiltro = tipoParam || selectedTipo || (initialBoleta && initialBoleta.tipo) || '';
       const qTipo = tipoFiltro ? `&tipo=${encodeURIComponent(tipoFiltro)}` : '';
-      const resp = await fetch(`http://localhost:4000/api/materiales_proceso?search=${encodeURIComponent(boletaNum)}${qTipo}&pageSize=1000`);
+      const resp = await fetch(`/api/materiales_proceso?search=${encodeURIComponent(boletaNum)}${qTipo}&pageSize=1000`);
       if (!resp.ok) { console.warn('No se pudo obtener materiales_proceso para la boleta'); return; }
       const body = await resp.json();
       const rows = body.rows || [];
@@ -472,7 +472,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
 
       // Si hay ajustes en materiales_proceso, aplicarlos primero
       if (payload.ajustes && payload.ajustes.length > 0) {
-        resp = await fetch('http://localhost:4000/api/materiales_proceso/ajustes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        resp = await fetch('/api/materiales_proceso/ajustes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const txt = await resp.text();
         try { body = JSON.parse(txt); } catch { body = { message: txt }; }
       }
@@ -484,7 +484,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
           // Incluir 'tipo' en el body para que el servidor pueda identificar por numero+tipo si es necesario
           const tipoParaEnviar = selectedTipo || (initialBoleta && initialBoleta.tipo) || '';
           const updateBody = { ...boletaUpdates, tipo: tipoParaEnviar };
-          const updateResp = await fetch(`http://localhost:4000/api/boletas/${encodeURIComponent(numero)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updateBody) });
+          const updateResp = await fetch(`/api/boletas/${encodeURIComponent(numero)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updateBody) });
           if (!updateResp.ok) {
             const txt2 = await updateResp.text();
             let b2 = {};
@@ -531,7 +531,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       setLoadingTipos(true);
       setErrorTipos(null);
       try {
-        const res = await fetch('http://localhost:4000/api/tipo-boletas');
+        const res = await fetch('/api/tipo-boletas');
         const body = await res.json();
         if (!res.ok) throw new Error(body.error || 'Error fetching tipos');
         if (mounted) {
@@ -565,8 +565,8 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       if (active !== 'transportes') return;
       try {
         const [r1, r2] = await Promise.all([
-          fetch('http://localhost:4000/api/chofer'),
-          fetch('http://localhost:4000/api/vehiculos')
+          fetch('/api/chofer'),
+          fetch('/api/vehiculos')
         ]);
         if (!r1.ok) throw new Error('Error cargando choferes');
         if (!r2.ok) throw new Error('Error cargando vehiculos');
@@ -764,7 +764,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
           return;
         }
 
-        const url = `http://localhost:4000/api/materiales_proceso?boleta=${encodeURIComponent(boletaNum)}&codigo=${encodeURIComponent(codigo)}&tipo=${encodeURIComponent(tipoFiltro)}`;
+        const url = `/api/materiales_proceso?boleta=${encodeURIComponent(boletaNum)}&codigo=${encodeURIComponent(codigo)}&tipo=${encodeURIComponent(tipoFiltro)}`;
         // helper to extract readable message from server response
         const extractMessage = async (response) => {
           try {
@@ -893,7 +893,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
 
       // Antes de avanzar, verificar que el cliente tiene artículos relacionados
       try {
-        const res = await fetch(`http://localhost:4000/api/articulos-x-cliente/${encodeURIComponent(codigo)}`);
+        const res = await fetch(`/api/articulos-x-cliente/${encodeURIComponent(codigo)}`);
         if (!res.ok) {
           const txt = await res.text();
           setFloatMsg({ message: 'Error al verificar artículos del cliente: ' + txt, type: 'error', isVisible: true });
@@ -1019,7 +1019,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       setIsApplying(true);
 
       // 1) Verificar duplicados (numero + tipo)
-      const checkUrl = `http://localhost:4000/api/boletas/exists?numero=${encodeURIComponent(numeroBoleta)}&tipo=${encodeURIComponent(selectedTipo || '')}`;
+      const checkUrl = `/api/boletas/exists?numero=${encodeURIComponent(numeroBoleta)}&tipo=${encodeURIComponent(selectedTipo || '')}`;
       const resCheck = await fetch(checkUrl);
       if (!resCheck.ok) {
         const txt = await resCheck.text();
@@ -1078,7 +1078,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       };
 
       // 3) Enviar POST al backend
-      const res = await fetch('http://localhost:4000/api/boletas', {
+      const res = await fetch('/api/boletas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -1108,7 +1108,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
 
       if (insertLines.length > 0) {
         try {
-          const transaRes = await fetch('http://localhost:4000/api/transa_ar', {
+          const transaRes = await fetch('/api/transa_ar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ numero: numeroBoleta, fecha: fechaISO, tipo: selectedTipo, lines: insertLines })
@@ -1161,7 +1161,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
         });
 
         if (mpLines.length > 0) {
-          const mpRes = await fetch('http://localhost:4000/api/materiales_proceso', {
+          const mpRes = await fetch('/api/materiales_proceso', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ numero: numeroBoleta, fecha: fechaISO, tipo: selectedTipo, cliente: clienteName, clientec: isNaN(Number(clienteC)) ? 0 : Number(clienteC), lines: mpLines })
@@ -1194,7 +1194,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
     const loadClientes = async () => {
       try {
         const query = searchCliente ? `?search=${encodeURIComponent(searchCliente)}` : '';
-        const res = await fetch(`http://localhost:4000/api/clientes-basico${query}`);
+        const res = await fetch(`/api/clientes-basico${query}`);
         if (!res.ok) throw new Error('Error cargando clientes');
         const body = await res.json();
         if (mounted) {
@@ -1258,7 +1258,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
       setLoadingArticulos(true);
       try {
   // El servidor expone: GET /api/articulos-x-cliente/:codigoCliente
-        const res = await fetch(`http://localhost:4000/api/articulos-x-cliente/${encodeURIComponent(codigo)}`);
+        const res = await fetch(`/api/articulos-x-cliente/${encodeURIComponent(codigo)}`);
         if (!res.ok) throw new Error('Error cargando artículos');
         const body = await res.json();
         if (mounted) {
@@ -1272,7 +1272,7 @@ const NuevoBoletaModal = ({ isOpen, onClose, isEdit = false, initialBoleta = nul
             try {
               const tipoFiltro = selectedTipo || (initialBoleta && initialBoleta.tipo) || '';
               const qTipo = tipoFiltro ? `&tipo=${encodeURIComponent(tipoFiltro)}` : '';
-              const resp = await fetch(`http://localhost:4000/api/materiales_proceso?search=${encodeURIComponent(initialBoleta.numero)}${qTipo}&pageSize=1000`);
+              const resp = await fetch(`/api/materiales_proceso?search=${encodeURIComponent(initialBoleta.numero)}${qTipo}&pageSize=1000`);
               if (resp.ok) {
                 const b = await resp.json();
                 const rows = b.rows || [];

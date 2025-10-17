@@ -81,7 +81,7 @@ const ConfiguracionEmailModal = ({ isOpen, onClose }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('http://localhost:4000/api/email-accounts');
+      const response = await fetch('/api/email-accounts');
       if (!response.ok) {
         throw new Error('Error al obtener las cuentas de email');
       }
@@ -182,8 +182,8 @@ const ConfiguracionEmailModal = ({ isOpen, onClose }) => {
       }
 
       const url = editingId 
-        ? `http://localhost:4000/api/email-accounts/${editingId}`
-        : 'http://localhost:4000/api/email-accounts';
+        ? `/api/email-accounts/${editingId}`
+        : '/api/email-accounts';
       
       const method = editingId ? 'PUT' : 'POST';
 
@@ -220,7 +220,7 @@ const ConfiguracionEmailModal = ({ isOpen, onClose }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/api/email-accounts/${id}`, {
+      const response = await fetch(`/api/email-accounts/${id}`, {
         method: 'DELETE',
       });
 
@@ -246,7 +246,7 @@ const ConfiguracionEmailModal = ({ isOpen, onClose }) => {
   // Función para establecer como predeterminada
   const handleSetDefault = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/email-accounts/${id}/default`, {
+      const response = await fetch(`/api/email-accounts/${id}/default`, {
         method: 'PUT',
       });
 
@@ -274,7 +274,7 @@ const ConfiguracionEmailModal = ({ isOpen, onClose }) => {
 
       showNotification('Probando conexión...', 'info');
 
-      const response = await fetch('http://localhost:4000/api/email-accounts/test', {
+      const response = await fetch('/api/email-accounts/test', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

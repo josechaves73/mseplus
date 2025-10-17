@@ -75,7 +75,7 @@ const ReporteAgrupadoModal = ({ isOpen, onClose }) => {
         });
       }, 200);
 
-      const response = await fetch('http://localhost:4000/api/reporte-agrupado');
+      const response = await fetch('/api/reporte-agrupado');
 
       clearInterval(progressInterval);
       setProgress(100);

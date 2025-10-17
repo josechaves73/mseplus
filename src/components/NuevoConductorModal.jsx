@@ -24,7 +24,7 @@ export default function NuevoConductorModal({ isOpen, onClose, editData = null }
       return;
     }
     try {
-      const res = await fetch('http://localhost:4000/api/chofer', {
+      const res = await fetch('/api/chofer', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
       });
       if (res.ok) setNotification({ type: 'success', message: 'Guardado' });

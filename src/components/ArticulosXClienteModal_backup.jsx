@@ -31,10 +31,10 @@ const ArticulosXClienteModal = ({ isOpen, onClose }) => {
     setError('');
     try {
       // Usar endpoint optimizado para cargar solo código y nombre
-      const response = await fetch('http://localhost:4000/api/clientes-basico');
+      const response = await fetch('/api/clientes-basico');
       if (!response.ok) {
         // Fallback al endpoint completo si el básico falla
-        const fallbackResponse = await fetch('http://localhost:4000/api/clientes');
+        const fallbackResponse = await fetch('/api/clientes');
         if (!fallbackResponse.ok) {
           throw new Error('Error al cargar clientes');
         }
@@ -62,7 +62,7 @@ const ArticulosXClienteModal = ({ isOpen, onClose }) => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('http://localhost:4000/api/articulos');
+      const response = await fetch('/api/articulos');
       if (!response.ok) {
         throw new Error('Error al cargar artículos');
       }

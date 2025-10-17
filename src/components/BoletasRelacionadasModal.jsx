@@ -48,7 +48,7 @@ const BoletasRelacionadasModal = ({
         // determine param name and value (backwards compatible)
         const paramName = fetchParamName || (codigoChofer ? 'chofer_c' : null);
         const paramValue = fetchParamValue || codigoChofer;
-  const url = `http://localhost:4000/api/boletas${paramName && paramValue ? `?${paramName}=${encodeURIComponent(paramValue)}` : ''}`;
+  const url = `/api/boletas${paramName && paramValue ? `?${paramName}=${encodeURIComponent(paramValue)}` : ''}`;
   // debug
   console.log('Fetching boletas URL:', url);
         const resp = await fetch(url);

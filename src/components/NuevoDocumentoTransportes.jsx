@@ -77,8 +77,8 @@ const NuevoDocumentoTransportes = ({ isOpen, onClose, onSuccess, isEdit = false,
     
     try {
       const url = isEdit 
-        ? `http://localhost:4000/api/docu-config/${editData.id}` 
-        : 'http://localhost:4000/api/docu-config';
+        ? `/api/docu-config/${editData.id}` 
+        : '/api/docu-config';
       
       const method = isEdit ? 'PUT' : 'POST';
       

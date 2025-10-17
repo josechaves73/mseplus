@@ -154,7 +154,7 @@ const Dashboard = ({
     console.log('🔍 Dashboard - Cargando widgets para usuario:', userId);
     
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/dashboard_widgets_visibility');
+      const response = await apiCall('/api/configuracion/dashboard_widgets_visibility');
       const data = await response.json();
       
       console.log('🔍 Dashboard - Respuesta widgets:', data);
@@ -189,7 +189,7 @@ const Dashboard = ({
         setWidgetVisibility(configPorDefecto);
         
         // Guardar configuración por defecto en el servidor
-        await apiCall('http://localhost:4000/api/configuracion', {
+        await apiCall('/api/configuracion', {
           method: 'POST',
           body: JSON.stringify({
             clave: 'dashboard_widgets_visibility',
@@ -211,7 +211,7 @@ const Dashboard = ({
     console.log('🎨 Dashboard - Cargando color botones para usuario:', userId);
     
     try {
-      const response = await apiCall('http://localhost:4000/api/configuracion/dashboard_color_botones');
+      const response = await apiCall('/api/configuracion/dashboard_color_botones');
       const data = await response.json();
       
       console.log('🎨 Dashboard - Respuesta color botones:', data);
@@ -227,7 +227,7 @@ const Dashboard = ({
         setColorBotones(colorPorDefecto);
         
         // Guardar color por defecto en el servidor
-        await apiCall('http://localhost:4000/api/configuracion', {
+        await apiCall('/api/configuracion', {
           method: 'POST',
           body: JSON.stringify({
             clave: 'dashboard_color_botones',

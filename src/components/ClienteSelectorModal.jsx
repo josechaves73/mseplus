@@ -23,7 +23,7 @@ const ClienteSelectorModal = ({ isOpen, onClose, onSelectCliente }) => {
   const fetchClientes = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/clientes');
+      const response = await fetch('/api/clientes');
       if (!response.ok) {
         throw new Error('Error al obtener clientes');
       }

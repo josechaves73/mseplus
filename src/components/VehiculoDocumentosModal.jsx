@@ -12,7 +12,7 @@ export default function VehiculoDocumentosModal({ isOpen, onClose, placa }) {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`http://localhost:4000/api/vehiculo-documento/${encodeURIComponent(placa)}`);
+        const res = await fetch(`/api/vehiculo-documento/${encodeURIComponent(placa)}`);
         const data = await res.json();
         if (data.success) {
           setDocumentos(data.documentos || []);

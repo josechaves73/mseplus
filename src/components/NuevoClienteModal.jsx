@@ -129,7 +129,7 @@ const NuevoClienteModal = ({ isOpen, onClose, editData = null }) => {
   // Función para generar el siguiente código automáticamente
   const generateNextCode = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/clientes/next-code');
+      const response = await fetch('/api/clientes/next-code');
       if (response.ok) {
         const data = await response.json();
         const nextCode = data.nextCode || 1;
@@ -275,7 +275,7 @@ const NuevoClienteModal = ({ isOpen, onClose, editData = null }) => {
         };
       }
 
-      const url = 'http://localhost:4000/api/clientes';
+      const url = '/api/clientes';
       const method = isEditMode ? 'PUT' : 'POST';
 
       const response = await fetch(url, {

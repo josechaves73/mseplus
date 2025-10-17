@@ -309,7 +309,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
     setCambiarCodigoResult(null);
 
     try {
-      const response = await fetch('http://localhost:4000/api/articulos/cambiar-codigo', {
+      const response = await fetch('/api/articulos/cambiar-codigo', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -409,12 +409,12 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
       const codigo = articulo.codigo;
 
       // Verificar en materiales_proceso
-      const mpResponse = await fetch(`http://localhost:4000/api/materiales_proceso/exists/${codigo}`);
+      const mpResponse = await fetch(`/api/materiales_proceso/exists/${codigo}`);
       const mpData = await mpResponse.json();
       const mpExists = mpData.exists;
 
       // Verificar en transa_ar
-      const taResponse = await fetch(`http://localhost:4000/api/transa_ar/exists/${codigo}`);
+      const taResponse = await fetch(`/api/transa_ar/exists/${codigo}`);
       const taData = await taResponse.json();
       const taExists = taData.exists;
 
@@ -448,7 +448,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
       const deletedTables = [];
 
       // Eliminar de articulos_x_cliente (todos los registros para este código)
-      const axcResponse = await fetch(`http://localhost:4000/api/articulos_x_cliente/${codigo}`, {
+      const axcResponse = await fetch(`/api/articulos_x_cliente/${codigo}`, {
         method: 'DELETE'
       });
       if (axcResponse.ok) {
@@ -461,7 +461,7 @@ const ListaArticulosModal = ({ isOpen, onClose }) => {
       }
 
       // Eliminar de articulos
-      const artResponse = await fetch(`http://localhost:4000/api/articulos/${codigo}`, {
+      const artResponse = await fetch(`/api/articulos/${codigo}`, {
         method: 'DELETE'
       });
       if (artResponse.ok) {
