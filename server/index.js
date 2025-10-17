@@ -43,7 +43,8 @@ cloudinary.config({
 });
 
 const app = express();
-const PORT = process.env.PORT || 4000; // Usar puerto de cPanel en producción
+// Para Render: usar el puerto asignado dinámicamente
+const PORT = process.env.PORT || 4000;
 
 // Configuración CORS para producción
 const corsOptions = {
