@@ -69,13 +69,12 @@ app.use((req, res, next) => {
   const usuarioId = req.headers['x-usuario-id'];
   if (usuarioId) {
     req.usuario_id = parseInt(usuarioId);
-    // Solo mostrar cuando hay header para debugging
-    console.log('🔑 Middleware - Header recibido x-usuario-id:', usuarioId, '-> req.usuario_id:', req.usuario_id);
+    // Solo mostrar para endpoints que no sean de polling frecuente
+    if (!req.path.includes('/mensajes/no-leidos') && !req.path.includes('/chat/mensajes/')) {
+      console.log('🔑 Middleware - Header recibido x-usuario-id:', usuarioId, '-> req.usuario_id:', req.usuario_id);
+    }
   } else {
-    // Usar default sin mostrar mensaje constante
     req.usuario_id = 1;
-    // Comentado para evitar spam en consola
-    // console.log('⚠️ Middleware - No se recibió header x-usuario-id, usando default:', req.usuario_id);
   }
   next();
 });
@@ -6038,12 +6037,448 @@ app.get('/api/permisos/modulos', async (req, res) => {
   }
 });
 
+// ENDPOINTS PARA CHAT INTERNO
+// Obtener lista de usuarios para chat (solo activos, excluyendo al usuario actual)
+app.get('/api/chat/usuarios', async (req, res) => {
+  try {
+    // Obtener ID del usuario actual desde headers
+    const usuarioActualId = req.headers['x-usuario-id'];
+
+    // Actualizar last_login del usuario actual si está presente
+    if (usuarioActualId) {
+      await pool.query(
+        'UPDATE usuarios SET last_login = NOW() WHERE id = ?',
+        [usuarioActualId]
+      );
+    }
+
+    let query = `
+      SELECT
+        id,
+        full_name as nombre,
+        username,
+        role as rol,
+        last_login as ultimo_acceso
+      FROM usuarios
+      WHERE is_active = TRUE
+    `;
+
+    const params = [];
+
+    // Si hay usuario actual, excluirlo de la lista
+    if (usuarioActualId) {
+      query += ' AND id != ?';
+      params.push(usuarioActualId);
+    }
+
+    query += ' ORDER BY full_name';
+
+    const [usuarios] = await pool.query(query, params);
+
+    // Determinar estado basado en último acceso con lógica mejorada
+    const usuariosConEstado = usuarios.map(usuario => {
+      let estado = 'offline';
+
+      if (usuario.ultimo_acceso) {
+        const ultimaActividad = new Date(usuario.ultimo_acceso);
+        const ahora = new Date();
+        const minutosDesdeUltimoAcceso = (ahora - ultimaActividad) / (1000 * 60);
+
+        // Lógica mejorada: online si actividad en últimos 3 minutos, away si en últimos 15 minutos
+        if (minutosDesdeUltimoAcceso < 3) {
+          estado = 'online';
+        } else if (minutosDesdeUltimoAcceso < 15) {
+          estado = 'away';
+        }
+        // Si pasaron más de 15 minutos, permanece offline
+      }
+
+      return {
+        id: usuario.id,
+        nombre: usuario.nombre,
+        username: usuario.username,
+        rol: usuario.rol,
+        estado: estado,
+        ultimo_acceso: usuario.ultimo_acceso
+      };
+    });
+
+    res.json({
+      success: true,
+      usuarios: usuariosConEstado
+    });
+  } catch (error) {
+    console.error('Error obteniendo usuarios para chat:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error al obtener lista de usuarios'
+    });
+  }
+});
+
+// ENDPOINTS PARA MENSAJES DE CHAT
+// Enviar mensaje
+app.post('/api/chat/mensajes', async (req, res) => {
+  try {
+    const { remitente_id, destinatario_id, mensaje } = req.body;
+
+    // Validaciones básicas
+    if (!remitente_id || !destinatario_id || !mensaje) {
+      return res.status(400).json({
+        success: false,
+        error: 'Faltan datos requeridos: remitente_id, destinatario_id, mensaje'
+      });
+    }
+
+    if (mensaje.length > 500) {
+      return res.status(400).json({
+        success: false,
+        error: 'El mensaje no puede exceder 500 caracteres'
+      });
+    }
+
+    // Verificar que ambos usuarios existen y están activos
+    const [usuarios] = await pool.query(
+      'SELECT id FROM usuarios WHERE id IN (?, ?) AND is_active = TRUE',
+      [remitente_id, destinatario_id]
+    );
+
+    if (usuarios.length !== 2) {
+      return res.status(400).json({
+        success: false,
+        error: 'Uno o ambos usuarios no existen o no están activos'
+      });
+    }
+
+    // Insertar mensaje
+    const [result] = await pool.query(`
+      INSERT INTO chat_mensajes (remitente_id, destinatario_id, mensaje, fecha, leido)
+      VALUES (?, ?, ?, NOW(), FALSE)
+    `, [remitente_id, destinatario_id, mensaje]);
+
+    const mensajeId = result.insertId;
+
+    // Obtener el mensaje insertado con información completa
+    const [mensajeCompleto] = await pool.query(`
+      SELECT
+        cm.id,
+        cm.remitente_id,
+        cm.destinatario_id,
+        cm.mensaje,
+        cm.fecha,
+        cm.leido,
+        u.full_name as remitente_nombre
+      FROM chat_mensajes cm
+      JOIN usuarios u ON cm.remitente_id = u.id
+      WHERE cm.id = ?
+    `, [mensajeId]);
+
+    res.json({
+      success: true,
+      mensaje: mensajeCompleto[0]
+    });
+
+  } catch (error) {
+    console.error('Error enviando mensaje:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error al enviar mensaje: ' + error.message
+    });
+  }
+});
+
+// Obtener conteo de mensajes no leídos por conversación
+app.get('/api/chat/mensajes/no-leidos', async (req, res) => {
+  try {
+    const currentUserId = req.headers['x-usuario-id'];
+
+    console.log('🔄 SERVIDOR: Solicitud de mensajes no leídos para usuario:', currentUserId);
+
+    if (!currentUserId) {
+      return res.status(400).json({
+        success: false,
+        error: 'Se requiere el ID del usuario actual'
+      });
+    }
+
+    // Obtener conteo de mensajes no leídos agrupados por remitente
+    const [result] = await pool.query(`
+      SELECT
+        remitente_id,
+        COUNT(*) as no_leidos
+      FROM chat_mensajes
+      WHERE destinatario_id = ? AND leido = false AND fecha >= DATE_SUB(NOW(), INTERVAL 5 DAY)
+      GROUP BY remitente_id
+    `, [currentUserId]);
+
+    // Convertir a objeto para fácil acceso
+    const noLeidosPorUsuario = {};
+    result.forEach(row => {
+      noLeidosPorUsuario[row.remitente_id] = row.no_leidos;
+    });
+
+    console.log('📊 SERVIDOR: Mensajes no leídos encontrados:', noLeidosPorUsuario);
+
+    res.json({
+      success: true,
+      no_leidos: noLeidosPorUsuario
+    });
+
+  } catch (error) {
+    console.error('Error obteniendo mensajes no leídos:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error al obtener mensajes no leídos: ' + error.message
+    });
+  }
+});
+
+// Obtener mensajes entre dos usuarios
+app.get('/api/chat/mensajes/:usuarioId', async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+    const currentUserId = req.headers['x-usuario-id'];
+
+    if (!currentUserId) {
+      return res.status(400).json({
+        success: false,
+        error: 'Se requiere el ID del usuario actual'
+      });
+    }
+
+    // MARCAR MENSAJES COMO LEÍDOS: Todos los mensajes del usuarioId al currentUserId
+    await pool.query(`
+      UPDATE chat_mensajes
+      SET leido = 1
+      WHERE remitente_id = ? AND destinatario_id = ? AND leido = 0
+    `, [usuarioId, currentUserId]);
+
+    console.log(`📖 SERVIDOR: Mensajes marcados como leídos - De ${usuarioId} para ${currentUserId}`);
+
+    // Obtener mensajes entre los dos usuarios (últimos 5 días)
+    const [mensajes] = await pool.query(`
+      SELECT
+        cm.id,
+        cm.remitente_id,
+        cm.destinatario_id,
+        cm.mensaje,
+        cm.fecha,
+        cm.leido,
+        u.full_name as remitente_nombre
+      FROM chat_mensajes cm
+      JOIN usuarios u ON cm.remitente_id = u.id
+      WHERE ((cm.remitente_id = ? AND cm.destinatario_id = ?) OR (cm.remitente_id = ? AND cm.destinatario_id = ?))
+        AND cm.fecha >= DATE_SUB(NOW(), INTERVAL 5 DAY)
+      ORDER BY cm.fecha ASC
+    `, [currentUserId, usuarioId, usuarioId, currentUserId]);
+
+    res.json({
+      success: true,
+      mensajes: mensajes
+    });
+
+  } catch (error) {
+    console.error('Error obteniendo mensajes:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Error al obtener mensajes: ' + error.message
+    });
+  }
+});
+
 // Servir archivos estáticos del frontend
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Catch-all handler: send back index.html for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+// Endpoint temporal para pruebas de chat
+app.get('/test-chat', (req, res) => {
+  res.send(`
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Notificaciones Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Prueba del Sistema de Notificaciones de Chat</h1>
+
+    <div class="test-section">
+        <h2>1. Probar Endpoint de Mensajes No Leídos</h2>
+        <button onclick="testEndpoint()">Probar API</button>
+        <div id="api-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Verificar Estado de la Base de Datos</h2>
+        <button onclick="testDatabase()">Ver Mensajes en DB</button>
+        <div id="db-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Simular Notificación</h2>
+        <button onclick="simulateNotification()">Mostrar Notificación de Prueba</button>
+        <div id="notification-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Abrir Aplicación Principal</h2>
+        <button onclick="openApp()">Ir a MSEPlus</button>
+        <p>Una vez en la aplicación, deberías ver:</p>
+        <ul>
+            <li>Un badge rojo en el botón de chat con el número de mensajes no leídos</li>
+            <li>Una notificación toast si hay mensajes y el chat está cerrado</li>
+            <li>Los mensajes marcados como leídos al abrir una conversación</li>
+        </ul>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:4000';
+
+        async function testEndpoint() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '🔄 Probando endpoint...';
+
+            try {
+                const response = await fetch(\`\${API_BASE}/api/chat/mensajes/no-leidos\`, {
+                    headers: {
+                        'x-usuario-id': '1'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = \`
+                        ✅ Endpoint funcionando correctamente<br>
+                        📊 Mensajes no leídos: \${JSON.stringify(data.no_leidos, null, 2)}<br>
+                        🔢 Total: \${Object.values(data.no_leidos || {}).reduce((sum, count) => sum + count, 0)}
+                    \`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = \`❌ Respuesta no exitosa: \${JSON.stringify(data)}\`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = \`❌ Error de conexión: \${error.message}\`;
+            }
+        }
+
+        async function testDatabase() {
+            const resultDiv = document.getElementById('db-result');
+            resultDiv.innerHTML = '🔄 Consultando base de datos...';
+
+            try {
+                const response = await fetch(\`\${API_BASE}/api/chat/mensajes/1\`, {
+                    headers: {
+                        'x-usuario-id': '1'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const mensajes = data.mensajes || [];
+                    const noLeidos = mensajes.filter(m => !m.leido).length;
+
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = \`
+                        ✅ Base de datos accesible<br>
+                        📨 Total mensajes en conversación: \${mensajes.length}<br>
+                        📬 Mensajes no leídos: \${noLeidos}
+                    \`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = \`❌ Error en consulta: \${JSON.stringify(data)}\`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = \`❌ Error de conexión: \${error.message}\`;
+            }
+        }
+
+        function simulateNotification() {
+            const resultDiv = document.getElementById('notification-result');
+
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification('🔔 MSEPlus - Mensaje Nuevo', {
+                            body: 'Tienes mensajes nuevos en el chat',
+                            icon: '/vite.svg'
+                        });
+
+                        resultDiv.className = 'result success';
+                        resultDiv.innerHTML = '✅ Notificación del navegador mostrada';
+                    } else {
+                        resultDiv.className = 'result error';
+                        resultDiv.innerHTML = '❌ Permiso de notificaciones denegado';
+                    }
+                });
+            } else {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '❌ El navegador no soporta notificaciones';
+            }
+        }
+
+        function openApp() {
+            window.open('http://localhost:5173', '_blank');
+        }
+
+        // Auto-probar al cargar la página
+        window.addEventListener('load', () => {
+            setTimeout(testEndpoint, 1000);
+        });
+    </script>
+</body>
+</html>
+  `);
 });
 
 app.listen(PORT, () => {

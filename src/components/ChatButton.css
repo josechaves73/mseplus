@@ -1,0 +1,162 @@
+/* Contenedor del botón chat */
+.chat-btn-container {
+  position: absolute;
+  top: 20px;
+  left: 680px; /* Posicionado a la derecha del botón de noticias (545px + ~135px de espacio) */
+  z-index: 35; /* Menor que todos los modales */
+}
+
+/* Botón flotante de chat */
+.chat-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 74, 13, 0.15),
+    rgba(4, 30, 54, 0.2)
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Estilo especial cuando hay mensajes nuevos */
+.chat-btn-new-messages {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 139, 34, 0.8),
+    rgba(50, 205, 50, 0.6)
+  ) !important;
+  border: 3px solid rgba(255, 255, 255, 0.8) !important;
+  padding: 30px 48px !important; /* Triplica el tamaño */
+  font-size: 18px !important;
+  font-weight: bold !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  animation: pulse 2s infinite;
+}
+
+.chat-btn-new-messages .chat-btn-text {
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+.chat-btn-new-messages .chat-btn-icon {
+  font-size: 28px !important;
+}
+
+.chat-btn-new-messages .chat-notification-badge {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #228b22 !important;
+  font-weight: bold !important;
+  border: 2px solid rgba(255, 255, 255, 1) !important;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(34, 139, 34, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.chat-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 74, 13, 0.25),
+    rgba(4, 30, 54, 0.3)
+  );
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.chat-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.chat-btn-icon {
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.chat-btn-text {
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+/* Indicador de mensajes no leídos */
+.chat-notification-badge {
+  background: linear-gradient(135deg, #ff4757, #ff3838);
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: pulse 2s infinite;
+  position: relative;
+  top: -2px;
+}
+
+.chat-notification-badge::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4757, #ff3838);
+  opacity: 0.3;
+  animation: ripple 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
