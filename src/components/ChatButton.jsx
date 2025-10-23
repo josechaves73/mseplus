@@ -101,9 +101,11 @@ const ChatButton = () => {
   useEffect(() => {
     const handleEstadoTiempoChange = (event) => {
       const { isOpen: estadoTiempoAbierto } = event.detail;
+      console.log('🎯 ChatButton: Evento estado-tiempo-modal-changed recibido, isOpen:', estadoTiempoAbierto);
       setIsVisible(!estadoTiempoAbierto);
     };
 
+    console.log('🎯 ChatButton: Configurando event listener para estado-tiempo-modal-changed');
     window.addEventListener('estado-tiempo-modal-changed', handleEstadoTiempoChange);
 
     return () => {
@@ -111,10 +113,16 @@ const ChatButton = () => {
     };
   }, []);
 
+  // Debug: mostrar estado de visibilidad
+  console.log('🎯 ChatButton: isVisible =', isVisible, 'user =', user);
+
   // No renderizar si no debe ser visible
   if (!isVisible) {
+    console.log('🎯 ChatButton: NO SE RENDERIZA - isVisible es false');
     return null;
   }
+
+  console.log('🎯 ChatButton: SE RENDERIZA - isVisible es true');
 
   return (
     <div className="chat-btn-container">

@@ -6,6 +6,7 @@ import CalculadoraButton from './CalculadoraButton';
 import CalendarioButton from './CalendarioButton';
 import EstadoTiempoButton from './EstadoTiempoButton';
 import NoticiasButton from './NoticiasButton';
+import ChatButton from './ChatButton';
 import RelojAnalogico from './RelojAnalogico';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -375,6 +376,7 @@ const Dashboard = ({
           <CalendarioButton />
           <EstadoTiempoButton />
           <NoticiasButton />
+          <ChatButton />
           {widgetVisibility.mostrarReloj && (
             <RelojAnalogico 
               color={widgetVisibility.colorReloj} 

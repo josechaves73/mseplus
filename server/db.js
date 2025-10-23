@@ -20,7 +20,8 @@ const pool = mysql.createPool({
   queueLimit: 0,
   ssl: false,
   connectTimeout: 60000,
-  multipleStatements: true
+  multipleStatements: true,
+  timezone: '+00:00' // UTC timezone
 });
 
 // Probar conexión
