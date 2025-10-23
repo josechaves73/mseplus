@@ -116,13 +116,17 @@ const ChatButton = () => {
   // Debug: mostrar estado de visibilidad
   console.log('🎯 ChatButton: isVisible =', isVisible, 'user =', user);
 
+  // TEMPORAL: Forzar visibilidad para debug en producción
+  const forceVisible = window.location.hostname !== 'localhost';
+  const shouldRender = forceVisible || isVisible;
+
   // No renderizar si no debe ser visible
-  if (!isVisible) {
-    console.log('🎯 ChatButton: NO SE RENDERIZA - isVisible es false');
+  if (!shouldRender) {
+    console.log('🎯 ChatButton: NO SE RENDERIZA - shouldRender es false');
     return null;
   }
 
-  console.log('🎯 ChatButton: SE RENDERIZA - isVisible es true');
+  console.log('🎯 ChatButton: SE RENDERIZA - shouldRender es true');
 
   return (
     <div className="chat-btn-container">
