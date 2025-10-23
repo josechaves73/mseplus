@@ -7,8 +7,9 @@ import { API_BASE_URL } from '../config/api.js';
 
 const ChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true); // Cambiar a true por defecto
   const [mensajesNoLeidos, setMensajesNoLeidos] = useState({});
+  const [estadoTiempoAbierto, setEstadoTiempoAbierto] = useState(false); // Nuevo estado para trackear el modal
 
   const { user } = useAuth();
 
@@ -102,7 +103,11 @@ const ChatButton = () => {
     const handleEstadoTiempoChange = (event) => {
       const { isOpen: estadoTiempoAbierto } = event.detail;
       console.log('🎯 ChatButton: Evento estado-tiempo-modal-changed recibido, isOpen:', estadoTiempoAbierto);
-      setIsVisible(!estadoTiempoAbierto);
+      setEstadoTiempoAbierto(estadoTiempoAbierto);
+      // Solo ocultar si el modal está realmente abierto, no en la inicialización
+      const nuevoIsVisible = !estadoTiempoAbierto;
+      console.log('🎯 ChatButton: Cambiando isVisible a', nuevoIsVisible);
+      setIsVisible(nuevoIsVisible);
     };
 
     console.log('🎯 ChatButton: Configurando event listener para estado-tiempo-modal-changed');
@@ -114,19 +119,15 @@ const ChatButton = () => {
   }, []);
 
   // Debug: mostrar estado de visibilidad
-  console.log('🎯 ChatButton: isVisible =', isVisible, 'user =', user);
-
-  // TEMPORAL: Forzar visibilidad para debug en producción
-  const forceVisible = window.location.hostname !== 'localhost';
-  const shouldRender = forceVisible || isVisible;
+  console.log('🎯 ChatButton: isVisible =', isVisible, 'user =', user, 'estadoTiempoAbierto =', estadoTiempoAbierto);
 
   // No renderizar si no debe ser visible
-  if (!shouldRender) {
-    console.log('🎯 ChatButton: NO SE RENDERIZA - shouldRender es false');
+  if (!isVisible) {
+    console.log('🎯 ChatButton: NO SE RENDERIZA - isVisible es false');
     return null;
   }
 
-  console.log('🎯 ChatButton: SE RENDERIZA - shouldRender es true');
+  console.log('🎯 ChatButton: SE RENDERIZA - isVisible es true');
 
   return (
     <div className="chat-btn-container">
