@@ -274,31 +274,19 @@
 /* Estado vacío */
 .empty-state {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 20px;
-  text-align: center;
-}
-
-.empty-icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-  opacity: 0.5;
+  padding: 20px;
+  background: none !important; /* SIN FONDO */
+  border: none !important; /* SIN BORDE */
 }
 
 .empty-state p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.empty-state small {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 11px;
-  margin-top: 4px;
-  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
 }
 
 /* Contenedor de nota actual */

@@ -226,9 +226,7 @@ const RecordatoriosWidget = () => {
           </div>
         ) : recordatorios.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📋</div>
-            <p>No hay recordatorios</p>
-            <small>Crea tu primer recordatorio</small>
+            <p>Sin Recordatorios</p>
           </div>
         ) : (
           <>
