@@ -25,6 +25,7 @@
 
 .lista-vehiculos-modal-header {
   background-color: #000; /* Negro */
+  background-color: #1e293b; /* Azul oscuro */
   color: #fff;
   padding: 16px 20px;
   display: flex;
